@@ -11,6 +11,7 @@
 # Proyecto-Final-PySW
 Proyecto Final en el cual se realizará la administración de una galería comercial que alquila locales comerciales a diferentes propietarios. Al mismo acceden los propietarios, Administrativos y el Dueño. Se aplicará todas las tecnologías vistas en la matería: HTML, CSS, BOOTSTRAP, ANGULAR, TYPESCRIPT, NODE.JS, EXPRESS, MONGO para el desarrollo de un sistema.
 A continuación, se muestran un esquema de datos para el ejercicio planteado:
+
 **Propietario:**
 - id: number
 - apellido: String
@@ -18,6 +19,7 @@ A continuación, se muestran un esquema de datos para el ejercicio planteado:
 - dni: number
 - email: String
 - teléfono number
+  
 **Local:**
 - id: number
 - superficie: number
@@ -25,6 +27,7 @@ A continuación, se muestran un esquema de datos para el ejercicio planteado:
 - costomes: number
 - pathimagen: string
 - alquilado: boolean
+  
 **Alquiler:**
 - id: number
 - propietario: Propietario
@@ -32,6 +35,7 @@ A continuación, se muestran un esquema de datos para el ejercicio planteado:
 - plazomes: number
 - costoalquiler: number
 - fechaAlquiler: date
+  
 **Usuario:**
 - id:number
 - email: string
@@ -39,6 +43,7 @@ A continuación, se muestran un esquema de datos para el ejercicio planteado:
 - password: string
 - activo: boolean
 - perfil: string (administrativo, propietario)
+  
 **Novedades:**
 - Id: number
 - Usuario: Usuario
