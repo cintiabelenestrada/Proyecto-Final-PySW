@@ -5,6 +5,9 @@ const express = require('express');
 const router = express.Router();
 //definimos las rutas para la gestion de local
 router.post('/', localCtrl.createLocal);
+router.get('/', localCtrl.getLocales);
+router.get('/habilitados', localCtrl.getLocalesHabilitados);
+router.get('/:id', localCtrl.getLocalID);
 
 
 //exportamos el modulo de rutas
