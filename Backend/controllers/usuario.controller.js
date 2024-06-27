@@ -88,21 +88,4 @@ usuarioController.delete = async (req, res) => {
   }
 };
 
-usuarioController.login = async (req, res) => {
-  const { usuario, password } = req.body;
-
-  const usuarioEncontrado = await usuarioModel.findOne({ usuario: usuario });
-
-  if (!usuarioEncontrado) {
-    return res.status(404).json({ message: 'Usuario no encontrado' });
-  }
-
-  if (!bcrypt.compareSync(password, usuarioEncontrado.password)) {
-    return res.status(400).json({ message: 'Contraseña incorrecta' });
-  }
-
-  const { password: pass, ...usuarioSinPassword } = usuarioEncontrado._doc;
-  res.json({ data: usuarioSinPassword });
-};
-
 module.exports = usuarioController;
