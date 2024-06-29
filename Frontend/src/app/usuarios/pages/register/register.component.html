@@ -1,5 +1,7 @@
 <section class="container">
-  <h1 class="text-primary">Registrar</h1>
+  <h1 class="text-primary">
+    {{ modo === "editar" ? "Editar usuario" : "Registrar usuario" }}
+  </h1>
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="mb-3">
       <label for="email" class="form-label">Email</label>
@@ -81,7 +83,7 @@
         aria-hidden="true"
       ></span>
       }
-      {{ status === "loading" ? "Loading..." : "Registrar" }}
+      {{ status === "loading" ? "Loading..." : "Guardar" }}
     </button>
   </form>
 </section>

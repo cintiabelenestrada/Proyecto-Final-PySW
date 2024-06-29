@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { UsuarioPost } from '../../interfaces/usuario-post.interface';
 import { ToastrService } from 'ngx-toastr';
 import { RequestStatus } from '../../types/request-status.type';
@@ -18,8 +18,9 @@ import { UsuariosService } from '../../services/usuarios.service';
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   registerForm = this.formBuilder.group({
+    _id: [''],
     email: ['', [Validators.required, Validators.email]],
     usuario: ['', [Validators.required, Validators.minLength(4)]],
     password: ['', [Validators.required, Validators.minLength(6)]],
@@ -33,12 +34,30 @@ export class RegisterComponent {
     ],
   });
   status: RequestStatus = 'idle';
+  modo: 'editar' | 'crear' = 'crear';
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: UsuariosService,
-    private toastService: ToastrService
+    private toastService: ToastrService,
+    private activatedRoute: ActivatedRoute
   ) {}
+
+  ngOnInit(): void {
+    this.activatedRoute.params.subscribe(({ id }) => {
+      if (id) {
+        this.authService.getById(id).subscribe({
+          next: (user) => {
+            this.registerForm.patchValue(user);
+            this.modo = 'editar';
+          },
+          error: () => {
+            this.toastService.error('Error al cargar el usuario');
+          },
+        });
+      }
+    });
+  }
 
   get email(): FormControl {
     return this.registerForm.get('email') as FormControl;
@@ -64,7 +83,12 @@ export class RegisterComponent {
     }
 
     const user = this.registerForm.value as UsuarioPost;
-    this.register(user);
+    if (this.modo === 'crear') {
+      const { _id: _, ...usuarioSinId } = user;
+      this.register(usuarioSinId);
+    } else {
+      this.update(user);
+    }
   }
 
   register(user: UsuarioPost): void {
@@ -76,6 +100,20 @@ export class RegisterComponent {
       },
       error: () => {
         this.toastService.error('Error al crear el usuario');
+        this.status = 'error';
+      },
+    });
+  }
+
+  update(user: UsuarioPost): void {
+    this.status = 'loading';
+    this.authService.put(user._id!, user).subscribe({
+      next: () => {
+        this.toastService.success('Usuario actualizado correctamente');
+        this.status = 'success';
+      },
+      error: () => {
+        this.toastService.error('Error al actualizar el usuario');
         this.status = 'error';
       },
     });

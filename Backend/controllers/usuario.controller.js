@@ -67,7 +67,7 @@ usuarioController.update = async (req, res) => {
   try {
     const usuarioActualizado = await usuarioModel.findByIdAndUpdate(
       id,
-      usuario,
+      { ...usuario, password: bcrypt.hashSync(usuario.password, 10) },
       { new: true }
     );
     res.json({ data: usuarioActualizado });
