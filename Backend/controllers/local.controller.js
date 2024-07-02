@@ -42,4 +42,20 @@ localCtrl.getLocalID = async (req, res) => {
     }
 }
 
+//UPDATE
+localCtrl.editLocal = async (req, res) => {
+    try {
+        await Local.updateOne({ _id: req.params.id }, req.body);
+        res.json({
+            'status': '1',
+            'msg': 'Local edit'
+        })
+    } catch (error) {
+        res.status(400).json({
+            'status': '0',
+            'msg': 'Error procesando la operacion, Edicion'
+        })
+    }
+} 
+
 module.exports = localCtrl;

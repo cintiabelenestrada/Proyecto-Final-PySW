@@ -8,6 +8,7 @@ router.post('/', localCtrl.createLocal);
 router.get('/', localCtrl.getLocales);
 router.get('/habilitados', localCtrl.getLocalesHabilitados);
 router.get('/:id', localCtrl.getLocalID);
+router.put('/:id', localCtrl.editLocal);
 
 
 //exportamos el modulo de rutas
