@@ -11,7 +11,7 @@ app.use(cors({origin: 'http://localhost:4200'}));
 // Routes
 
 //app.use('/api/usuarios', require('./routes/usuarios.route.js'));
-//app.use('/api/novedades', require('./routes/novedades.route.js'));
+app.use('/api/novedades', require('./routes/novedades.route.js'));
 //app.use('/api/propietarios', require('./routes/propietarios.route.js'));
 //app.use('api/alquileres', require('./routes/alquileres.route.js'));
 //app.use('api/locales', require('./routes/locales.route.js'));
