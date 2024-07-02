@@ -58,4 +58,21 @@ localCtrl.editLocal = async (req, res) => {
     }
 } 
 
+//DELETE
+localCtrl.deleteLocal = async (req, res) => {
+    console.log("hola");
+    try {
+        await Local.deleteOne({ _id: req.params.id });
+        res.json({
+            status: '1',
+            msg: 'Local removed'
+        })
+    } catch (error) {
+        res.status(400).json({
+            'status': '0',
+            'msg': 'Error procesando la operacion de Eliminación'
+        })
+    }
+ }
+ 
 module.exports = localCtrl;

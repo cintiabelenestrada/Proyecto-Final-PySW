@@ -9,7 +9,7 @@ router.get('/', localCtrl.getLocales);
 router.get('/habilitados', localCtrl.getLocalesHabilitados);
 router.get('/:id', localCtrl.getLocalID);
 router.put('/:id', localCtrl.editLocal);
-
+router.delete('/:id', localCtrl.deleteLocal);
 
 //exportamos el modulo de rutas
 module.exports = router;
