@@ -27,6 +27,7 @@ import { IconDirective } from '@coreui/icons-angular';
 import { AuthService } from '../../usuarios/services/auth.service';
 import { UsuariosService } from '../../usuarios/services/usuarios.service';
 import { ToastrService } from 'ngx-toastr';
+import { UsuarioGet } from '../../usuarios/interfaces/usuario-get.interface';
 
 @Component({
   selector: 'app-dashboard-header',
@@ -62,13 +63,16 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class DashboardHeaderComponent {
   @Input() sidebarId: string = 'sidebar1';
+  usuario: UsuarioGet;
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private usuarioService: UsuariosService,
     private toastService: ToastrService
-  ) {}
+  ) {
+    this.usuario = this.authService.currentUser()!;
+  }
 
   cerrarSesion(): void {
     this.authService.logout();
@@ -77,7 +81,7 @@ export class DashboardHeaderComponent {
   }
 
   eliminarCuenta(): void {
-    this.usuarioService.delete(this.authService.currentUser()!._id!).subscribe({
+    this.usuarioService.delete(this.usuario._id!).subscribe({
       next: () => {
         this.authService.logout();
         this.router.navigate(['/login']);
@@ -88,5 +92,13 @@ export class DashboardHeaderComponent {
         this.toastService.error('Error al eliminar la cuenta');
       },
     });
+  }
+
+  iniciales(): string {
+    return (
+      this.usuario?.usuario[0].toUpperCase() +
+      this.usuario?.usuario[1].toUpperCase() +
+      this.usuario?.usuario[2].toUpperCase()
+    );
   }
 }

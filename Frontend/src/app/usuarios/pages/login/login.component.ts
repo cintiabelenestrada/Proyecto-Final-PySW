@@ -55,12 +55,11 @@ export class LoginComponent {
 
   login(credenciales: Credenciales): void {
     this.status = 'loading';
-    this.toastService.info('Iniciando sesión...');
     this.authService.login(credenciales).subscribe({
       next: () => {
         this.toastService.success('Sesión iniciada correctamente');
         this.status = 'success';
-        this.router.navigate(['/dashboard'])
+        this.router.navigate(['/dashboard']);
       },
       error: () => {
         this.toastService.error('Error al iniciar sesión');
