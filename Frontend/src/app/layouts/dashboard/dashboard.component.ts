@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { NavComponent } from '../nav/nav.component';
 import { NavbarComponent } from '../navbar/navbar.component';
@@ -18,6 +18,7 @@ import {
 } from '@coreui/angular';
 import { NgScrollbar } from 'ngx-scrollbar';
 import { DashboardHeaderComponent } from '../dashboard-header/dashboard-header.component';
+import { AuthService } from '../../usuarios/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -57,53 +58,27 @@ export class DashboardComponent {
     {
       title: true,
       name: 'USUARIOS',
+      class: this.showForRoles(['administrativo', 'dueño'])
     },
     {
       name: 'Registrar',
-      url: '/dashboard/registrar',
+      url: '/dashboard/usuarios/registrar',
       iconComponent: { name: 'cil-user-plus' },
+      class: this.showForRoles(['administrativo', 'dueño'])
     },
     {
       name: 'Listado',
-      url: '/dashboard/lista',
+      url: '/dashboard/usuarios/lista',
       iconComponent: { name: 'cil-list-rich' },
-    },
-    {
-      title: true,
-      name: 'LOCALES',
-    },
-    {
-      name: 'Registrar',
-      url: '/dashboard/usuarios',
-      iconComponent: { name: 'cil-building' },
-    },
-    {
-      name: 'Listado',
-      url: '/dashboard/usuarios',
-      iconComponent: { name: 'cil-list' },
-    },
-    {
-      title: true,
-      name: 'FINANCIACIÓN',
-    },
-    {
-      name: 'Pagos',
-      url: '/dashboard/usuarios',
-      iconComponent: { name: 'cil-dollar' },
-    },
-    {
-      name: 'Cuotas',
-      url: '/dashboard/usuarios',
-      iconComponent: { name: 'cil-chart-pie' },
-    },
-    {
-      title: true,
-      name: 'BLOG',
-    },
-    {
-      name: 'Novedades',
-      url: '/dashboard/usuarios',
-      iconComponent: { name: 'cil-newspaper' },
+      class: this.showForRoles(['administrativo', 'dueño'])
     },
   ];
+
+  showForRoles(roles: string[]): string {
+    const authService = inject(AuthService);
+    if (!roles.includes(authService.currentUser()!.perfil))
+      return 'd-none';
+
+    return '';
+  }
 }

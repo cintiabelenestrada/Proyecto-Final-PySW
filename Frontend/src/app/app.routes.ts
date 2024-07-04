@@ -3,6 +3,9 @@ import { LoginComponent } from './usuarios/pages/login/login.component';
 import { RegisterComponent } from './usuarios/pages/register/register.component';
 import { DashboardComponent } from './layouts/dashboard/dashboard.component';
 import { ListadoComponent } from './usuarios/pages/listado/listado.component';
+import { isAuthenticatedGuard } from './shared/guards/is-authenticated.guard';
+import { hasRoleGuard } from './shared/guards/has-role.guard';
+import { DashboardDefaultPageComponent } from './layouts/dashboard-default-page/dashboard-default-page.component';
 
 export const routes: Routes = [
   {
@@ -12,19 +15,31 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+    canActivate: [isAuthenticatedGuard],
     children: [
       {
-        path: 'registrar',
-        component: RegisterComponent,
+        path: '',
+        component: DashboardDefaultPageComponent
       },
       {
-        path: 'registrar/:id',
+        path: 'usuarios/registrar',
         component: RegisterComponent,
+        canActivate: [hasRoleGuard(['administrativo', 'dueño'])]
       },
       {
-        path: 'lista',
+        path: 'usuarios/editar/:id',
+        component: RegisterComponent,
+        canActivate: [hasRoleGuard(['administrativo', 'dueño'])]
+      },
+      {
+        path: 'usuarios/lista',
         component: ListadoComponent,
+        canActivate: [hasRoleGuard(['administrativo', 'dueño'])]
       },
+      {
+        path: '**',
+        redirectTo: ''
+      }
     ],
   },
   {

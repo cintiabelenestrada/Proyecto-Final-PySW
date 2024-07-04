@@ -11,7 +11,7 @@ import { Credenciales } from '../../interfaces/credenciales.interface';
 import { ToastrService } from 'ngx-toastr';
 import { RequestStatus } from '../../types/request-status.type';
 import { AuthService } from '../../services/auth.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -30,7 +30,8 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private toastService: ToastrService
+    private toastService: ToastrService,
+    private router: Router
   ) {}
 
   get usuario(): FormControl {
@@ -59,6 +60,7 @@ export class LoginComponent {
       next: () => {
         this.toastService.success('Sesión iniciada correctamente');
         this.status = 'success';
+        this.router.navigate(['/dashboard'])
       },
       error: () => {
         this.toastService.error('Error al iniciar sesión');
