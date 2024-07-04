@@ -49,6 +49,6 @@ export class ListadoComponent {
 
   editarUsuario(id: string): void {
     // TODO implementar redireccionamiento
-    this.router.navigate(['/dashboard/editar', id]);
+    this.router.navigate(['/dashboard/usuarios/editar', id]);
   }
 }
