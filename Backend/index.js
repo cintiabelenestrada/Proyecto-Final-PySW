@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('./database');
+const {mongoose} = require('./database');
 
 const app = express();
 
@@ -13,7 +13,7 @@ app.use(cors({origin: 'http://localhost:4200'}));
 //app.use('/api/usuarios', require('./routes/usuarios.route.js'));
 //app.use('/api/novedades', require('./routes/novedades.route.js'));
 //app.use('/api/propietarios', require('./routes/propietarios.route.js'));
-//app.use('api/alquileres', require('./routes/alquileres.route.js'));
+app.use('/api/alquileres', require('./routes/alquiler.route.js'));
 //app.use('api/locales', require('./routes/locales.route.js'));
 //app.use('api/pagos', require('./routes/pagos.route.js'));
 
