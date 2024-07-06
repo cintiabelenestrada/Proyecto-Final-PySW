@@ -1,0 +1,89 @@
+<section class="container">
+  <h1 class="text-primary">
+    {{ modo === "editar" ? "Editar usuario" : "Registrar usuario" }}
+  </h1>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        placeholder="Email"
+        formControlName="email"
+      />
+      @if (email.touched && email.hasError('required')) {
+      <p class="text-danger" style="font-size: 14px">El email es obligatorio</p>
+      } @if (email.touched && email.hasError('email')) {
+      <p class="text-danger" style="font-size: 14px">El email no es válido</p>
+      }
+    </div>
+    <div class="mb-3">
+      <label for="usuario" class="form-label">Usuario</label>
+      <input
+        type="usuario"
+        class="form-control"
+        id="usuario"
+        placeholder="Usuario"
+        formControlName="usuario"
+      />
+      @if (usuario.touched && usuario.hasError('required')) {
+      <p class="text-danger" style="font-size: 14px">
+        El usuario es obligatorio
+      </p>
+      } @if (usuario.touched && usuario.hasError('minlength')) {
+      <p class="text-danger" style="font-size: 14px">
+        El usuario debe tener al menos 4 caracteres
+      </p>
+      }
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        placeholder="Password"
+        formControlName="password"
+      />
+      @if (password.touched && password.hasError('required')) {
+      <p class="text-danger" style="font-size: 14px">
+        La contraseña es obligatoria
+      </p>
+      } @if (password.touched && password.hasError('minlength')) {
+      <p class="text-danger" style="font-size: 14px">
+        La contraseña debe tener al menos 6 caracteres
+      </p>
+      }
+    </div>
+    <div class="mb-3">
+      <label for="perfil">Perfil</label>
+      <select class="form-select" formControlName="perfil">
+        <option selected>-- Seleccione una opción --</option>
+        <option value="administrativo">Administrativo</option>
+        <option value="propietario">Propietario</option>
+      </select>
+      @if (perfil.touched && perfil.hasError('required')) {
+      <p class="text-danger" style="font-size: 14px">
+        El perfil es obligatorio
+      </p>
+      } @if (perfil.touched && perfil.hasError('pattern')) {
+      <p class="text-danger" style="font-size: 14px">El perfil no es válido</p>
+      }
+    </div>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="status === 'loading'"
+    >
+      @if (status === 'loading') {
+      <span
+        class="spinner-border spinner-border-sm"
+        role="status"
+        aria-hidden="true"
+      ></span>
+      }
+      {{ status === "loading" ? "Loading..." : "Guardar" }}
+    </button>
+  </form>
+</section>
