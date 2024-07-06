@@ -1,0 +1,40 @@
+<section>
+  <h2 class="text-primary text-center">Usuarios registrados</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Usuario</th>
+        <th scope="col">Email</th>
+        <th scope="col">Activo</th>
+        <th scope="col">Perfil</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (usuario of usuarios; track $index) {
+      <tr>
+        <th scope="row">{{ usuario.usuario }}</th>
+        <td>{{ usuario.email }}</td>
+        <td>{{ usuario.activo }}</td>
+        <td>{{ usuario.perfil }}</td>
+        <td>
+          <div class="d-flex gap-3">
+            <button
+              class="btn btn-outline-warning"
+              (click)="editarUsuario(usuario._id!)"
+            >
+              <i class="bi bi-pencil-fill"></i>
+            </button>
+            <button
+              class="btn btn-outline-danger"
+              (click)="eliminarUsuario(usuario._id!)"
+            >
+              <i class="bi bi-trash-fill"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</section>
