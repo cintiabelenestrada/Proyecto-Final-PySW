@@ -28,10 +28,9 @@ const verifyToken = (req, res, next) => {
 };
 
 // Routes
-
 app.use('/api/auth', require('./routes/auth.route'));
 app.use('/api/usuarios', require('./routes/usuario.route'));
-//app.use('/api/novedades', require('./routes/novedades.route.js'));
+app.use('/api/novedades', require('./routes/novedades.route.js'));
 //app.use('/api/propietarios', require('./routes/propietarios.route.js'));
 //app.use('api/alquileres', require('./routes/alquileres.route.js'));
 //app.use('api/locales', require('./routes/locales.route.js'));
