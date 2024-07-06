@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const PropietarioSchema = new Schema({
     apellido: { type: String, required: true },
-    nombres: { type: String, required: true },
+    nombre: { type: String, required: true },
     dni: { type: String, required: true },
     email: { type: String, required: true },
     telefono: { type: String, required: true }
