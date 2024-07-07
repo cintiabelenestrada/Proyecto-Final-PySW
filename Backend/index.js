@@ -1,12 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('./database');
-
 const jwt = require('jsonwebtoken');
-
-const logger = require('morgan');
-const dotenv = require('dotenv');
-
 
 const app = express();
 
@@ -18,7 +13,6 @@ const verifyToken = (req, res, next) => {
   if (!token) {
     return res.status(403).json({ message: 'No hay token de autorización' });
   }
-
 
   try {
     const tokenSinBearer = token.split(' ')[1];
@@ -32,16 +26,6 @@ const verifyToken = (req, res, next) => {
     return res.status(401).json({ message: 'No autorizado' });
   }
 };
-
-// Dotenv config
-dotenv.config();
-
-// Logger
-app.use(logger('dev'));
-
-
-// Routes
-
 
 // Routes
 app.use('/api/auth', require('./routes/auth.route'));
