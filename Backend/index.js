@@ -1,12 +1,21 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('./database');
+const logger = require('morgan');
+const dotenv = require('dotenv');
 
 const app = express();
 
 // Middlewares
 app.use(express.json());
 app.use(cors({origin: 'http://localhost:4200'}));
+
+// Dotenv config
+dotenv.config();
+
+// Logger
+app.use(logger('dev'));
+
 
 // Routes
 
