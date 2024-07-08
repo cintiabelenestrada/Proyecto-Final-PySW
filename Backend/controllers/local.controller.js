@@ -25,7 +25,7 @@ localCtrl.getLocales = async (req, res) => {
 //get que trae solo los locales habilitados
 localCtrl.getLocalesHabilitados = async (req, res) => {
     try {
-      const localesHabilidados = await Local.find({ habilitado: true });
+      const localesHabilidados = await Local.find({ habilitado: true , alquilado: false});
       res.json(localesHabilidados);
     } catch (error) {
       res.status(500).json({ message: 'Error al obtener los locales', error });
