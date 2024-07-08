@@ -1,11 +1,14 @@
 const Cuota = require('../models/Cuota');
 const PagoService = require('./PagoService');
 const Alquiler = require('../models/Alquiler');
+const emailSender = require('./emailSender');
+const propietario = require('../models/Propietario');
 
 class CuotaService {
 
     async createCuota(cuota) {
         try {
+            
             const newCuota = new Cuota({
                 ...cuota,
                 montoRestante: cuota.montoTotal
@@ -19,17 +22,20 @@ class CuotaService {
         }
     }
 
-    async calcularInteres(cuota) {
-        const alquiler = await Alquiler.findById(cuota.alquiler);
-        const interesAnual = alquiler.interesAnual;
-
+    async calcularInteres(cuota, montoAPagar) {
+        const cuotaEncontrada = await Cuota.findById(cuota);
+        const alquiler = await Alquiler.findById(cuotaEncontrada.alquiler);
+        if (!alquiler) {
+            throw new Error("El alquiler no existe");
+        }
+        const interesAnual = alquiler.interes;
         // Interés diario basado en el interés anual
         const tasaInteresDiaria = interesAnual / 365 / 100;
         const fechaActual = new Date();
         const diasRetraso = (fechaActual - cuota.fechaVencimiento) / (1000 * 60 * 60 * 24);
 
         if (diasRetraso > 0) {
-            const interes = cuota.montoRestante * tasaInteresDiaria * diasRetraso;
+            const interes = cuota.montoAPagar * tasaInteresDiaria * diasRetraso;
             return interes;
         }
         return 0;
@@ -38,6 +44,7 @@ class CuotaService {
     async getCuotasById(idAlquiler) {
         try {
             const cuotas = await Cuota.find({ alquiler: idAlquiler });
+            
             const cuotasConInteres = await Promise.all(cuotas.map(async cuota => {
                 const interes = await this.calcularInteres(cuota);
                 return {
@@ -71,24 +78,24 @@ class CuotaService {
         }
     }
 
-    async sePuedePagar(id, montoCuota, montoInteres) {
+    async sePuedePagar(idCuota, montoCuota) {
         try {
-            const cuota = await Cuota.findById(id);
+            const cuota = await Cuota.findById(idCuota);
             if (!cuota) {
                 throw new Error("La cuota no existe");
             }
             const cuotas = await Cuota.find({ alquiler: cuota.alquiler, estado: "Pendiente" }).sort({ fecha: 1 });
-            if (cuotas[0]._id.toString() !== id.toString()) {
+            if (cuotas[0]._id.toString() !== idCuota) {
                 throw new Error("Antes debe pagar las cuotas anteriores.");
             }
-            const pagos = await PagoService.obtenerPagosPorIdCuota(id);
+            const pagos = await PagoService.obtenerPagosPorIdCuota(idCuota);
             let totalPagado = 0;
             pagos.forEach(pago => {
-                totalPagado += pago.montoCuota + pago.montoInteres;
+                totalPagado += pago.montoPago;
             });
-            const interes = await this.calcularInteres(cuota);
-            const montoRestanteConInteres = cuota.montoRestante + interes;
-            if (!(totalPagado + montoCuota + montoInteres <= montoRestanteConInteres)) {
+            const interes = await this.calcularInteres(cuota, montoCuota);
+            const montoRestante = cuota.montoRestante;
+            if (montoCuota + interes > montoRestante) {
                 throw new Error("El monto a pagar es mayor al monto restante de la cuota con interés.");
             }
         } catch (error) {
@@ -96,6 +103,7 @@ class CuotaService {
             throw new Error("Error esta cuota no se puede pagar: " + error);
         }
     }
+
 
     async pagarCuota(id, pago) {
         try {
@@ -108,12 +116,12 @@ class CuotaService {
         }
     }
 
-    async actualizarEstadoCuota(idCuota, idPago) {
+    async actualizarEstadoCuota(idPago) {
         try {
             const pago = await PagoService.obtenerPagoPorId(idPago);
-            if (pago.estado === 'success') {
-                const cuota = await Cuota.findById(idCuota);
-                cuota.montoRestante -= pago.montoCuota;
+            if (pago.status === 'success') {
+                const cuota = await Cuota.findById(pago.cuota);
+                cuota.montoRestante -= pago.montoPago;
                 if (cuota.montoRestante <= 0) {
                     cuota.estado = 'Pagada';
                 }
@@ -122,6 +130,24 @@ class CuotaService {
         } catch (error) {
             console.log("Error al actualizar el estado de la cuota " + error);
             throw new Error("Error al actualizar el estado de la cuota" + error);
+        }
+    }
+
+    async enviarCorreosVencimientoCuotas() {
+        try {
+            const cuotas = await Cuota.find({ estado: 'Pendiente' });
+            cuotas.forEach(async cuota => {
+                const fechaActual = new Date();
+                const diasRestantes = (cuota.fechaVencimiento - fechaActual) / (1000 * 60 * 60 * 24);
+                if (diasRestantes <= 1) {
+                    const alquiler = await Alquiler.findById(cuota.alquiler);
+                    const propietario = await propietario.findById(alquiler.propietario);
+                    await emailSender.enviarAvisoDePagoPendiente(propietario.email, cuota);
+                }
+            });
+        } catch (error) {
+            console.log("Error al enviar correos de vencimiento de cuotas " + error);
+            throw new Error("Error al enviar correos de vencimiento de cuotas" + error);
         }
     }
 }

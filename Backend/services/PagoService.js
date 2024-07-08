@@ -1,5 +1,8 @@
 const Pago = require('../models/Pago');
 const Alquiler = require('../models/Alquiler');
+const Propietario = require('../models/Propietario');
+const Cuota = require('../models/Cuota');
+const emailSender = require('../services/emailSender');
 
 class PagoService {
 
@@ -27,7 +30,7 @@ class PagoService {
      */
     async obtenerPagosPorIdCuota(idCuota) {
         try {
-            const pagos = await Pago.find({ cuota: idCuota });
+            const pagos = await Pago.find({ cuota: idCuota , status: 'success'});
             console.log("Pagos obtenidos correctamente");
             return pagos;
         } catch (error) {
@@ -79,16 +82,22 @@ class PagoService {
      */
     async actualizarEstadoPago(id, estado) {
         try {
-            const pago = await Pago.findById(id);
-            if (!pago) {
-                throw new Error("Pago no encontrado");
+            const pagoBuscado = await Pago.findById(id);
+            if (pagoBuscado.status === estado){
+                throw new Error("El pago ya se encuentra en ese estado");
             }
+            console.log ("Actualizando estado de pago:" + id + " " + estado);
             const updateData = {
-                estado: estado,
+                status: estado,
                 fechaActualizacion: new Date()
             };
             const pagoActualizado = await Pago.findByIdAndUpdate (id, updateData , { new: true });
-            console.log("Pago actualizado correctamente");
+            if (pagoActualizado.status === 'success') {
+                const cuota = await Cuota.findById(pagoActualizado.cuota);
+                const alquiler = await Alquiler.findById(cuota.alquiler);
+                const propietario = await Propietario.findById(alquiler.propietario);
+                await emailSender.enviarComprobanteDePago(propietario.email, pagoActualizado);
+            }
             return pagoActualizado;
         } catch (error) {
             console.error("Error al actualizar el estado del pago: ", error);
@@ -117,6 +126,19 @@ class PagoService {
         } catch (error) {
             console.error("Error al actualizar el pago con la preferencia: ", error);
             throw new Error("Error al actualizar el pago con la preferencia: " + error.message);
+        }
+    }
+
+    async borrarPagosFailure() {
+        try {
+            const pagos = await Pago.find({ estado: 'failure' });
+            pagos.forEach(async pago => {
+                await Pago.findByIdAndDelete(pago._id);
+            });
+            console.log("Pagos failure eliminados correctamente");
+        } catch (error) {
+            console.error("Error al borrar los pagos failure: ", error);
+            throw new Error("Error al borrar los pagos failure: " + error.message);
         }
     }
 }

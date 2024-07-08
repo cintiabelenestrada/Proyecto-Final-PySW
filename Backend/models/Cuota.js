@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const CuotaSchema = new Schema({
     alquiler: { type: Schema.Types.ObjectId, ref: 'Alquiler', required: true },
-    montoPagado: { type: Number, required: true },
+    montoTotal: { type: Number, required: true },
     montoRestante: { type: Number, required: true },
     fecha: { type: Date, default: Date.now },
     fechaVencimiento: { 
@@ -15,5 +15,7 @@ const CuotaSchema = new Schema({
         enum: ['Pendiente', 'Pagada'],
         default: 'Pendiente'
     },
-    pagos: [{ type: Schema.Types.ObjectId, ref: 'Pago', required: true }]
+    pagos: [{ type: Schema.Types.ObjectId, ref: 'Pago'}]
 });
+
+module.exports = mongoose.models.Cuota || mongoose.model('Cuota', CuotaSchema);

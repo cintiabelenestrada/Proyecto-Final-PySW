@@ -3,7 +3,8 @@ const { Schema } = mongoose;
 
 const PagoSchema = new Schema({
     usuario: { type: Schema.Types.ObjectId, ref: 'Usuario', required: true },
-    monto: { type: Number, required: true },
+    montoPago: { type: Number, required: true },
+    montoInteres : { type: Number, required: true },
     fechaCreacion: { type: Date, default: Date.now },
     fechaActualizacion : { type: Date, default: Date.now },
     status: {
@@ -11,7 +12,7 @@ const PagoSchema = new Schema({
         enum: ['pending', 'success', 'failure'],
         default: 'pending'
     },
-    preference: { type: String, required: true },
+    preference: { type: String },
     tipo :{
         type: String,
         enum: ['MercadoPago', 'Efectivo', 'Transferencia'],

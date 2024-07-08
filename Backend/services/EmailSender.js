@@ -12,14 +12,15 @@ class EmailSender {
             secure : false,
             auth : {
                 user : 'poo2023correo@gmail.com',
-                pass : process.env.EMAIL_PASSWORD
+                pass : process.env.MAIL_PASSWORD
             }
         });
     }
 
     async enviarComprobanteDePago(email, pago) {
-        //Generar QR
-        const qr = await  QRCode.toDataURL(hostFront + '/pagos/' + pago.id);
+        // Generar QR
+        const qrDataURL = await QRCode.toDataURL(hostFront + '/pagos/' + pago.id);
+    
         // Configurar las opciones del correo electrónico
         let mailOptions = {
             from: 'INMOBILIARIA XYZ <poo2023correo@gmail.com>',
@@ -28,12 +29,18 @@ class EmailSender {
             html: `<h1>Comprobante de Pago</h1>
             <p>Detalles del pago:</p>
             <ul>
-                <li>Monto: $${pago.monto}</li>
+                <li>Monto: $${pago.montoPago}</li>
+                <li>Monto Interes: $${pago.montoInteres}</li>
                 <li>Fecha Aprobacion: ${pago.fechaActualizacion}</li>
             </ul>
-            <img src="${qrCodeDataURL}" />`,
+            <p>Adjunto encontrará el código QR que puede escanear para más detalles.</p>`,
+            attachments: [{
+                filename: 'codigoQR.png',
+                path: qrDataURL,
+                cid: 'codigoQR' // Puede usar el cid en el campo html si desea referenciar la imagen incrustada
+            }]
         };
-
+    
         // Enviar el correo electrónico
         this.transporter.sendMail(mailOptions, function(error, info) {
             if (error) {

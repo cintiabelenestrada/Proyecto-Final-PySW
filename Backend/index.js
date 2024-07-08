@@ -7,6 +7,8 @@ const jwt = require('jsonwebtoken');
 const logger = require('morgan');
 const dotenv = require('dotenv');
 
+// Dotenv config
+dotenv.config();
 
 const app = express();
 
@@ -33,8 +35,7 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-// Dotenv config
-dotenv.config();
+
 
 // Logger
 app.use(logger('dev'));
@@ -51,6 +52,7 @@ app.use('/api/propietarios', require('./routes/propietario.route.js'));
 app.use('/api/alquileres', require('./routes/alquiler.route.js'));
 app.use('/api/locales', require('./routes/locales.route.js'));
 //app.use('api/pagos', require('./routes/pagos.route.js'));
+app.use('/api/payments', require('./routes/payment.routes.js'));
 
 // Settings
 

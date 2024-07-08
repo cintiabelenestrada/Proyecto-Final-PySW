@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const PaymentsService = require('../services/payment.service');
+const PaymentsService = require('../services/PaymentsService');
+
+const paymentCtrl = {};
 
 paymentCtrl.createPayment = async (req, res) => {
     try {
@@ -22,15 +24,13 @@ paymentCtrl.createPayment = async (req, res) => {
 paymentCtrl.manejarNotificacion = async (req, res) => {
     try {
         const payment = req.body;
-        console.log("Notificación recibida");
-        const response = await PaymentsService.manejarNotificacionPago(payment.preference_id);
-        if (response.status === 'approved') {
-            console.log("Pago aprobado");
-        } else if (response.status === 'pending') {
-            console.log("Pago pendiente");
-        } else {
-            console.log("Pago rechazado");
+        if(payment.topic !== 'payment'){
+            return res.json({
+                status: '1',
+                msg : 'Notificación manejada correctamente',
+            });
         }
+        const response = await PaymentsService.manejarNotificacionPago(payment.resource);
         res.json({
             status: '1',
             msg: 'Notificación manejada correctamente',

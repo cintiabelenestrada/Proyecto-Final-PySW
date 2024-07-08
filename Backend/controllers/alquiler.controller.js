@@ -1,4 +1,5 @@
 const Alquiler = require('../models/Alquiler'); 
+const cuotaService = require('../services/CuotaService');
 const alquilerCtrl = {} 
 
 alquilerCtrl.getAlquileres = async (req, res) => {
@@ -37,6 +38,10 @@ alquilerCtrl.createAlquiler = async (req, res) => {
     const alquiler = new Alquiler(req.body); 
     try { 
         await alquiler.save();
+        await cuotaService.createCuota({
+            alquiler: alquiler._id,
+            montoTotal: alquiler.costoAlquiler
+        });
         res.json({ 
             'status': '1', 
             'msg': 'Alquiler guardado.'}) 
@@ -77,5 +82,65 @@ alquilerCtrl.deleteAlquiler = async (req, res)=>{
         })   
     } 
 } 
+// Generar cuotas para todos los alquileres, metodo reservado para el cron
+alquilerCtrl.generarCuotas = async (req, res) => {
+    try {
+        const alquileres = await Alquiler.find();
+        await Promise.all(alquileres.map(async alquiler => {
+            const cuota = {
+                alquiler: alquiler._id,
+                montoTotal: alquiler.costoAlquiler,
+            };
+            await cuotaService.createCuota(cuota);
+        }));
+        res.json({
+            status: '1',
+            msg: 'Cuotas generadas correctamente'
+        });
+    } catch (error) {
+        res.status(400).json({
+            status: '0',
+            msg: 'Error generando las cuotas',
+            error: error.message
+        });
+    }
+
+}
+
+alquilerCtrl.obtenerCuotasPorIdAlquiler = async (req, res) => {
+    try {
+        const idAlquiler = req.params.id;
+        const cuotas = await cuotaService.getCuotasById(idAlquiler);
+        res.json({
+            status: '1',
+            msg: 'Cuotas obtenidas correctamente',
+            data: cuotas
+        });
+    } catch (error) {
+        res.status(400).json({
+            'status': '0',
+            'msg': 'Error al obtener las cuotas' + error 
+        });
+    }
+}
 
 module.exports = alquilerCtrl; 
+
+/*
+    const CuotaSchema = new Schema({
+    alquiler: { type: Schema.Types.ObjectId, ref: 'Alquiler', required: true },
+    montoTotal: { type: Number, required: true },
+    montoRestante: { type: Number, required: true },
+    fecha: { type: Date, default: Date.now },
+    fechaVencimiento: { 
+        type: Date, 
+        default: () => new Date(new Date().getTime() + (10 * 24 * 60 * 60 * 1000)) // Agrega 30 días a la fecha actual
+    },
+    estado: { 
+        type: String, 
+        enum: ['Pendiente', 'Pagada'],
+        default: 'Pendiente'
+    },
+    pagos: [{ type: Schema.Types.ObjectId, ref: 'Pago'}]
+});
+*/

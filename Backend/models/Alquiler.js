@@ -6,9 +6,9 @@ const AlquilerSchema = new Schema({
     local: { type: Schema.Types.ObjectId, ref: 'Local', required: true },
     ambientes: { type: Number, required: true },
     costoAlquiler: { type: Number, required: true },
-    fechaAlquiler: { type: Date, required: true },
+    fechaAlquiler: { type: Date, required: true, default: Date.now },
     interes : { type: Number, required: true },
-    cuotas : [{ type: Schema.Types.ObjectId, ref: 'Cuota', required: true }],
+    cuotas : [{ type: Schema.Types.ObjectId, ref: 'Cuota' }],
 });
 
 module.exports = mongoose.models.Alquiler || mongoose.model('Alquiler', AlquilerSchema);
