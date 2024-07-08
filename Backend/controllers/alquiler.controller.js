@@ -1,4 +1,5 @@
 const Alquiler = require('../models/Alquiler'); 
+const alquilerService = require('../services/alquiler.service');
 const alquilerCtrl = {} 
 
 alquilerCtrl.getAlquileres = async (req, res) => {
@@ -34,18 +35,20 @@ alquilerCtrl.getAlquilerById = async (req, res) => {
 };
 
 alquilerCtrl.createAlquiler = async (req, res) => { 
-    const alquiler = new Alquiler(req.body); 
     try { 
-        await alquiler.save();
-        res.json({ 
-            'status': '1', 
-            'msg': 'Alquiler guardado.'}) 
-    } catch (error) { 
-        res.status(400).json({ 
-            'status': '0', 
-            'msg': 'Error guardando el alquiler.'}) 
-    } 
-}
+        const alquiler = await alquilerService.createAlquiler(req.body);
+        res.json({
+            'status': '1',
+            'msg': 'Alquiler guardado.',
+            'data': alquiler
+        });
+    } catch (error) {
+        res.status(400).json({
+            'status': '0',
+            'msg': error.message
+        });
+    }
+};
 
 alquilerCtrl.updateAlquiler = async (req, res) => {
     try {
@@ -76,6 +79,6 @@ alquilerCtrl.deleteAlquiler = async (req, res)=>{
             'msg': 'Error eliminando el alquler' 
         })   
     } 
-} 
+};
 
 module.exports = alquilerCtrl; 
