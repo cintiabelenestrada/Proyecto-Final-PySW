@@ -1,1 +1,24 @@
-<p>local works!</p>
+<h2>Alta de Locales</h2>
+<form #form class="border p-4 rounded bg-body-tertiary">
+    <div class="form-floating mb-2">
+        <input type="number"  class="form-control" id="nombre" name="nombre"  [(ngModel)]="datoslocales.superficie" required/>
+        <label for="superficie" class="form-label">Superficie Local: </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate" [(ngModel)]="datoslocales.habilitado" name="habilitado">
+        <label class="form-check-label" for="flexCheckIndeterminate">habilitado?</label>
+    </div>
+    <div class="form-floating mb-2">
+        <input type="number" class="form-control" id="clientes" name="clientes" [(ngModel)]="datoslocales.customers" required />
+        <label for="clientes"class="form-label">customers: </label>
+    </div>
+    <div class="form-floating mb-2">
+        <input type="text" class="form-control" id="imagen" name="imagen"  [(ngModel)]="datoslocales.pathimagen"  required />
+        <label for="imagendatoslocales" class="form-label">Imagen del Local(url): </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate" [(ngModel)]="datoslocales.alquilado" name="alquilado">
+        <label class="form-check-label" for="flexCheckIndeterminate">alquilado?</label>
+    </div>
+    <button type="submit" class="btn btn-primary mx-auto" (click)="AltaLocal()">Agregar Local</button>
+</form>
