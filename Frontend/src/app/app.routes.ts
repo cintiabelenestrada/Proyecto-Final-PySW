@@ -3,11 +3,13 @@ import { PropietarioComponent } from './propietario/propietario/propietario.comp
 import { FormPropietarioComponent } from './propietario/form-propietario/form-propietario.component';
 import { LocalComponent } from './locales/pages/altalocal/local.component';
 import { LocalesComponent } from './locales/pages/locales/locales.component';
+import { LocaleshabilitadosComponent } from './locales/pages/localeshabilitados/localeshabilitados.component';
 
 export const routes: Routes = [
 
 { path: 'propietario', component: PropietarioComponent},
 { path: 'form-propietario/:id', component: FormPropietarioComponent},
 { path: 'local', component: LocalComponent},
-{ path: 'locales', component: LocalesComponent}
+{ path: 'locales', component: LocalesComponent},
+{path: 'locales/habilitados', component: LocaleshabilitadosComponent}
 ];

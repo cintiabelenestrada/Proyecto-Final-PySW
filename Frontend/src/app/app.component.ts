@@ -5,13 +5,14 @@ import { PropietarioComponent } from './propietario/propietario/propietario.comp
 import { FormPropietarioComponent } from './propietario/form-propietario/form-propietario.component';
 import { LocalComponent } from './locales/pages/altalocal/local.component';
 import { LocalesComponent } from './locales/pages/locales/locales.component';
+import { LocaleshabilitadosComponent } from './locales/pages/localeshabilitados/localeshabilitados.component';
 
 @Component({
     selector: 'app-root',
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [RouterOutlet, NavComponent,PropietarioComponent,FormPropietarioComponent, LocalComponent, LocalesComponent]
+    imports: [RouterOutlet, NavComponent,PropietarioComponent,FormPropietarioComponent, LocalComponent, LocalesComponent, LocaleshabilitadosComponent]
 })
 export class AppComponent {
   title = 'Frontend';
