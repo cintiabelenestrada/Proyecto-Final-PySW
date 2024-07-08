@@ -16,7 +16,7 @@ export class LocalService {
   public getAllLocales(): Observable<any> {
     return this._http.get('http://localhost:3000/api/locales');
   }
-  // public getObtenerLocalesHabilitados(): Observable<any> {
-  //   return this._http.get('http://localhost:3000/api/locales/halilitados');
-  // }
+  public getObtenerLocalesHabilitados(): Observable<any> {
+    return this._http.get('http://localhost:3000/api/locales/habilitados');
+  }
 }

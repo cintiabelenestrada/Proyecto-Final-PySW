@@ -1,25 +1,25 @@
-<div class="container-fluid"> 
-    <h1>Locales de Piedra Inmobiliaria</h1>
-    <!-- Cards -->
-    <div class="row">
-      <div class="row col-xs-6 row-cols-sm-2 row-cols-md-3">
-        <div *ngFor="let locales of datoslocales">
-          <!-- el vector productos ts, lo defino en la variable productos -->
-          <div class="card h-100 m-1 shadow">
-            <div class="card-header">    
-              <img src="assets/img/{{locales.pathimagen}}" class="card-img-top img-fluid" >       
-            </div>
-            <div class="card-body">
-              <p class="card-text">superficie: {{locales.superficie}}</p>
-              <p class="card-text">habilitado: {{locales.habilitado}}</p>
-              <p class="card-text">Cliente: {{locales.customers}}</p>
-              <p class="card-text">alquilado: {{locales.alquilado}}</p>
-            </div>
-            <div class="card-footer text-center">
-              <a class="btn btn-primary" (click)="MostrarLocales()">Locales</a>
-            </div>
+<div class="container-fluid">
+  <h1>Locales de Piedra Inmobiliaria</h1>
+  <!-- Cards -->
+  <div class="row">
+    <div class="row col-xs-6 row-cols-sm-2 row-cols-md-3">
+      <div *ngFor="let locales of datoslocales">
+        <!-- el vector productos ts, lo defino en la variable productos -->
+        <div class="card h-100 m-1 shadow">
+          <div class="card-header">
+            <img src="assets/img/{{locales.pathimagen}}" class="card-img-top img-fluid">
+          </div>
+          <div class="card-body">
+            <p class="card-text">superficie: {{locales.superficie}}</p>
+            <p class="card-text">habilitado: {{locales.habilitado}}</p>
+            <p class="card-text">Cliente: {{locales.customers}}</p>
+            <p class="card-text">alquilado: {{locales.alquilado}}</p>
+          </div>
+          <div class="card-footer text-center">
+            <a class="btn btn-primary" (click)="MostrarLocales()">Locales</a>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
