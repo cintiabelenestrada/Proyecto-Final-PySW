@@ -1,6 +1,8 @@
 <section>
-  <h2 class="text-primary text-center">Usuarios registrados</h2>
-  <table class="table">
+  <h1 class="text-primary-custom fw-bold text-center mb-5">
+    Usuarios registrados
+  </h1>
+  <table class="table table-striped">
     <thead>
       <tr>
         <th scope="col">Usuario</th>
@@ -13,10 +15,10 @@
     <tbody>
       @for (usuario of usuarios; track $index) {
       <tr>
-        <th scope="row">{{ usuario.usuario }}</th>
+        <td scope="row">{{ usuario.usuario }}</td>
         <td>{{ usuario.email }}</td>
-        <td>{{ usuario.activo }}</td>
-        <td>{{ usuario.perfil }}</td>
+        <td>{{ usuario.activo ? "🟢" : "🔴" }}</td>
+        <td>{{ usuario.perfil | uppercase }}</td>
         <td>
           <div class="d-flex gap-3">
             <button
