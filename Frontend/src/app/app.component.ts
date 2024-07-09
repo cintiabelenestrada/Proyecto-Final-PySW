@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NavComponent } from './layouts/nav/nav.component';
 import { iconSubset } from './shared/icons/icon-subset';
 import { IconSetService } from '@coreui/icons-angular';
 
@@ -9,7 +8,7 @@ import { IconSetService } from '@coreui/icons-angular';
   standalone: true,
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [RouterOutlet, NavComponent],
+  imports: [RouterOutlet],
 })
 export class AppComponent {
   title = 'Frontend';

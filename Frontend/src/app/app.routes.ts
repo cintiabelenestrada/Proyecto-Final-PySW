@@ -6,6 +6,12 @@ import { ListadoComponent } from './usuarios/pages/listado/listado.component';
 import { isAuthenticatedGuard } from './shared/guards/is-authenticated.guard';
 import { hasRoleGuard } from './shared/guards/has-role.guard';
 import { DashboardDefaultPageComponent } from './layouts/dashboard-default-page/dashboard-default-page.component';
+import { PropietarioComponent } from './propietario/propietario/propietario.component';
+import { FormPropietarioComponent } from './propietario/form-propietario/form-propietario.component';
+import { LocalComponent } from './locales/pages/altalocal/local.component';
+import { LocalesComponent } from './locales/pages/locales/locales.component';
+import { LocaleshabilitadosComponent } from './locales/pages/localeshabilitados/localeshabilitados.component';
+import { LocaleditComponent } from './locales/pages/localedit/localedit.component';
 
 export const routes: Routes = [
   {
@@ -41,6 +47,12 @@ export const routes: Routes = [
         canActivate: [hasRoleGuard(['administrativo', 'dueño'])],
         title: 'Listado de usuarios | Piedra Inmobiliaria',
       },
+      { path: 'propietario', component: PropietarioComponent },
+      { path: 'form-propietario/:id', component: FormPropietarioComponent },
+      { path: 'local', component: LocalComponent },
+      { path: 'locales', component: LocalesComponent },
+      { path: 'locales/habilitados', component: LocaleshabilitadosComponent },
+      { path: 'locales/edit/:id', component: LocaleditComponent }
       {
         path: '**',
         redirectTo: 'home',
@@ -51,4 +63,3 @@ export const routes: Routes = [
     path: '**',
     redirectTo: 'login',
   },
-];
