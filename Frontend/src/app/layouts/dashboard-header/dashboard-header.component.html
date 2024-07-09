@@ -12,7 +12,7 @@
     </button>
 
     <c-header-nav class="d-none d-md-flex ms-auto">
-      <c-badge color="success">{{ usuario.perfil }}</c-badge>
+      <c-badge color="danger">{{ usuario.perfil | uppercase }}</c-badge>
     </c-header-nav>
 
     <c-header-nav class="mx-0">
@@ -36,7 +36,9 @@
       class="py-0 pe-0"
       aria-label="Open user menu"
     >
-      <c-avatar color="primary" textColor="white">{{ iniciales() }}</c-avatar>
+      <c-avatar [classList]="['custom-secondary-color']" textColor="white">{{
+        iniciales()
+      }}</c-avatar>
     </button>
     <ul cDropdownMenu class="pt-0 w-auto">
       <li>

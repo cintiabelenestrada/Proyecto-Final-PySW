@@ -1,4 +1,4 @@
-import { NgStyle, NgTemplateOutlet } from '@angular/common';
+import { NgStyle, NgTemplateOutlet, UpperCasePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
@@ -57,9 +57,13 @@ import { UsuarioGet } from '../../usuarios/interfaces/usuario-get.interface';
     ProgressBarDirective,
     ProgressComponent,
     NgStyle,
+    UpperCasePipe,
   ],
   templateUrl: './dashboard-header.component.html',
-  styleUrl: './dashboard-header.component.css',
+  styleUrls: [
+    './dashboard-header.component.css',
+    '../../shared/styles/custom-colors.css',
+  ],
 })
 export class DashboardHeaderComponent {
   @Input() sidebarId: string = 'sidebar1';

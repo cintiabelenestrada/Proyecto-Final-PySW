@@ -18,7 +18,10 @@ import { Router, RouterLink } from '@angular/router';
   standalone: true,
   imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+  styleUrls: [
+    './login.component.css',
+    '../../../shared/styles/custom-colors.css',
+  ],
 })
 export class LoginComponent {
   loginForm: FormGroup = this.fb.group({

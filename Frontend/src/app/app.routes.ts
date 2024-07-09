@@ -18,28 +18,28 @@ export const routes: Routes = [
     canActivate: [isAuthenticatedGuard],
     children: [
       {
-        path: '',
-        component: DashboardDefaultPageComponent
+        path: 'home',
+        component: DashboardDefaultPageComponent,
       },
       {
         path: 'usuarios/registrar',
         component: RegisterComponent,
-        canActivate: [hasRoleGuard(['administrativo', 'dueño'])]
+        canActivate: [hasRoleGuard(['administrativo', 'dueño'])],
       },
       {
         path: 'usuarios/editar/:id',
         component: RegisterComponent,
-        canActivate: [hasRoleGuard(['administrativo', 'dueño'])]
+        canActivate: [hasRoleGuard(['administrativo', 'dueño'])],
       },
       {
         path: 'usuarios/lista',
         component: ListadoComponent,
-        canActivate: [hasRoleGuard(['administrativo', 'dueño'])]
+        canActivate: [hasRoleGuard(['administrativo', 'dueño'])],
       },
       {
         path: '**',
-        redirectTo: ''
-      }
+        redirectTo: 'home',
+      },
     ],
   },
   {

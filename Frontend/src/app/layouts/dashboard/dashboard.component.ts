@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { NavComponent } from '../nav/nav.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 
 import { IconDirective } from '@coreui/icons-angular';
@@ -47,6 +46,11 @@ import { AuthService } from '../../usuarios/services/auth.service';
 export class DashboardComponent {
   navItems: INavData[] = [
     {
+      name: 'Inicio',
+      url: '/dashboard/home',
+      iconComponent: { name: 'cil-home' },
+    },
+    {
       name: 'Gráficos',
       url: '/dashboard/graficos',
       iconComponent: { name: 'cil-chart-line' },
@@ -58,26 +62,25 @@ export class DashboardComponent {
     {
       title: true,
       name: 'USUARIOS',
-      class: this.showForRoles(['administrativo', 'dueño'])
+      class: this.showForRoles(['administrativo', 'dueño']),
     },
     {
       name: 'Registrar',
       url: '/dashboard/usuarios/registrar',
       iconComponent: { name: 'cil-user-plus' },
-      class: this.showForRoles(['administrativo', 'dueño'])
+      class: this.showForRoles(['administrativo', 'dueño']),
     },
     {
       name: 'Listado',
       url: '/dashboard/usuarios/lista',
       iconComponent: { name: 'cil-list-rich' },
-      class: this.showForRoles(['administrativo', 'dueño'])
+      class: this.showForRoles(['administrativo', 'dueño']),
     },
   ];
 
   showForRoles(roles: string[]): string {
     const authService = inject(AuthService);
-    if (!roles.includes(authService.currentUser()!.perfil))
-      return 'd-none';
+    if (!roles.includes(authService.currentUser()!.perfil)) return 'd-none';
 
     return '';
   }

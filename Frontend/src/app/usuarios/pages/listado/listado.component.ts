@@ -3,13 +3,17 @@ import { UsuariosService } from '../../services/usuarios.service';
 import { UsuarioGet } from '../../interfaces/usuario-get.interface';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-listado',
   standalone: true,
-  imports: [],
+  imports: [UpperCasePipe],
   templateUrl: './listado.component.html',
-  styleUrl: './listado.component.css',
+  styleUrls: [
+    './listado.component.css',
+    '../../../shared/styles/custom-colors.css',
+  ],
 })
 export class ListadoComponent {
   usuarios: UsuarioGet[] = [];

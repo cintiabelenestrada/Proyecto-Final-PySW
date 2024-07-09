@@ -16,7 +16,10 @@ import { UsuariosService } from '../../services/usuarios.service';
   standalone: true,
   imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css',
+  styleUrls: [
+    './register.component.css',
+    '../../../shared/styles/custom-colors.css',
+  ],
 })
 export class RegisterComponent implements OnInit {
   registerForm = this.formBuilder.group({
@@ -26,7 +29,7 @@ export class RegisterComponent implements OnInit {
     password: ['', [Validators.required, Validators.minLength(6)]],
     activo: [true],
     perfil: [
-      '',
+      'default',
       [
         Validators.pattern(/^(propietario|administrativo|dueño)$/),
         Validators.required,
@@ -73,6 +76,10 @@ export class RegisterComponent implements OnInit {
 
   get perfil(): FormControl {
     return this.registerForm.get('perfil') as FormControl;
+  }
+
+  get activo(): FormControl {
+    return this.registerForm.get('activo') as FormControl;
   }
 
   onSubmit(): void {
