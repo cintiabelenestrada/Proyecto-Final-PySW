@@ -1,0 +1,44 @@
+:host {
+    --color-primario: #182646;
+    --color-secundario: #44d2f2;
+}
+
+.color-primario {
+    color : var(--color-primario);
+}
+
+.color-secundario {
+    color : var(--color-secundario);
+}
+
+.bg-primario {
+    background-color : var(--color-primario);
+}
+
+.bg-secundario {
+    background-color : var(--color-secundario);
+}
+
+.btn-primario {
+    background-color : var(--color-primario);
+    color : white;
+    transition : background-color 0.3s ease;
+}
+
+.btn-secundario {
+    background-color : var(--color-secundario);
+    color : white;
+    transition : background-color 0.3s ease;
+}
+
+.btn-primario:hover {
+    background-color : var(--color-secundario);
+}
+
+.btn-secundario:hover {
+    background-color : var(--color-primario);
+}
+
+.borde-secundario {
+    border: 5px solid var(--color-secundario); 
+  }

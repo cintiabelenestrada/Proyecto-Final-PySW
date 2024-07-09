@@ -1,7 +1,7 @@
 const Pago = require('../models/Pago');
 const Alquiler = require('../models/Alquiler');
-const Propietario = require('../models/Propietario');
 const Cuota = require('../models/Cuota');
+const Usuario = require('../models/Usuario');
 const emailSender = require('../services/emailSender');
 
 class PagoService {
@@ -94,9 +94,8 @@ class PagoService {
             const pagoActualizado = await Pago.findByIdAndUpdate (id, updateData , { new: true });
             if (pagoActualizado.status === 'success') {
                 const cuota = await Cuota.findById(pagoActualizado.cuota);
-                const alquiler = await Alquiler.findById(cuota.alquiler);
-                const propietario = await Propietario.findById(alquiler.propietario);
-                await emailSender.enviarComprobanteDePago(propietario.email, pagoActualizado);
+                const usuario = await Usuario.findById(cuota.usuario);
+                await emailSender.enviarComprobanteDePago(usuario.email, pagoActualizado);
             }
             return pagoActualizado;
         } catch (error) {
@@ -141,7 +140,26 @@ class PagoService {
             throw new Error("Error al borrar los pagos failure: " + error.message);
         }
     }
+
+    async obtenerPagosPorIdAlquiler(idAlquiler) {
+        try {
+            const cuotas = await Cuota.find({ alquiler: idAlquiler });
+            const pagos = [];
+            for (const cuota of cuotas) {
+                const pagosCuota = await Pago.find({ cuota: cuota._id });
+                pagosCuota.forEach(pago => {
+                    pagos.push(pago);
+                });
+            }
+            console.log("Pagos obtenidos correctamente");
+            return pagos;
+        } catch (error) {
+            console.error("Error al obtener los pagos: ", error);
+            throw new Error("Error al obtener los pagos: " + error.message);
+        }
+    }
 }
+
 
 module.exports = new PagoService();
 

@@ -1,5 +1,6 @@
 const Alquiler = require('../models/Alquiler'); 
 const cuotaService = require('../services/CuotaService');
+const pagoService = require('../services/PagoService');
 const alquilerCtrl = {} 
 
 alquilerCtrl.getAlquileres = async (req, res) => {
@@ -110,7 +111,7 @@ alquilerCtrl.generarCuotas = async (req, res) => {
 alquilerCtrl.obtenerCuotasPorIdAlquiler = async (req, res) => {
     try {
         const idAlquiler = req.params.id;
-        const cuotas = await cuotaService.getCuotasById(idAlquiler);
+        const cuotas = await cuotaService.getCuotasByIdAlquiler(idAlquiler);
         res.json({
             status: '1',
             msg: 'Cuotas obtenidas correctamente',
@@ -124,23 +125,21 @@ alquilerCtrl.obtenerCuotasPorIdAlquiler = async (req, res) => {
     }
 }
 
-module.exports = alquilerCtrl; 
+alquilerCtrl.obtenerPagosPorIdAlquiler = async (req, res) => {
+    try{
+        const idAlquiler = req.params.id;
+        const pagos = await pagoService.obtenerPagosPorIdAlquiler (idAlquiler);
+        res.json({
+            status: '1',
+            msg: 'Pagos obtenidos correctamente',
+            data: pagos
+        });
+    }catch(error){
+        res.status(400).json({
+            'status': '0',
+            'msg': 'Error al obtener los pagos' + error
+        });
+    }
+}
 
-/*
-    const CuotaSchema = new Schema({
-    alquiler: { type: Schema.Types.ObjectId, ref: 'Alquiler', required: true },
-    montoTotal: { type: Number, required: true },
-    montoRestante: { type: Number, required: true },
-    fecha: { type: Date, default: Date.now },
-    fechaVencimiento: { 
-        type: Date, 
-        default: () => new Date(new Date().getTime() + (10 * 24 * 60 * 60 * 1000)) // Agrega 30 días a la fecha actual
-    },
-    estado: { 
-        type: String, 
-        enum: ['Pendiente', 'Pagada'],
-        default: 'Pendiente'
-    },
-    pagos: [{ type: Schema.Types.ObjectId, ref: 'Pago'}]
-});
-*/
+module.exports = alquilerCtrl; 

@@ -1,0 +1,30 @@
+<div class="container mt-5">
+    <div class="row g-4"> <!-- Envuelve los elementos en una fila -->
+        @for (cuota of listadoCuotas; track cuota._id ){
+            <div class="col-md-6"> <!-- Define cada elemento como una columna de 6/12 -->
+                <div class="borde-secundario rounded-3">
+                    <div class="p-2 card-header color-secundario fw-bold d-flex">
+                        <h5 class="card-title fs-3">Cuota: {{cuota._id}}</h5>
+                    </div>
+                    <div class="card-body p-2">
+                        <p class="card-text">
+                            <strong class="color-primario">Alquiler: </strong>{{cuota.alquiler}} <br>
+                            <strong class="color-primario">Monto Total: </strong>{{cuota.montoTotal | currency}} <br>
+                            <strong class="color-primario">Monto Restante: </strong> {{cuota.montoRestante | currency}}<br>
+                            <strong class="color-primario">Estado: </strong>
+                            @if (cuota.estado == 'Pendiente'){
+                                <span class="badge bg-warning text-dark">{{cuota.estado}}</span>
+                            }@else if (cuota.estado == 'Pagada'){
+                                <span class="badge bg-success">{{cuota.estado}}</span>
+                            }   
+                            <br>
+                            <strong class="color-primario">Fecha Generada: </strong> {{cuota.fecha | date: "dd/MM/YY"}} <br>
+                            <strong class="color-primario">Fecha de Vencimiento: </strong> {{cuota.fechaVencimiento | date: "dd/MM/YY"}} <br>
+                        </p>
+                        <button class="btn btn-secundario">Ver Detalles</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

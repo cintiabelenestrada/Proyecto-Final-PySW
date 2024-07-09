@@ -22,6 +22,17 @@ class CuotaService {
         }
     }
 
+    async getCuotas() {
+        try {
+            const cuotas = await Cuota.find();
+            console.log("Cuotas obtenidas correctamente");
+            return cuotas;
+        } catch (error) {
+            console.log("Error al obtener las cuotas " + error);
+            throw new Error("Error al obtener las cuotas" + error);
+        }
+    }
+
     async calcularInteres(cuota, montoAPagar) {
         const cuotaEncontrada = await Cuota.findById(cuota);
         const alquiler = await Alquiler.findById(cuotaEncontrada.alquiler);
@@ -41,7 +52,7 @@ class CuotaService {
         return 0;
     }
 
-    async getCuotasById(idAlquiler) {
+    async getCuotasByIdAlquiler(idAlquiler) {
         try {
             const cuotas = await Cuota.find({ alquiler: idAlquiler });
             

@@ -3,7 +3,7 @@ const CuotaService = require('../services/CuotaService');
 const axios = require('axios');
 
 
-const hostBack = 'https://painting-duty-roses-physician.trycloudflare.com';
+const hostBack = 'https://m-stamp-nokia-rh.trycloudflare.com';
 const hostFront = 'http://localhost:4200';
 
 class PaymentsService {
@@ -41,7 +41,9 @@ class PaymentsService {
                 },
                 notification_url: `${hostBack}/api/payments/notifications`,
                 external_reference: newPago.id,
-                installments: 1
+                payment_methods: {
+                    installments: 1
+                }
             };
             
             const paymentResponse = await axios.post(url, body, {
@@ -50,7 +52,7 @@ class PaymentsService {
                     "Authorization": `Bearer ${process.env.MP_ACCESS_TOKEN}`
                 }
             });
-    
+            
             // Actualizar el registro del pago con el ID de preferencia de MercadoPago
             await PagoService.actualizarPagoConPreference(newPago.id, paymentResponse.data.id);
     

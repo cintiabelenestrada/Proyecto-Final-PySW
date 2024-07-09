@@ -9,5 +9,6 @@ router.post('/', alquilerCtrl.createAlquiler);
 router.put('/:id', alquilerCtrl.updateAlquiler);
 router.delete('/:id', alquilerCtrl.deleteAlquiler);
 router.get ('/:id/cuotas', alquilerCtrl.obtenerCuotasPorIdAlquiler);
+router.get('/:id/pagos', alquilerCtrl.obtenerPagosPorIdAlquiler);
 
 module.exports = router;
