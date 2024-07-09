@@ -11,6 +11,7 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    title: 'Inicio de sesión | Piedra Inmobiliaria',
   },
   {
     path: 'dashboard',
@@ -20,21 +21,25 @@ export const routes: Routes = [
       {
         path: 'home',
         component: DashboardDefaultPageComponent,
+        title: 'Inicio | Piedra Inmobiliaria',
       },
       {
         path: 'usuarios/registrar',
         component: RegisterComponent,
         canActivate: [hasRoleGuard(['administrativo', 'dueño'])],
+        title: 'Registrar usuario | Piedra Inmobiliaria',
       },
       {
         path: 'usuarios/editar/:id',
         component: RegisterComponent,
         canActivate: [hasRoleGuard(['administrativo', 'dueño'])],
+        title: 'Editar usuario | Piedra Inmobiliaria',
       },
       {
         path: 'usuarios/lista',
         component: ListadoComponent,
         canActivate: [hasRoleGuard(['administrativo', 'dueño'])],
+        title: 'Listado de usuarios | Piedra Inmobiliaria',
       },
       {
         path: '**',
