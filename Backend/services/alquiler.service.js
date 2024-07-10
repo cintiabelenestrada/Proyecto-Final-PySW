@@ -1,8 +1,6 @@
 const Alquiler = require('../models/Alquiler');
 const Local = require('../models/Local');
 
-const alquilerService = {};
-
 const createAlquiler = async (alquilerData) => {
     const local = await Local.findById(alquilerData.local);
     if (!local) {
@@ -28,5 +26,3 @@ const createAlquiler = async (alquilerData) => {
 module.exports = {
     createAlquiler,
 };
-
-// module.exports = alquilerService;
