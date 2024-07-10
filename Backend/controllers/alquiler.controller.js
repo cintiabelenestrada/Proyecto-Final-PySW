@@ -75,9 +75,9 @@ alquilerCtrl.updateAlquiler = async (req, res) => {
             });
         }
 
-        // Verificar si el atributo 'activo' se ha cambiado a 'false'
-        if (req.body.activo === false) {
-            const localActualizado = await Local.findByIdAndUpdate(alquiler.local, { alquilado: false }, { new: true });
+        // Verificar si el atributo 'activo' se ha cambiado
+        if (req.body.activo !== undefined) {
+            await Local.findByIdAndUpdate(alquiler.local, { alquilado: req.body.activo }, { new: true });
         }
 
         res.json({
