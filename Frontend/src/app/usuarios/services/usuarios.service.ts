@@ -39,6 +39,19 @@ export class UsuariosService {
   }
 
   /**
+   * Obtiene una lista de usuarios por perfil
+   * @param perfil Perfil de los usuarios a obtener
+   * @returns Lista de usuarios con el perfil especificado
+   */
+  getByPerfil(perfil: string): Observable<UsuarioGet[]> {
+    const url = `${this.baseUrl}/perfil/${perfil}`;
+
+    return this.http
+      .get<UsuarioResponse<UsuarioGet[]>>(url)
+      .pipe(map((res) => res.data));
+  }
+
+  /**
    * Crea un nuevo usuario
    * @param usuario Usuario a crear
    * @returns Datos del usuario creado
