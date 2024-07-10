@@ -11,6 +11,9 @@ import { FormPropietarioComponent } from './propietario/form-propietario/form-pr
 import { LocalComponent } from './locales/pages/altalocal/local.component';
 import { LocalesComponent } from './locales/pages/locales/locales.component';
 import { LocaleshabilitadosComponent } from './locales/pages/localeshabilitados/localeshabilitados.component';
+import { FormNovedadesComponent } from './novedades/pages/form-novedades/form-novedades.component';
+import { NovedadesComponent } from './novedades/pages/novedades/novedades.component';
+import { NovedadesUsuarioComponent } from './novedades/pages/novedadesusuario/novedadesusuario.component';
 
 export const routes: Routes = [
   {
@@ -51,6 +54,9 @@ export const routes: Routes = [
       { path: 'local', component: LocalComponent },
       { path: 'locales', component: LocalesComponent },
       { path: 'locales/habilitados', component: LocaleshabilitadosComponent },
+      { path: 'novedad', component: FormNovedadesComponent },
+      {path: 'novedades', component: NovedadesComponent},
+      {path: 'novedades/usuario', component: NovedadesUsuarioComponent},
       // { path: 'locales/edit/:id', component: LocaleditComponent }, // componente no encontrado
       {
         path: '**',
