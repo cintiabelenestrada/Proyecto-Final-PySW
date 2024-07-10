@@ -1,0 +1,100 @@
+<div class="container mt-5">
+    <h2 class="text-center mb-4">
+        {{ nuevo == true ? 'Registro de Alquiler' : 'Modificación de Alquiler' }}
+    </h2>
+    <form [formGroup]="formularioAlquiler" class="p-4 border rounded shadow-sm bg-light">
+        <div *ngIf="nuevo" class="mb-3">
+            <label for="inquilinos" class="form-label">Seleccione un inquilino</label>
+            <select
+                id="inquilinos" 
+                class="form-select"
+                formControlName="inquilinoSeleccionado" 
+                [ngClass]="{'is-invalid': hasErrors('inquilinoSeleccionado', 'required')}"
+            >
+                <option value="" disabled>Inquilinos</option>
+                <option [value]="inquilino._id" *ngFor="let inquilino of inquilinos">
+                    {{ inquilino.usuario }}
+                </option>
+            </select>
+            <div *ngIf="hasErrors('inquilinoSeleccionado', 'required')" class="text-danger">
+                Inquilino requerido
+            </div>
+        </div>
+        <div *ngIf="nuevo" class="mb-3">
+            <label for="locales" class="form-label">Seleccione un local</label>
+            <select 
+                id="locales" 
+                class="form-select"
+                formControlName="localSeleccionado"
+                [ngClass]="{'is-invalid': hasErrors('localSeleccionado', 'required')}"
+            >
+                <option value="" disabled selected>Locales</option>
+                <option [value]="local._id" *ngFor="let local of locales">{{ local._id }}</option>
+            </select>
+            <div *ngIf="hasErrors('localSeleccionado', 'required')" class="text-danger">
+                Local requerido
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="plazoMes" class="form-label">Plazo en meses</label>
+            <input 
+                [ngClass]="{'is-invalid': hasErrors('plazoMes', 'required')}"
+                type="number" 
+                class="form-control" 
+                id="plazoMes" 
+                placeholder="Plazo en meses"
+                formControlName="plazoMes"
+            >
+            <div *ngIf="hasErrors('plazoMes', 'required')" class="text-danger">
+                Plazo en meses requerido
+            </div>            
+            <div *ngIf="hasErrors('plazoMes', 'min')" class="text-danger">
+                El plazo en meses debe ser mayor que 0
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="costoAlquiler" class="form-label">Costo</label>
+            <input 
+                [ngClass]="{'is-invalid': hasErrors('costoAlquiler', 'required')}"
+                type="number" 
+                class="form-control" 
+                id="costoAlquiler" 
+                placeholder="Costo"
+                formControlName="costoAlquiler"
+            >
+            <div *ngIf="hasErrors('costoAlquiler', 'required')" class="text-danger">
+                Costo requerido
+            </div>
+            <div *ngIf="hasErrors('costoAlquiler', 'min')" class="text-danger">
+                El costo debe ser mayor a 0
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="interesAnual" class="form-label">Interés anual</label>
+            <input 
+                [ngClass]="{'is-invalid': hasErrors('interesAnual', 'required')}"
+                type="number" 
+                class="form-control" 
+                id="interesAnual" 
+                placeholder="Interés anual"
+                formControlName="interesAnual"
+            >
+            <div *ngIf="hasErrors('interesAnual', 'required')" class="text-danger">
+                Interes anual requerido
+            </div>
+            <div *ngIf="hasErrors('interesAnual', 'min')" class="text-danger">
+                El interes anual no puede ser negativo
+            </div>
+        </div>
+        <div *ngIf="!nuevo" class="mb-3">
+            <label>
+                <input type="checkbox" formControlName="activo"> Activo
+            </label>
+        </div>
+        <div class="mb-3">
+            <button type="button" class="btn btn-perzonalizado w-100 py-3" (click)="nuevo == true ? registrarAlquiler() : modificarAlquiler()">
+                {{ nuevo == true ? 'Registrar' : 'Actualizar' }}
+            </button>
+        </div>
+    </form>
+</div>
