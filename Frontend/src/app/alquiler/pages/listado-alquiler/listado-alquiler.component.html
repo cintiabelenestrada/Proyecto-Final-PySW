@@ -1,0 +1,47 @@
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Listado de Alquileres</h2>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover" *ngIf="alquileres && alquileres.length > 0; else noAlquileres">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Local</th>
+                    <th>Inquilino</th>
+                    <th>Fecha de Inicio</th>
+                    <th>Plazo Mes</th>
+                    <th>Costo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let alquiler of alquileres">
+                    <td>{{ alquiler.local._id }}</td>
+                    <td>{{ alquiler.inquilino.usuario }}</td>
+                    <td>{{ alquiler.fechaAlquiler | date: 'dd/MM/yyyy' }}</td>
+                    <td>{{ alquiler.plazoMes }} meses</td>
+                    <td>{{ alquiler.costoAlquiler | currency }}</td>
+                    <td>
+                        <button class="btn btn-primary me-2" (click)="modificarAlquiler(alquiler._id)">
+                            Modificar
+                        </button>
+                        <button 
+                            class="btn btn-warning" 
+                            (click)="eliminarAlquiler(alquiler._id)">
+                            Eliminar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ng-template #noAlquileres>
+            <div class="alert alert-info text-center" role="alert">
+                No hay alquileres disponibles.
+            </div>
+        </ng-template>
+        <button class="btn btn-registrar me-2" (click)="registrarAlquiler()">
+            Registrar nuevo alquiler
+        </button>
+        <button class="btn btn-registrar" (click)="alternarAlquileres()">
+            {{ mostrarActivos ? 'Mostrar historial completo' : 'Mostrar alquileres activos' }}
+        </button>
+    </div>
+</div>
