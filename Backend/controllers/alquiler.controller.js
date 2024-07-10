@@ -1,7 +1,7 @@
 const Alquiler = require('../models/Alquiler');
 const { post } = require('../routes/alquiler.route');
-const cuotaService = require('../services/CuotaService');
-const postFacebookService = require('../services/postFacebook');
+//const cuotaService = require('../services/CuotaService');
+const postFacebookService = require('../services/PostFacebook');
 const alquilerCtrl = {}
 
 alquilerCtrl.getAlquileres = async (req, res) => {
@@ -139,23 +139,25 @@ alquilerCtrl.obtenerCuotasPorIdAlquiler = async (req, res) => {
 }
 
 alquilerCtrl.publish = async (req, res) => {
-    const alquiler = await Alquiler.findById(req.params.id).populate('Local').populate('Propietario');
     try {
+        const alquiler = await Alquiler.findById(req.body.id).populate('local').populate('propietario').exec();
+        
+        // Llama al método publish del servicio
         const publicacionId = await postFacebookService.publish(alquiler);
         res.status(200).json({
             status: '1',
             msg: 'Publicación exitosa',
             data: publicacionId
         });
-
     } catch (error) {
         res.status(400).json({
             status: '0',
             msg: 'Error publicando en Facebook',
+            error: error.message // Incluye el mensaje de error para más detalles
         });
     }
-
 }
+
 
 
 module.exports = alquilerCtrl;

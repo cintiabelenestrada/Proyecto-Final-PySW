@@ -6,7 +6,7 @@ const AlquilerSchema = new Schema({
     local: { type: Schema.Types.ObjectId, ref: 'Local', required: true },
     ambientes: { type: Number, required: true },
     costoAlquiler: { type: Number, required: true },
-    fechaAlquiler: { type: Date, required: true }
+    fechaAlquiler: { type: Date, required: false }
 });
 
 module.exports = mongoose.models.Alquiler || mongoose.model('Alquiler', AlquilerSchema);
