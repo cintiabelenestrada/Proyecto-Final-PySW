@@ -27,4 +27,15 @@ export class LocalService {
   public getObtenerLocalesHabilitados(): Observable<any> {
     return this._http.get('http://localhost:3000/api/locales/habilitados');
   }
+
+  public getObtenerLocalById(id: string): Observable<any> {
+    return this._http.get('http://localhost:3000/api/locales/'+id);
+  }
+
+   // Método para editar un local
+   public putUpdateLocal(localId: string, updatedLocal: LocalInterface): Observable<any> {
+    const url = `http://localhost:3000/api/locales/${localId}`;
+    return this._http.put(url, updatedLocal);
+  }
+ 
 }
