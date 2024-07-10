@@ -5,6 +5,7 @@ const cuotaCtrl = require('../controllers/cuota.controller');
 
 
 router.get('/', cuotaCtrl.obtenerCuotas);
-router.get('/:id', cuotaCtrl.obtenerCuotaPorIdAlquiler);
+router.get ('/:id', cuotaCtrl.obtenerCuota);
+router.get ('/:id/pagos/', cuotaCtrl.obtenerPagosPorIdCuota);
 
 module.exports = router;

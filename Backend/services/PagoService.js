@@ -72,7 +72,7 @@ class PagoService {
             console.error("Error al obtener los pagos: ", error);
             throw new Error("Error al obtener los pagos: " + error.message);
         }
-    }
+    } 
 
     /**
      * Metodo encargado de actualizar el estado de un pago

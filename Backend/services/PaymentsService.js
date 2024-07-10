@@ -3,7 +3,7 @@ const CuotaService = require('../services/CuotaService');
 const axios = require('axios');
 
 
-const hostBack = 'https://m-stamp-nokia-rh.trycloudflare.com';
+const hostBack = 'https://lived-belly-cosmetics-lance.trycloudflare.com';
 const hostFront = 'http://localhost:4200';
 
 class PaymentsService {
@@ -17,12 +17,21 @@ class PaymentsService {
                 usuario: payment.usuario,
                 montoPago: payment.unit_price,
                 montoInteres: await CuotaService.calcularInteres(payment.cuota, payment.unit_price),
+                tipo: payment.tipo,
                 cuota: payment.cuota,
                 preference : ""
             };
-            
+
+            if (payment.tipo != 'MercadoPago') {
+                pago.status = 'success';
+                const newPago = await PagoService.registrarPago(pago);
+                await CuotaService.actualizarEstadoCuota(newPago._id);
+                return newPago;
+            }
+
             const newPago = await PagoService.registrarPago(pago);
-    
+            
+            
             const url = 'https://api.mercadopago.com/checkout/preferences';
     
             const body = {
@@ -35,9 +44,9 @@ class PaymentsService {
                     }
                 ],
                 back_urls: {
-                    success: `${hostFront}/pagos/success/${newPago.id}`,
-                    failure: `${hostFront}/pagos/failure/${newPago.id}`,
-                    pending: `${hostFront}/pagos/pending/${newPago.id}`
+                    success: `${hostFront}/pagos/${newPago.id}/success`,
+                    failure: `${hostFront}/pagos/${newPago.id}/failure/`,
+                    pending: `${hostFront}/pagos/${newPago.id}/pending/`
                 },
                 notification_url: `${hostBack}/api/payments/notifications`,
                 external_reference: newPago.id,

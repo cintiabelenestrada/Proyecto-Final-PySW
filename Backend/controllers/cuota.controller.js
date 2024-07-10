@@ -37,6 +37,40 @@ cuotaCtrl.obtenerCuotas = async (req, res) => {
     }
 }
 
+cuotaCtrl.obtenerCuota = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const cuota = await cuotaService.getCuotaById(id);
+        res.json({
+            status: '1',
+            msg: 'Cuota obtenida correctamente',
+            data: cuota
+        });
+    } catch (error) {
+        res.status(400).json({
+            'status': '0',
+            'msg': 'Error al obtener la cuota' + error
+        });
+    }
+}
+
+cuotaCtrl.obtenerPagosPorIdCuota = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const pagos = await cuotaService.obtenerPagosPorIdCuota(id);
+        res.json({
+            status: '1',
+            msg: 'Pagos obtenidos correctamente',
+            data: pagos
+        });
+    } catch (error) {
+        res.status(400).json({
+            'status': '0',
+            'msg': 'Error al obtener los pagos' + error
+        });
+    }
+}
+
 
 
 

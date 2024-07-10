@@ -161,6 +161,18 @@ class CuotaService {
             throw new Error("Error al enviar correos de vencimiento de cuotas" + error);
         }
     }
+
+    async obtenerPagosPorIdCuota(idCuota) {
+        try {
+            const pagos = await PagoService.obtenerPagosPorIdCuota(idCuota);
+            console.log("Pagos obtenidos correctamente");
+            return pagos;
+        } catch (error) {
+            console.log("Error al obtener los pagos " + error);
+            throw new Error("Error al obtener los pagos" + error);
+        }
+    }
+    
 }
 
 module.exports = new CuotaService();

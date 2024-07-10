@@ -1,30 +1,54 @@
-<div class="container mt-5">
-    <div class="row g-4"> <!-- Envuelve los elementos en una fila -->
-        @for (cuota of listadoCuotas; track cuota._id ){
-            <div class="col-md-6"> <!-- Define cada elemento como una columna de 6/12 -->
-                <div class="borde-secundario rounded-3">
-                    <div class="p-2 card-header color-secundario fw-bold d-flex">
-                        <h5 class="card-title fs-3">Cuota: {{cuota._id}}</h5>
-                    </div>
-                    <div class="card-body p-2">
-                        <p class="card-text">
-                            <strong class="color-primario">Alquiler: </strong>{{cuota.alquiler}} <br>
-                            <strong class="color-primario">Monto Total: </strong>{{cuota.montoTotal | currency}} <br>
-                            <strong class="color-primario">Monto Restante: </strong> {{cuota.montoRestante | currency}}<br>
-                            <strong class="color-primario">Estado: </strong>
-                            @if (cuota.estado == 'Pendiente'){
+<div class="container my-5">
+    @switch (status) {
+        @case ("ok") {
+            <h2 class="fs-1  fw-bolder my-4 color-secundario">Listado de cuotas</h2>
+            <div class="row g-4 text-white "> <!-- Envuelve los elementos en una fila -->
+                @for (cuota of listadoCuotas; track cuota._id ){
+                <div class="col-md-6"> <!-- Define cada elemento como una columna de 6/12 -->
+                    <div class="borde-secundario rounded-3 bg-primario">
+                        <div class="p-2 card-header text-white fw-bold d-flex">
+                            <h5 class="card-title fs-3 ">Cuota del periodo: {{cuota.fecha | date: "dd/MM/yy"}} - {{cuota.fechaVencimiento | date:
+                                "dd/MM/YY"}}</h5>
+                        </div>
+                        <div class="card-body p-2 text-white">
+                            <p class="card-text">
+                                <strong class="color-terciario">Alquiler: </strong>{{cuota.alquiler}} <br>
+                                <strong class="color-terciario">Monto Total: </strong>{{cuota.montoTotal | currency}} <br>
+                                <strong class="color-terciario">Monto Restante: </strong> {{cuota.montoRestante | currency}}<br>
+                                <strong class="color-terciario">Estado: </strong>
+                                @if (cuota.estado == 'Pendiente'){
                                 <span class="badge bg-warning text-dark">{{cuota.estado}}</span>
-                            }@else if (cuota.estado == 'Pagada'){
+                                }@else if (cuota.estado == 'Pagada'){
                                 <span class="badge bg-success">{{cuota.estado}}</span>
-                            }   
-                            <br>
-                            <strong class="color-primario">Fecha Generada: </strong> {{cuota.fecha | date: "dd/MM/YY"}} <br>
-                            <strong class="color-primario">Fecha de Vencimiento: </strong> {{cuota.fechaVencimiento | date: "dd/MM/YY"}} <br>
-                        </p>
-                        <button class="btn btn-secundario">Ver Detalles</button>
+                                }
+                                <br>
+                                <strong class="color-terciario">Fecha Generada: </strong> {{cuota.fecha | date: "dd/MM/yy"}} <br>
+                                <strong class="color-terciario">Fecha de Vencimiento: </strong> {{cuota.fechaVencimiento | date:
+                                "dd/MM/YY"}} <br>
+                            </p>
+                            <button class="btn btn-secundario fw-bold" (click)="detallesCuota(cuota._id)">Ver Detalles</button>
+                        </div>
                     </div>
                 </div>
+                }
             </div>
         }
-    </div>
+        @case ("error") {
+            <h2 class="fs-1 color-primario fw-bolder my-4">Error al cargar las cuotas</h2>
+        }
+        @case ("loading") {
+            <div class="d-flex justify-content-center align-items-center vh-80">
+                <div class="spinner-grow spinner-grow-sm me-2 color-secundario" role="status" style="width: 3rem; height: 3rem;">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <div class="spinner-grow spinner-grow-sm me-2 color-secundario" role="status" style="width: 3rem; height: 3rem;">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                <div class="spinner-grow spinner-grow-sm color-secundario" role="status" style="width: 3rem; height: 3rem;">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+            </div>
+        }
+    }
+
 </div>
