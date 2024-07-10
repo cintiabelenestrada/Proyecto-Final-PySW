@@ -1,7 +1,6 @@
 const Alquiler = require('../models/Alquiler');
-const { post } = require('../routes/alquiler.route');
+require('../routes/alquiler.route');
 //const cuotaService = require('../services/CuotaService');
-const postFacebookService = require('../services/PostFacebook');
 const alquilerCtrl = {}
 
 alquilerCtrl.getAlquileres = async (req, res) => {
@@ -40,14 +39,16 @@ alquilerCtrl.createAlquiler = async (req, res) => {
     const alquiler = new Alquiler(req.body);
     try {
         await alquiler.save();
-        res.json({ 
-            'status': '1', 
-            'msg': 'Alquiler guardado.'}) 
-    } catch (error) { 
-        res.status(400).json({ 
-            'status': '0', 
-            'msg': 'Error guardando el alquiler.'}) 
-    } 
+        res.json({
+            'status': '1',
+            'msg': 'Alquiler guardado.'
+        })
+    } catch (error) {
+        res.status(400).json({
+            'status': '0',
+            'msg': 'Error guardando el alquiler.'
+        })
+    }
 }
 
 alquilerCtrl.updateAlquiler = async (req, res) => {
@@ -66,22 +67,22 @@ alquilerCtrl.updateAlquiler = async (req, res) => {
     }
 };
 
-alquilerCtrl.deleteAlquiler = async (req, res)=>{ 
-    try { 
-        await Alquiler.deleteOne({_id: req.params.id}); 
-        res.json({ 
-            status: '1', 
-            msg: 'Alquiler eliminado' 
-        })    
-    } catch (error) { 
-        res.status(400).json({ 
-            'status': '0', 
-            'msg': 'Error eliminando el alquler' 
-        })   
-    } 
-} 
+alquilerCtrl.deleteAlquiler = async (req, res) => {
+    try {
+        await Alquiler.deleteOne({ _id: req.params.id });
+        res.json({
+            status: '1',
+            msg: 'Alquiler eliminado'
+        })
+    } catch (error) {
+        res.status(400).json({
+            'status': '0',
+            'msg': 'Error eliminando el alquler'
+        })
+    }
+}
 
-module.exports = alquilerCtrl; 
+module.exports = alquilerCtrl;
 alquilerCtrl.deleteAlquiler = async (req, res) => {
     try {
         await Alquiler.deleteOne({ _id: req.params.id });
@@ -134,26 +135,6 @@ alquilerCtrl.obtenerCuotasPorIdAlquiler = async (req, res) => {
         res.status(400).json({
             'status': '0',
             'msg': 'Error al obtener las cuotas' + error
-        });
-    }
-}
-
-alquilerCtrl.publish = async (req, res) => {
-    try {
-        const alquiler = await Alquiler.findById(req.body.id).populate('local').populate('propietario').exec();
-        
-        // Llama al método publish del servicio
-        const publicacionId = await postFacebookService.publish(alquiler);
-        res.status(200).json({
-            status: '1',
-            msg: 'Publicación exitosa',
-            data: publicacionId
-        });
-    } catch (error) {
-        res.status(400).json({
-            status: '0',
-            msg: 'Error publicando en Facebook',
-            error: error.message // Incluye el mensaje de error para más detalles
         });
     }
 }
