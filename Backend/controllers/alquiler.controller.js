@@ -1,5 +1,8 @@
-const Alquiler = require('../models/Alquiler'); 
-const alquilerCtrl = {} 
+const Alquiler = require('../models/Alquiler');
+const { post } = require('../routes/alquiler.route');
+const cuotaService = require('../services/CuotaService');
+const postFacebookService = require('../services/postFacebook');
+const alquilerCtrl = {}
 
 alquilerCtrl.getAlquileres = async (req, res) => {
     try {
@@ -33,9 +36,9 @@ alquilerCtrl.getAlquilerById = async (req, res) => {
     }
 };
 
-alquilerCtrl.createAlquiler = async (req, res) => { 
-    const alquiler = new Alquiler(req.body); 
-    try { 
+alquilerCtrl.createAlquiler = async (req, res) => {
+    const alquiler = new Alquiler(req.body);
+    try {
         await alquiler.save();
         res.json({ 
             'status': '1', 
@@ -79,3 +82,100 @@ alquilerCtrl.deleteAlquiler = async (req, res)=>{
 } 
 
 module.exports = alquilerCtrl; 
+alquilerCtrl.deleteAlquiler = async (req, res) => {
+    try {
+        await Alquiler.deleteOne({ _id: req.params.id });
+        res.json({
+            status: '1',
+            msg: 'Alquiler eliminado'
+        })
+    } catch (error) {
+        res.status(400).json({
+            'status': '0',
+            'msg': 'Error eliminando el alquler'
+        })
+    }
+}
+// Generar cuotas para todos los alquileres, metodo reservado para el cron
+alquilerCtrl.generarCuotas = async (req, res) => {
+    try {
+        const alquileres = await Alquiler.find();
+        await Promise.all(alquileres.map(async alquiler => {
+            const cuota = {
+                alquiler: alquiler._id,
+                montoTotal: alquiler.costoAlquiler,
+            };
+            await cuotaService.createCuota(cuota);
+        }));
+        res.json({
+            status: '1',
+            msg: 'Cuotas generadas correctamente'
+        });
+    } catch (error) {
+        res.status(400).json({
+            status: '0',
+            msg: 'Error generando las cuotas',
+            error: error.message
+        });
+    }
+
+}
+
+alquilerCtrl.obtenerCuotasPorIdAlquiler = async (req, res) => {
+    try {
+        const idAlquiler = req.params.id;
+        const cuotas = await cuotaService.getCuotasById(idAlquiler);
+        res.json({
+            status: '1',
+            msg: 'Cuotas obtenidas correctamente',
+            data: cuotas
+        });
+    } catch (error) {
+        res.status(400).json({
+            'status': '0',
+            'msg': 'Error al obtener las cuotas' + error
+        });
+    }
+}
+
+alquilerCtrl.publish = async (req, res) => {
+    const alquiler = await Alquiler.findById(req.params.id).populate('Local').populate('Propietario');
+    try {
+        const publicacionId = await postFacebookService.publish(alquiler);
+        res.status(200).json({
+            status: '1',
+            msg: 'Publicación exitosa',
+            data: publicacionId
+        });
+
+    } catch (error) {
+        res.status(400).json({
+            status: '0',
+            msg: 'Error publicando en Facebook',
+        });
+    }
+
+}
+
+
+module.exports = alquilerCtrl;
+
+/*
+    const CuotaSchema = new Schema({
+    alquiler: { type: Schema.Types.ObjectId, ref: 'Alquiler', required: true },
+    montoTotal: { type: Number, required: true },
+    montoRestante: { type: Number, required: true },
+    fecha: { type: Date, default: Date.now },
+    fechaVencimiento: { 
+        type: Date, 
+        default: () => new Date(new Date().getTime() + (10 * 24 * 60 * 60 * 1000)) // Agrega 30 días a la fecha actual
+    },
+    estado: { 
+        type: String, 
+        enum: ['Pendiente', 'Pagada'],
+        default: 'Pendiente'
+    },
+    pagos: [{ type: Schema.Types.ObjectId, ref: 'Pago'}]
+});
+*/
+
