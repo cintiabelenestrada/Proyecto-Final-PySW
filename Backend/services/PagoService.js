@@ -80,21 +80,26 @@ class PagoService {
      * @param {*} estado {pending, success, failure}
      * @returns pago actual
      */
-    async actualizarEstadoPago(id, estado) {
+    async actualizarEstadoPago(idPago, estado) {
         try {
             const pagoBuscado = await Pago.findById(id);
             if (pagoBuscado.status === estado){
                 throw new Error("El pago ya se encuentra en ese estado");
             }
-            console.log ("Actualizando estado de pago:" + id + " " + estado);
             const updateData = {
                 status: estado,
                 fechaActualizacion: new Date()
             };
-            const pagoActualizado = await Pago.findByIdAndUpdate (id, updateData , { new: true });
+            const pagoActualizado = await Pago.findByIdAndUpdate (idPago, updateData , { new: true });
             if (pagoActualizado.status === 'success') {
                 const cuota = await Cuota.findById(pagoActualizado.cuota);
+                if (!cuota) {
+                    throw new Error("Cuota no encontrada");
+                }
                 const usuario = await Usuario.findById(cuota.usuario);
+                if (!usuario) {
+                    throw new Error("Usuario no encontrado");
+                }
                 await emailSender.enviarComprobanteDePago(usuario.email, pagoActualizado);
             }
             return pagoActualizado;

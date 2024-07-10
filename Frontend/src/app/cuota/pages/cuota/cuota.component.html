@@ -22,8 +22,8 @@
                         <strong class="color-terciario">Fecha de Vencimiento:</strong> {{ cuota.fechaVencimiento | date: "dd/MM/yy" }}
                     </p>
                     @if (cuota.estado == 'Pendiente'){
-                        <button class="btn bg-secundario text-white mt-3">
-                            <i class="fa fa-credit-card"></i> Pagar Cuota
+                        <button class="btn btn-secundario bg-secundario mt-3" (click)="pagarCuota(cuota._id)">
+                            <i class="bi bi-cash"></i> Pagar Cuota
                         </button>
                     }
                     

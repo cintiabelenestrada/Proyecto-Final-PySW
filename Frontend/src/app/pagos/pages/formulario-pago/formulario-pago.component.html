@@ -1,1 +1,77 @@
-<p>formulario-pago works!</p>
+<div class="container">
+    @switch (status) {
+        @case ("ok") {
+            <div class="d-flex justify-content-center p-2 rounded my-2">
+                <div class="borde-secundario p-2 rounded my-2 w-50 bg-primario">
+                    <h6 class=" mb-2 color-secundario fs-2 fw-bold">Registrar un Pago:</h6>
+                    <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+                        <div class="mb-3">
+                            <p class="color-terciario fw-bold">Cuota con Identificador: <span class="text-white fw-normal" >{{cuotaEncontrada._id}}</span></p>
+                            <p class="color-terciario fw-bold">Correspondiente al Aquiler: <span class="text-white fw-normal" >{{cuotaEncontrada.alquiler}}</span></p>
+                            <p class="color-terciario fw-bold">Monto Total de la Cuota: <span class="text-white fw-normal" >{{cuotaEncontrada.montoTotal| currency}}</span></p>
+                            <p class="color-terciario fw-bold">Monto restante con Interes: <span class="text-white fw-normal" >{{montoMaximo| currency}}</span></p>
+                            @if (diasDeAtraso <= 0) {
+                                <p class="color-terciario fw-bold">Fecha de Vencimiento: <span class="text-white fw-normal" >{{cuotaEncontrada.fechaVencimiento | date: "dd/MM/yyy"}}</span></p>
+                            }@else{
+                                <p class="color-terciario fw-bold">Fecha de Vencimiento: <span class="text-danger fw-normal">{{cuotaEncontrada.fechaVencimiento | date: "dd/MM/yyy"}}</span></p>
+                            }
+                           
+                        </div>
+                        <div class="mb-3">
+                            <label for="unit_price" class="form-label color-secundario">Monto del Pago:</label>
+                            <input type="number" class="form-control" id="unit_price" formControlName="unit_price">
+                            @if (unit_price?.touched && unit_price?.invalid) {
+                                <div class="text-danger">
+                                    @if (unit_price?.hasError('required')) {
+                                        El monto del pago es requerido.
+                                    } @else if (unit_price?.hasError('min')) {
+                                        El monto del pago debe ser mayor a 0.
+                                    } @else if (unit_price?.hasError('max')) {
+                                        El monto del pago no puede ser mayor a {{montoMaximo}}.
+                                    }
+                                </div>
+                            }
+                        </div>
+                        <div class="mb-3">
+                            <label for="tipo" class="form-label color-secundario">Tipo de Pago:</label>
+                            <select class="form-select" id="tipo" formControlName="tipo">
+                                <option value="MercadoPago">Mercado Pago</option>
+                                <option value="Efectivo">Efectivo</option>
+                                <option value="Transferencia">Transferencia</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-secundario fw-bolder" [disabled]="paymentForm.invalid">Registrar Pago</button>
+                    </form>
+                </div>
+            </div>
+        }@case("error"){
+            <div class="d-flex justify-content-center align-items-center vh-80">
+                <div class="text-center">
+                    <!-- Asegúrate de que el chequeo condicional esté bien estructurado -->
+                    @if(this.cuotaEncontrada.montoRestante == 0){
+                        <h2 class="fs-1 text-danger fw-bolder my-4">La cuota ya fue pagada</h2>
+                    }@else{
+                        <h2 class="fs-1 text-primario fw-bolder my-4">Error al cargar los pagos</h2>
+                    }
+                    <!-- Icono, asegurándose de que esté dentro del mismo div que el texto para que todo se centre juntos -->
+                    <i class="bi text-danger text-center bi-x-circle fs-1"></i>
+                </div>
+            </div>
+             
+        }@case ("loading") {
+            <div class="d-flex justify-content-center align-items-center vh-80">
+                <div class="spinner-grow spinner-grow-sm me-2 color-secundario" role="status" style="width: 3rem; height: 3rem;">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <div class="spinner-grow spinner-grow-sm me-2 color-secundario" role="status" style="width: 3rem; height: 3rem;">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                <div class="spinner-grow spinner-grow-sm color-secundario" role="status" style="width: 3rem; height: 3rem;">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+            </div>
+        }
+    }
+    
+
+</div>

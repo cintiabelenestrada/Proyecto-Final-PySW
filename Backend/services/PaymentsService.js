@@ -3,7 +3,7 @@ const CuotaService = require('../services/CuotaService');
 const axios = require('axios');
 
 
-const hostBack = 'https://lived-belly-cosmetics-lance.trycloudflare.com';
+const hostBack = 'https://staff-excel-model-things.trycloudflare.com';
 const hostFront = 'http://localhost:4200';
 
 class PaymentsService {
@@ -44,9 +44,9 @@ class PaymentsService {
                     }
                 ],
                 back_urls: {
-                    success: `${hostFront}/pagos/${newPago.id}/success`,
-                    failure: `${hostFront}/pagos/${newPago.id}/failure/`,
-                    pending: `${hostFront}/pagos/${newPago.id}/pending/`
+                    success: `${hostFront}/cuotas/${payment.cuota}/pago/success`,
+                    failure: `${hostFront}/cuotas/${payment.cuota}/pago/failure`,
+                    pending: `${hostFront}/cuotas/${payment.cuota}/pago/pending`
                 },
                 notification_url: `${hostBack}/api/payments/notifications`,
                 external_reference: newPago.id,

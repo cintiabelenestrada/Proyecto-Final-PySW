@@ -19,7 +19,7 @@ class EmailSender {
 
     async enviarComprobanteDePago(email, pago) {
         // Generar QR
-        const qrDataURL = await QRCode.toDataURL(hostFront + '/pagos/' + pago.id);
+        const qrDataURL = await QRCode.toDataURL(hostFront + '/cuotas/' + pago.cuota +'/pago/success');
     
         // Configurar las opciones del correo electrónico
         let mailOptions = {

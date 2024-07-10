@@ -14,8 +14,7 @@ const CuotaSchema = new Schema({
         type: String, 
         enum: ['Pendiente', 'Pagada'],
         default: 'Pendiente'
-    },
-    pagos: [{ type: Schema.Types.ObjectId, ref: 'Pago'}]
+    }
 });
 
 module.exports = mongoose.models.Cuota || mongoose.model('Cuota', CuotaSchema);

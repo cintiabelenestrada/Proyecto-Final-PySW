@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CuotaGet } from '../../interfaces/cuota-get';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { CuotaService } from '../../services/cuota.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -22,14 +22,17 @@ export class CuotaComponent {
 
   constructor(private activatedRoute: ActivatedRoute,
               private cuotaService: CuotaService,
-              private toastr: ToastrService
+              private toastr: ToastrService,
+              private router: Router
               ) { }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(({ id }) => {
+    this.activatedRoute.params.subscribe(({ id, status }) => {
       this.obtenerCuota(id);
       this.obtenerPagosPorCuotaId(id);
-      
+      if (status === 'success') {
+        this.toastr.success('Pago realizado con éxito');
+      }
     });
     
   }
@@ -59,6 +62,10 @@ export class CuotaComponent {
         this.statusPagos = "error";
       }
     });
+  }
+
+  pagarCuota(id:string){
+    this.router.navigate([`/cuotas/${id}/pago`]);
   }
 
   
