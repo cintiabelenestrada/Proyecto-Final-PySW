@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LocalInterface } from '../interfaces/locales.interface';
 import { Observable } from 'rxjs';
@@ -10,8 +10,16 @@ export class LocalService {
 
   constructor(private _http:HttpClient) { }
 
-  public postCreateLocal(local: LocalInterface) {
-    return this._http.post('http://localhost:3000/api/locales',local);
+  public postCreateLocal(local: LocalInterface): Observable<any>  {
+    const httpOptions={
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      params : new HttpParams({}),
+    }
+    let body = JSON.stringify(local);
+    console.log(local);
+    return this._http.post('http://localhost:3000/api/locales', body, httpOptions);
   }
   public getAllLocales(): Observable<any> {
     return this._http.get('http://localhost:3000/api/locales');
