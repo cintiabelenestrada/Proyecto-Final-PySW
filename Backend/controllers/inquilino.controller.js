@@ -1,9 +1,14 @@
 const Inquilino = require('../models/Inquilino');
+const Usuario = require('../models/Usuario');
 const inquilinoCtrl = {};
 
 inquilinoCtrl.getInquilinos = async (req, res) => {
-    const inquilinos = await Inquilino.find();
-    res.json(inquilinos);
+    try {
+        const inquilinos = await Usuario.find({ perfil: 'inquilino' });
+        res.json(inquilinos);
+    } catch (error) {
+        res.status(500).json({ message: 'Error al obtener los inquilinos', error });
+    }
 };
 
 inquilinoCtrl.getInquilinoById = async (req, res) => {

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { PropietarioService } from '../service/propietario.service';
+import { InquilinoService } from '../service/inquilino.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -18,7 +18,7 @@ export class FormPropietarioComponent implements OnInit {
   nuevos!: any;
   id: any;
 
-  constructor(private fb: FormBuilder, private propietarioService: PropietarioService,
+  constructor(private fb: FormBuilder, private propietarioService: InquilinoService,
     private router: Router, private activateRoute: ActivatedRoute,
     private toastr: ToastrService) { }
   ngOnInit(): void {
@@ -50,7 +50,7 @@ export class FormPropietarioComponent implements OnInit {
   });
 
   guardarPropietario() {
-    this.propietarioService.createPropietario(this.propietarioForm.value).subscribe({
+    this.propietarioService.createInquilino(this.propietarioForm.value).subscribe({
       next: (response) => {
         console.log(response);
         this.router.navigateByUrl("/propietario");
@@ -63,7 +63,7 @@ export class FormPropietarioComponent implements OnInit {
 
   actualizarPropietario() {
 
-    this.propietarioService.updatePropietario(this.id, this.nuevos).subscribe({
+    this.propietarioService.updateInquilino(this.id, this.nuevos).subscribe({
       next: (response) => {
         console.log(response);
         this.router.navigateByUrl("/propietario");
@@ -77,7 +77,7 @@ export class FormPropietarioComponent implements OnInit {
   }
 
   getPropietarioById(id: string) {
-    this.propietarioService.getPropietarioById(id).subscribe({
+    this.propietarioService.getInquilinoById(id).subscribe({
       next: (response) => {
         // console.log(response); 
         this.propietarioForm.patchValue(response);

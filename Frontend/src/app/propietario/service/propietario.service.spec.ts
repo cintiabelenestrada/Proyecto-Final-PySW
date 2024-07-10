@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PropietarioService } from './propietario.service';
+import { PropietarioService } from './inquilino.service';
 
 describe('PropietarioService', () => {
   let service: PropietarioService;

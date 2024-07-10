@@ -7,6 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Alquiler } from '../../models/alquiler';
 import { Local } from '../../../local/models/local';
 import { UsuarioGet } from '../../../usuarios/interfaces/usuario-get.interface';
+import { InquilinoService } from '../../../propietario/service/inquilino.service';
+import { LocalService } from '../../../local/service/local.service';
 
 @Component({
   selector: 'app-formulario-alquiler',
@@ -25,6 +27,8 @@ export class FormularioAlquilerComponent {
   constructor(
     private form: FormBuilder,
     private alquilerService: AlquilerService,
+    private inquilinoService: InquilinoService,
+    private localService: LocalService,
     private router: Router,
     private toastr: ToastrService,
     private activatedRoute: ActivatedRoute
@@ -187,7 +191,7 @@ export class FormularioAlquilerComponent {
   }
 
   getLocales() {
-    this.alquilerService.getLocales().subscribe(
+    this.localService.getLocales().subscribe(
       result => {
         this.locales = result;        
       }
@@ -195,9 +199,10 @@ export class FormularioAlquilerComponent {
   }
 
   getInquilinos() {    
-    this.alquilerService.getInquilinos().subscribe(
+    this.inquilinoService.getInquilinos().subscribe(
       result => {
-        this.inquilinos = result.data;        
+
+        this.inquilinos = result;        
       }
     )
   }

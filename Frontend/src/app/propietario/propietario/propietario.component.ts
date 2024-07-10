@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { PropietarioService } from '../service/propietario.service';
+import { InquilinoService } from '../service/inquilino.service';
 import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
@@ -17,7 +17,7 @@ export class PropietarioComponent implements OnInit {
   auxiliar!: any;
 
   constructor(private route: ActivatedRoute, private router: Router,
-    private propietarioService: PropietarioService,
+    private inquilinoService: InquilinoService,
     private toastr: ToastrService
   ) { }
   ngOnInit(): void {
@@ -28,7 +28,7 @@ export class PropietarioComponent implements OnInit {
     this.router.navigate(['form-propietario', ""]);
   }
   getPropietarios() {
-    this.propietarioService.getPropietarios().subscribe({
+    this.inquilinoService.getInquilinos().subscribe({
       next: (response) => {
         this.auxiliar = response;
         console.log(this.auxiliar);
@@ -44,7 +44,7 @@ export class PropietarioComponent implements OnInit {
   }
 
   eliminarPropietario(id: string): void {
-    this.propietarioService.deletePropietario(id).subscribe({
+    this.inquilinoService.deleteInquilino(id).subscribe({
       next: (response) => {
         this.getPropietarios();
         this.toastr.warning("Propietario Eliminado con Exito", "Información");
