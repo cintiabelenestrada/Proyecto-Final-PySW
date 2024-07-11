@@ -15,11 +15,12 @@
             <p class="card-text">Descripcion: {{locales.descripcion}}</p>
             <p class="card-text">superficie: {{locales.superficie}}</p>
             <p class="card-text">habilitado: {{locales.habilitado}}</p>
-            <p class="card-text">Cliente: {{locales.customers}}</p>
+            <p class="card-text">Costo Mes: {{locales.customers}}</p>
             <p class="card-text">alquilado: {{locales.alquilado}}</p>
           </div>
           <div class="card-footer text-center">
-            <a class="btn btn-primary" (click)="MostrarLocales()">Locales</a>
+            <a class="btn btn-primary" (click)="editarLocal(locales)">Modificar</a>
+            <!-- <a class="btn btn-primary" (click)="LocalById(locales)">Info</a> -->
           </div>
         </div>
       </div>
