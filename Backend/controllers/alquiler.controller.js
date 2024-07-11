@@ -3,7 +3,7 @@ const alquilerCtrl = {}
 
 alquilerCtrl.getAlquileres = async (req, res) => {
     try {
-        const alquileres = await Alquiler.find().populate('Local').populate('Propietario');
+        const alquileres = await Alquiler.find().populate('local').populate('propietario');
         res.json(alquileres);
     } catch (error) {
         res.status(500).json({
@@ -16,7 +16,7 @@ alquilerCtrl.getAlquileres = async (req, res) => {
 
 alquilerCtrl.getAlquilerById = async (req, res) => {
     try {
-        const alquiler = await Alquiler.findById(req.params.id).populate('Local').populate('Propietario');
+        const alquiler = await Alquiler.findById(req.params.id).populate('local').populate('propietario');
         if (!alquiler) {
             return res.status(404).json({
                 status: '0',

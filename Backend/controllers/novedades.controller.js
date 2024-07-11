@@ -3,12 +3,39 @@ const novedadesCtrl = {};
 
 novedadesCtrl.getNovedades = async (req, res) => {
     try {
+        const novedades = await Novedades.find({ estado: true }).populate('Usuario');
+        res.json(novedades);
+    } catch (error) {
+        res.status(500).json({
+            status: '0',
+            msg: 'Error obteniendo las novedades',
+            error: error.message
+        });
+    }
+};
+
+novedadesCtrl.getAllNovedades = async (req, res) => {
+    try {
         const novedades = await Novedades.find().populate('Usuario');
         res.json(novedades);
     } catch (error) {
         res.status(500).json({
             status: '0',
             msg: 'Error obteniendo las novedades',
+            error: error.message
+        });
+    }
+}
+
+novedadesCtrl.getNovedadesByUsuario = async (req, res) => {
+    try {
+        const { usuarioId } = req.params;
+        const novedades = await Novedades.find({ Usuario: usuarioId }).populate('Usuario');
+        res.json(novedades);
+    } catch (error) {
+        res.status(500).json({
+            status: '0',
+            msg: 'Error obteniendo las novedades del usuario',
             error: error.message
         });
     }

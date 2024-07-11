@@ -2,11 +2,12 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('./database');
 const jwt = require('jsonwebtoken');
+const bodyParser = require('body-parser');
 
 const app = express();
 
 // Middlewares
-app.use(express.json());
+app.use(express.json({limit : '50mb'}));
 app.use(cors({ origin: 'http://localhost:4200' }));
 const verifyToken = (req, res, next) => {
   const token = req.headers['authorization'];
@@ -36,6 +37,8 @@ app.use('/api/alquileres', require('./routes/alquiler.route.js'));
 app.use('/api/locales', require('./routes/locales.route.js'));
 //app.use('api/pagos', require('./routes/pagos.route.js'));
 
+app.use(express.urlencoded({limit: '50mb', extended: true}));
+
 // Settings
 
 app.set('port', process.env.PORT || 3000);
@@ -44,3 +47,4 @@ app.set('port', process.env.PORT || 3000);
 app.listen(app.get('port'), () => {
   console.log('Server iniciado en puerto: ', app.get('port'));
 });
+

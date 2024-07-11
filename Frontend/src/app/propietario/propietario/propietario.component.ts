@@ -10,22 +10,23 @@ import { ToastrService } from 'ngx-toastr';
   standalone: true,
   imports: [RouterLink, CommonModule],
   templateUrl: './propietario.component.html',
-  styleUrl: './propietario.component.css'
+  styleUrl: './propietario.component.css',
 })
 export class PropietarioComponent implements OnInit {
-
   auxiliar!: any;
 
-  constructor(private route: ActivatedRoute, private router: Router,
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     private propietarioService: PropietarioService,
     private toastr: ToastrService
-  ) { }
+  ) {}
   ngOnInit(): void {
     this.getPropietarios();
   }
 
   crearPropietario(): void {
-    this.router.navigate(['form-propietario', ""]);
+    this.router.navigate(['/dashboard/form-propietario', '']);
   }
   getPropietarios() {
     this.propietarioService.getPropietarios().subscribe({
@@ -35,24 +36,23 @@ export class PropietarioComponent implements OnInit {
       },
       error: (error) => {
         console.log(error);
-      }
-    })
+      },
+    });
   }
 
   editarPropietario(id: string): void {
-    this.router.navigate(['form-propietario', id]);
+    this.router.navigate(['/dashboard/form-propietario', id]);
   }
 
   eliminarPropietario(id: string): void {
     this.propietarioService.deletePropietario(id).subscribe({
       next: (response) => {
         this.getPropietarios();
-        this.toastr.warning("Propietario Eliminado con Exito", "Información");
+        this.toastr.warning('Propietario Eliminado con Exito', 'Información');
       },
       error: (error) => {
         console.log(error);
-      }
-    })
+      },
+    });
   }
-
 }
