@@ -1,0 +1,22 @@
+<h2>Lista de Novedades</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Título</th>
+      <th scope="col">Descripción</th>
+      <th scope="col">Imagen</th>
+      <th scope="col">Estado </th>
+      <th scope="col">Creador</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let n of novedades">
+      <td>{{n.titulo}}</td>
+      <td>{{n.Texto}}</td>
+      <td><img [src]="n.imagen" class="img-thumbnail" alt="Imagen de la novedad" style="max-width: 150px;"></td>
+      <td><p *ngIf="n.estado == true">Publicado</p><p *ngIf="n.estado == false">Borrador</p></td>
+      <td>{{n.Usuario.usuario}}</td>
+      <td><button class="btn btn-danger text-light" (click)="eliminarNovedad(n._id)">Eliminar</button></td>
+    </tr>
+  </tbody>
+</table>

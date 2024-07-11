@@ -11,14 +11,10 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './local.component.css'
 })
 export class LocalComponent {
-  datoslocales: LocalInterface = {
-    superficie: 0,
-    habilitado: false,
-    customers: 0,
-    pathimagen: '',
-    alquilado: false
-  };
-  constructor(private localService: LocalService) {}
+  datoslocales: LocalInterface;
+
+  constructor(private localService: LocalService) {this.datoslocales = new LocalInterface();
+  }
 
   AltaLocal() {
     this.localService.postCreateLocal(this.datoslocales).subscribe(
