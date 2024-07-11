@@ -104,6 +104,23 @@ export class DashboardComponent {
       url: '/dashboard/local',
       iconComponent: { name: 'cil-building' },
     },
+    {
+      name: 'ALQUILERES',
+      title: true,
+      class: this.showForRoles(['administrativo', 'dueño']),
+    },
+    {
+      name: 'Listado',
+      url: '/dashboard/listado-alquiler',
+      iconComponent: { name: 'cil-list-rich' },
+      class: this.showForRoles(['administrativo', 'dueño']),
+    },
+    {
+      name: 'Registrar',
+      url: '/dashboard/formulario-alquiler',
+      iconComponent: { name: 'cil-user-plus' },
+      class: this.showForRoles(['administrativo', 'dueño']),
+    },
   ];
 
   showForRoles(roles: string[]): string {
