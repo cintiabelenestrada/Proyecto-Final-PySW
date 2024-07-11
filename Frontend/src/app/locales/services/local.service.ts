@@ -29,8 +29,6 @@ export class LocalService {
   }
 
   public getObtenerLocalById(id: string): Observable<any> {
-   console.log("llogg",id);
-   
     return this._http.get('http://localhost:3000/api/locales/'+id);
   }
 
