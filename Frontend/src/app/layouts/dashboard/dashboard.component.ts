@@ -110,15 +110,15 @@ export class DashboardComponent {
       class: this.showForRoles(['administrativo', 'dueño']),
     },
     {
-      name: 'Listado',
-      url: '/dashboard/listado-alquiler',
-      iconComponent: { name: 'cil-list-rich' },
-      class: this.showForRoles(['administrativo', 'dueño']),
-    },
-    {
       name: 'Registrar',
       url: '/dashboard/formulario-alquiler',
       iconComponent: { name: 'cil-user-plus' },
+      class: this.showForRoles(['administrativo', 'dueño']),
+    },
+    {
+      name: 'Listado',
+      url: '/dashboard/listado-alquiler',
+      iconComponent: { name: 'cil-list-rich' },
       class: this.showForRoles(['administrativo', 'dueño']),
     },
   ];
