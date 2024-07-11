@@ -96,7 +96,20 @@ export class LocaleditComponent implements OnInit {
       },
     });
   }
-  // LocalById(localedit: any): void {
+
+  LocalById(id: string): void {
+    this.localService.getObtenerLocalById(id).subscribe({
+      next: (response) => {
+        // console.log(response);
+        this.localesForm.patchValue(response);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+  
+    // LocalById(localedit: any): void {
   //   const id = localedit._id;
   //   this.localService.getObtenerLocalById(this.id).subscribe(
   //     (data:any) => {
@@ -120,16 +133,4 @@ export class LocaleditComponent implements OnInit {
   //     }
   //   );
   // }
-
-  LocalById(id: string): void {
-    this.localService.getObtenerLocalById(id).subscribe({
-      next: (response) => {
-        // console.log(response);
-        this.localesForm.patchValue(response);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-  }
 }
