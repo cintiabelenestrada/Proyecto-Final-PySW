@@ -71,6 +71,25 @@ cuotaCtrl.obtenerPagosPorIdCuota = async (req, res) => {
     }
 }
 
+cuotaCtrl.obtenerCuotasPorIdUsuario = async (req, res) => {
+    try {
+        const idUsuario = req.params.id;
+        if (!idUsuario) {
+            throw new Error('El id del usuario es necesario para obtener las cuotas');
+        }
+        const cuotas = await cuotaService.obtenerCuotasPorIdUsuario(idUsuario);
+        res.json({
+            status: '1',
+            msg: 'Cuotas obtenidas correctamente',
+            data: cuotas
+        });
+    } catch (error) {
+        res.status(400).json({
+            'status': '0',
+            'msg': 'Error al obtener las cuotas' + error
+        });
+    }
+};
 
 
 

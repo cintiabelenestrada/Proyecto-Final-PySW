@@ -82,7 +82,7 @@ class PagoService {
      */
     async actualizarEstadoPago(idPago, estado) {
         try {
-            const pagoBuscado = await Pago.findById(id);
+            const pagoBuscado = await Pago.findById(idPago);
             if (pagoBuscado.status === estado){
                 throw new Error("El pago ya se encuentra en ese estado");
             }
@@ -96,7 +96,8 @@ class PagoService {
                 if (!cuota) {
                     throw new Error("Cuota no encontrada");
                 }
-                const usuario = await Usuario.findById(cuota.usuario);
+                const alquiler = await Alquiler.findById(cuota.alquiler);
+                const usuario = await Usuario.findById(alquiler.inquilino);
                 if (!usuario) {
                     throw new Error("Usuario no encontrado");
                 }

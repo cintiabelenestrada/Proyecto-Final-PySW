@@ -3,6 +3,7 @@ const PagoService = require('./PagoService');
 const Alquiler = require('../models/Alquiler');
 const emailSender = require('./emailSender');
 const propietario = require('../models/Propietario');
+const Usuario = require('../models/Usuario');
 
 class CuotaService {
 
@@ -152,7 +153,7 @@ class CuotaService {
                 const diasRestantes = (cuota.fechaVencimiento - fechaActual) / (1000 * 60 * 60 * 24);
                 if (diasRestantes <= 1) {
                     const alquiler = await Alquiler.findById(cuota.alquiler);
-                    const propietario = await propietario.findById(alquiler.propietario);
+                    const inquilino = await Usuario.findById(alquiler.inquilino);
                     await emailSender.enviarAvisoDePagoPendiente(propietario.email, cuota);
                 }
             });
@@ -170,6 +171,22 @@ class CuotaService {
         } catch (error) {
             console.log("Error al obtener los pagos " + error);
             throw new Error("Error al obtener los pagos" + error);
+        }
+    }
+
+    async obtenerCuotasPorIdUsuario(idUsuario){
+        try{
+            const Alquileres = await Alquiler.find({inquilino: idUsuario});
+            console.log(JSON.stringify(Alquileres));
+            const cuotas = await Promise.all(Alquileres.map(async alquiler => {
+                return await Cuota.find({alquiler: alquiler._id});
+            }));
+            const cuotasAplanadas = cuotas.flat(); // Aplanar el arreglo de cuotas
+            console.log("Cuotas obtenidas correctamente para el usuario: " + idUsuario);
+            return cuotasAplanadas; // Devolver el arreglo aplanado
+        }catch (error) {
+            console.log("Error al obtener las cuotas " + error);
+            throw new Error("Error al obtener las cuotas" + error);
         }
     }
     

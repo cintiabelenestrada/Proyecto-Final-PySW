@@ -66,12 +66,28 @@ export const routes: Routes = [
       {path: 'novedades/usuario', component: NovedadesUsuarioComponent},
       { path: 'propietario', component: PropietarioComponent},
       { path: 'form-propietario/:id', component: FormPropietarioComponent},
-      { path: "cuotas", component: ListadoCuotasComponent , title: 'Listado de Cuotas'},
-      {path: 'cuotas/:id', component: CuotaComponent, title: 'Detalle de una Cuota'},
-      {path: 'cuotas/:id/pago/:status', component: CuotaComponent, title: 'Registrar Pago'},
-      {path: 'pagos', component: ListadoPagosComponent, title: 'Listado de Pagos'},
-      {path:'cuotas/:id/pago',component: FormularioPagoComponent, title: 'Registrar Pago'},
       // { path: 'locales/edit/:id', component: LocaleditComponent }, // componente no encontrado
+      //Pagos
+      { path: "cuotas",
+        component: ListadoCuotasComponent,
+        title: 'Listado de Cuotas',
+      },
+      {path: 'cuotas/:id',
+        component: CuotaComponent,
+        title: 'Detalle de una Cuota'
+      },
+      {path: 'cuotas/:id/pago/:status',
+        component: CuotaComponent,
+        title: 'Registrar Pago'
+      },
+      {path: 'pagos',
+        component: ListadoPagosComponent,
+        title: 'Listado de Pagos'
+      },
+      {path:'cuotas/:id/pago',
+        component: FormularioPagoComponent,
+        title: 'Registrar Pago'
+      },
       { 
         path: 'listado-alquiler',
         title: 'Listado Alquiler',

@@ -53,7 +53,7 @@ alquilerCtrl.getAlquilerById = async (req, res) => {
 
 alquilerCtrl.createAlquiler = async (req, res) => { 
     try { 
-        await alquiler.save();
+        const alquiler = await alquilerService.createAlquiler(req.body);
         await cuotaService.createCuota({
             alquiler: alquiler._id,
             montoTotal: alquiler.costoAlquiler
@@ -62,6 +62,7 @@ alquilerCtrl.createAlquiler = async (req, res) => {
             'status': '1', 
             'msg': 'Alquiler guardado.'}) 
     } catch (error) { 
+        console.error('Error guardando el alquiler:', error);
         res.status(400).json({ 
             'status': '0', 
             'msg': 'Error guardando el alquiler.'}) 

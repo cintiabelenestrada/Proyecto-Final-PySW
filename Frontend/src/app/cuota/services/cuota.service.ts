@@ -30,5 +30,8 @@ export class CuotaService {
     return this.http.get<PagoResponse<PagoGet[]>>(url).pipe( map((res) => res.data));
   }
 
-
+  obtenerCuotasPorUsuario (id: string): Observable<CuotaGet[]> {
+    const url = `${this.baseUrl}/usuario/${id}`;
+    return this.http.get<CuotaResponse<CuotaGet[]>>(url).pipe( map((res) => res.data));
+  }
 }

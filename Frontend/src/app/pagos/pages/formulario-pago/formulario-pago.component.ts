@@ -7,6 +7,8 @@ import { CuotaGet } from '../../../cuota/interfaces/cuota-get';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { PaymentPost } from '../../interfaces/payment-post';
+import { AuthService } from '../../../usuarios/services/auth.service';
+import { UsuarioGet } from '../../../usuarios/interfaces/usuario-get.interface';
 
 @Component({
   selector: 'app-formulario-pago',
@@ -20,6 +22,7 @@ export class FormularioPagoComponent {
   status: "loading" | "ok" | "error" = "loading";
   montoMaximo: number = 1;
   diasDeAtraso: number = 0;
+  usuario!: UsuarioGet;
 
   paymentForm = this.fb.group({
     title : ['' , Validators.required],
@@ -34,7 +37,8 @@ export class FormularioPagoComponent {
               private mercadoPagoService: MercadoPagoService,
               private cuotaService : CuotaService,
               private ngxToastrService: ToastrService,
-              private routeNavigate: Router,              
+              private routeNavigate: Router,
+              private authService: AuthService              
   ) { }
 
   get unit_price() { return this.paymentForm.get('unit_price'); }
@@ -46,6 +50,8 @@ export class FormularioPagoComponent {
     this.route.params.subscribe(({ id }) => {
       this.obtenerCuota(id);
     });
+    this.usuario = this.authService.currentUser()!;
+    console.log(this.usuario);
   }
 
   obtenerCuota(id: string) {
@@ -84,7 +90,7 @@ export class FormularioPagoComponent {
       title: this.paymentForm.value.title!,
       unit_price: this.paymentForm.value.unit_price!,
       cuota: this.paymentForm.value.cuotaId!,
-      usuario: "668af1c893e7a946d46f6a33",
+      usuario: this.usuario._id!,
       tipo: this.paymentForm.value.tipo!
     }
 
@@ -97,8 +103,7 @@ export class FormularioPagoComponent {
           this.ngxToastrService.success("Redirigiendote a MercadoPago para completar el pago.");
           window.location.href = response.data;
         } else if (response.data && response.data.status === "success") {
-          // Aquí asumimos que response.data es de tipo PaymentData y tiene una propiedad status
-          this.routeNavigate.navigate([`/cuotas/${response.data.cuota}/pago/success`]);
+          this.routeNavigate.navigate([`/dashboard/cuotas/${response.data.cuota}/pago/success`]);
           
         } else {
           this.ngxToastrService.error("Hubo un error al procesar el pago.");

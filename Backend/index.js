@@ -35,15 +35,8 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-
-
 // Logger
 app.use(logger('dev'));
-
-
-// Routes
-
-
 
 // Routes
 app.use('/api/auth', require('./routes/auth.route'));

@@ -65,7 +65,7 @@ export class CuotaComponent {
   }
 
   pagarCuota(id:string){
-    this.router.navigate([`/cuotas/${id}/pago`]);
+    this.router.navigate([`/dashboard/cuotas/${id}/pago`]);
   }
 
   

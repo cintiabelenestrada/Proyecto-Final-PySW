@@ -121,6 +121,16 @@ export class DashboardComponent {
       iconComponent: { name: 'cil-list-rich' },
       class: this.showForRoles(['administrativo', 'dueño']),
     },
+    {
+      name: 'PAGOS',
+      title: true,
+    },
+    {
+      name: 'Mis Pagos',
+      url: '/dashboard/cuotas',
+      iconComponent: { name: 'cil-cash' },
+    }
+
   ];
 
   showForRoles(roles: string[]): string {

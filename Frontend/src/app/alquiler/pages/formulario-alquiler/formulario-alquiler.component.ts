@@ -68,9 +68,10 @@ export class FormularioAlquilerComponent {
         this.toastr.error("El local seleccionado no está habilitado", "Error");
         return;
     }
-
+    
     if(this.formularioAlquiler.valid) {
       const alquiler = this.convertirFormularioEnAlquiler();
+      console.log(alquiler);
       this.alquilerService.createAlquiler(alquiler).subscribe(
         result => {
           if(result.status == 1) {

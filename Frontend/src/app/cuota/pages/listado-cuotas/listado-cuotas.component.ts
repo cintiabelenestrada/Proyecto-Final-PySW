@@ -3,6 +3,8 @@ import { CuotaService } from '../../services/cuota.service';
 import { CuotaGet } from '../../interfaces/cuota-get';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../usuarios/services/auth.service';
+import { UsuarioGet } from '../../../usuarios/interfaces/usuario-get.interface';
 
 @Component({
   selector: 'app-listado-cuotas',
@@ -14,15 +16,21 @@ import { Router } from '@angular/router';
 export class ListadoCuotasComponent {
   listadoCuotas! : CuotaGet[] ;
   status: "loading" | "ok" | "error" = "loading";  
-  rol: string = 'admin';
+  usuario!: UsuarioGet;
 
 
   constructor(private cuotaService: CuotaService,
-              private router: Router
+              private router: Router,
+              private authService: AuthService
             ) { }
 
   ngOnInit() {
-    this.obtenerCuotas();
+    this.usuario = this.authService.currentUser()!;
+    if (this.usuario.perfil === 'administrativo' || this.usuario.perfil === 'dueño') {
+      this.obtenerCuotas();
+    } else {
+      this.obtenerCuotasPorUsuario();
+    }
   }
 
   obtenerCuotas() {
@@ -41,8 +49,25 @@ export class ListadoCuotasComponent {
     });
   }
 
+
   detallesCuota(id: string) {
-    this.router.navigate([`/cuotas/${id}`]);
+    this.router.navigate([`/dashboard/cuotas/${id}`]);
+  }
+
+  obtenerCuotasPorUsuario() {
+    this.cuotaService.obtenerCuotasPorUsuario(this.usuario._id!).subscribe({
+      next: (cuotas) => {
+        setTimeout(() => { 
+          this.listadoCuotas = cuotas;
+          this.status = "ok";
+        }, 1000); 
+      },
+      error: (error) => {
+        setTimeout(() => { 
+          this.status = "error";
+        }, 1000); 
+      }
+    });
   }
 
 }

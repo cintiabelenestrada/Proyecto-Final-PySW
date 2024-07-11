@@ -19,8 +19,15 @@ class EmailSender {
 
     async enviarComprobanteDePago(email, pago) {
         // Generar QR
-        const qrDataURL = await QRCode.toDataURL(hostFront + '/cuotas/' + pago.cuota +'/pago/success');
-    
+        const qrDataURL = await QRCode.toDataURL(hostFront + '/dashboard/cuotas/' + pago.cuota +'/pago/success');
+        const fechaFormateada = pago.fechaActualizacion.toLocaleString('es-AR', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        }).replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2})/, '$1/$2/$3 $4:$5');
         // Configurar las opciones del correo electrónico
         let mailOptions = {
             from: 'INMOBILIARIA XYZ <poo2023correo@gmail.com>',
@@ -31,7 +38,7 @@ class EmailSender {
             <ul>
                 <li>Monto: $${pago.montoPago}</li>
                 <li>Monto Interes: $${pago.montoInteres}</li>
-                <li>Fecha Aprobacion: ${pago.fechaActualizacion}</li>
+                <li>Fecha Aprobacion: ${fechaFormateada}</li>
             </ul>
             <p>Adjunto encontrará el código QR que puede escanear para más detalles.</p>`,
             attachments: [{

@@ -32,14 +32,17 @@
                                 </div>
                             }
                         </div>
-                        <div class="mb-3">
-                            <label for="tipo" class="form-label color-secundario">Tipo de Pago:</label>
-                            <select class="form-select" id="tipo" formControlName="tipo">
-                                <option value="MercadoPago">Mercado Pago</option>
-                                <option value="Efectivo">Efectivo</option>
-                                <option value="Transferencia">Transferencia</option>
-                            </select>
-                        </div>
+                        @if (usuario.perfil == "administrativo" || usuario.perfil == "dueño"){
+                            <div class="mb-3">
+                                <label for="tipo" class="form-label color-secundario">Tipo de Pago:</label>
+                                <select class="form-select" id="tipo" formControlName="tipo">
+                                    <option value="MercadoPago">Mercado Pago</option>
+                                    <option value="Efectivo">Efectivo</option>
+                                    <option value="Transferencia">Transferencia</option>
+                                </select>
+                            </div>
+                        }
+                        
                         <button type="submit" class="btn btn-secundario fw-bolder" [disabled]="paymentForm.invalid">Registrar Pago</button>
                     </form>
                 </div>
