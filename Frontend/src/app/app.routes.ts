@@ -14,6 +14,7 @@ import { LocaleshabilitadosComponent } from './locales/pages/localeshabilitados/
 import { FormNovedadesComponent } from './novedades/pages/form-novedades/form-novedades.component';
 import { NovedadesComponent } from './novedades/pages/novedades/novedades.component';
 import { NovedadesUsuarioComponent } from './novedades/pages/novedadesusuario/novedadesusuario.component';
+import { LocaleditComponent } from './locales/pages/localedit/localedit.component';
 
 export const routes: Routes = [
   {
@@ -57,7 +58,7 @@ export const routes: Routes = [
       { path: 'novedad', component: FormNovedadesComponent },
       {path: 'novedades', component: NovedadesComponent},
       {path: 'novedades/usuario', component: NovedadesUsuarioComponent},
-      // { path: 'locales/edit/:id', component: LocaleditComponent }, // componente no encontrado
+      { path: 'locales/edit/:id', component: LocaleditComponent }, 
       {
         path: '**',
         redirectTo: 'home',

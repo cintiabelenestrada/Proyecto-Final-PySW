@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { LocalInterface } from '../../interfaces/locales.interface';
 import { LocalService } from '../../services/local.service';
 import { CommonModule } from '@angular/common';
+import { Locales } from '../../interfaces/locales.interface';
 
 @Component({
   selector: 'app-localeshabilitados',
@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './localeshabilitados.component.css'
 })
 export class LocaleshabilitadosComponent implements OnInit {
-  datoslocales!: LocalInterface [];
+  datoslocales!: Locales [];
   
   constructor(private localService: LocalService) {}
 

@@ -7,20 +7,22 @@
         <!-- el vector productos ts, lo defino en la variable productos -->
         <div class="card h-100 m-1 shadow">
           <div class="card-header">
-            <img src="assets/img/{{locales.pathimagen}}" class="card-img-top img-fluid">
+            <img [src]="locales.pathimagen" class="card-img-top">
           </div>
-          <div class="card-body">
+          <div class="card-body lh-1 fs-6">
             <p class="card-text">Nombre: {{locales.nombre}}</p>
             <p class="card-text">Direccion: {{locales.direccion}}</p>
             <p class="card-text">Descripcion: {{locales.descripcion}}</p>
             <p class="card-text">superficie: {{locales.superficie}}</p>
             <p class="card-text">habilitado: {{locales.habilitado}}</p>
             <p class="card-text">Costo Mes: {{locales.customers}}</p>
-            <p class="card-text">alquilado: {{locales.alquilado}}</p>
+            <p class="card-text">alquilado: {{locales.alquilado? "Esta Alquilado actualmente":"No está alquilado actualmente"}}</p>
           </div>
           <div class="card-footer text-center">
-            <a class="btn btn-primary" (click)="editarLocal(locales)">Modificar</a>
-            <!-- <a class="btn btn-primary" (click)="LocalById(locales)">Info</a> -->
+            <a class="btn btn-primary m-2" (click)="editarLocal(locales)">Modificar</a>
+            <a class="btn btn-danger m-2" >Eliminar</a>
+            <a  class="btn custom-color d-block w-100 rounded-3 py-2 fw-bold" *ngIf="!locales.alquilado"
+            (click)="publicarEnFaceebook(locales._id)">Publicar</a>          
           </div>
         </div>
       </div>
