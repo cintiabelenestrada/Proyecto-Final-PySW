@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   Form,
   FormBuilder,
@@ -23,7 +23,7 @@ import { Router, RouterLink } from '@angular/router';
     '../../../shared/styles/custom-colors.css',
   ],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup = this.fb.group({
     usuario: ['', [Validators.required]],
     password: ['', [Validators.required]],
@@ -36,6 +36,10 @@ export class LoginComponent {
     private toastService: ToastrService,
     private router: Router
   ) {}
+
+  ngOnInit(): void {
+    this.recuperarSession();
+  }
 
   get usuario(): FormControl {
     return this.loginForm.get('usuario') as FormControl;
@@ -67,6 +71,21 @@ export class LoginComponent {
       error: () => {
         this.toastService.error('Error al iniciar sesión');
         this.status = 'error';
+      },
+    });
+  }
+
+  recuperarSession(): void {
+    this.authService.checkAuthStatus().subscribe({
+      next: (res) => {
+        if (!res) return;
+        this.toastService.success('Sesión recuperada correctamente');
+        this.router.navigate(['/dashboard']);
+      },
+      error: () => {
+        this.toastService.error(
+          'Tu sesión ha expirado, por favor inicia sesión nuevamente'
+        );
       },
     });
   }
