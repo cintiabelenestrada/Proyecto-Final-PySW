@@ -1,8 +1,9 @@
-<section class="container">
-  <h1 class="text-primary">Iniciar Sesión</h1>
+<section>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div class="mb-3">
-      <label for="usuario" class="form-label">Usuario</label>
+    <h1 class="text-primary-custom text-center fw-bolder mb-5">
+      Iniciar Sesión
+    </h1>
+    <div class="form-floating mb-3">
       <input
         type="usuario"
         class="form-control"
@@ -10,14 +11,14 @@
         placeholder="Usuario"
         formControlName="usuario"
       />
+      <label for="usuario" class="form-label">Usuario</label>
       @if (usuario.touched && usuario.hasError('required')) {
       <p class="text-danger" style="font-size: 14px">
         El usuario es obligatorio
       </p>
       }
     </div>
-    <div class="mb-3">
-      <label for="password" class="form-label">Password</label>
+    <div class="form-floating mb-3">
       <input
         type="password"
         class="form-control"
@@ -25,6 +26,7 @@
         placeholder="Password"
         formControlName="password"
       />
+      <label for="password" class="form-label">Contraseña</label>
       @if (password.touched && password.hasError('required')) {
       <p class="text-danger" style="font-size: 14px">
         La contraseña es obligatoria
@@ -33,7 +35,7 @@
     </div>
     <button
       type="submit"
-      class="btn btn-primary"
+      class="btn custom-color d-block w-100 rounded-3 py-2 fw-bold"
       [disabled]="status === 'loading'"
     >
       @if(status === 'loading') {
@@ -43,11 +45,28 @@
         aria-hidden="true"
       ></span>
       }
-      {{ status === "loading" ? "Loading..." : "Login" }}
+      {{ status === "loading" ? "Cargando..." : "Iniciar sesión" }}
     </button>
   </form>
-  <p class="mt-3">
-    ¿No tienes cuenta?
-    <a routerLink="/usuarios/registro">Regístrate</a>
-  </p>
+  <div class="soporte">
+    <h3 class="text-center">¿Tienes problemas al ingresar?</h3>
+    <p class="text-center">
+      Si tienes problemas para ingresar, puedes comunicarte con el soporte
+      técnico para que te ayuden a solucionar el problema.
+    </p>
+    <ul class="d-flex justify-content-between p-0">
+      <li class="d-flex gap-3 align-items-center">
+        <span class="rounded-circle custom-color p-2">
+          <i class="bi bi-telephone-fill p-1"></i>
+        </span>
+        <span> +54 9 11 1234-5678 </span>
+      </li>
+      <li class="d-flex gap-3 align-items-center">
+        <span class="rounded-circle custom-color p-2">
+          <i class="bi bi-envelope-fill p-1"></i>
+        </span>
+        <span>{{ "soporte@helpdesk.com" }}</span>
+      </li>
+    </ul>
+  </div>
 </section>

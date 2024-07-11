@@ -6,8 +6,6 @@ export const hasRoleGuard = (allowedRoles: string[]) => {
   return () => {
     const authService = inject(AuthService);
 
-    console.log(authService.currentUser());
-
     const canActivate = Boolean(
       authService.currentUser() &&
         allowedRoles.includes(authService.currentUser()!.perfil)
