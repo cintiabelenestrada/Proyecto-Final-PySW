@@ -11,8 +11,13 @@ import { FormPropietarioComponent } from './propietario/form-propietario/form-pr
 import { LocalComponent } from './locales/pages/altalocal/local.component';
 import { LocalesComponent } from './locales/pages/locales/locales.component';
 import { LocaleshabilitadosComponent } from './locales/pages/localeshabilitados/localeshabilitados.component';
+import { HomePageComponent } from './home/pages/home-page/home-page.component';
 
 export const routes: Routes = [
+  {
+    path: 'home',
+    component: HomePageComponent,
+  },
   {
     path: 'login',
     component: LoginComponent,
@@ -60,6 +65,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'login',
+    redirectTo: 'home',
   },
 ];
