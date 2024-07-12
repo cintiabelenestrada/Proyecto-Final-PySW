@@ -1,0 +1,67 @@
+<div class="container my-4">
+    
+    @switch (status) {
+        @case ("ok") {
+            <h2 class="card-subtitle mb-4 fs-2 fw-bold">Pagos registrados.</h2>
+            @if (usuario.perfil == "administrativo" || usuario.perfil == "dueño"){
+                <div class="mb-4">
+                    <c-chart type="line" [data]="chartData" [options]="chartOptions"></c-chart>
+                </div>
+            }
+            
+            <div class="table-responsive rounded">
+                <table class="table table-striped">
+                    <thead class="bg-primary">
+                        <tr>
+                            <th>Monto Pago</th>
+                            <th>Monto Interés</th>
+                            <th>Tipo</th>
+                            <th>Status</th>
+                            <th>Fecha de Creación</th>
+                            <th>Fecha de Actualización</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (pago of pagos; track pago._id){
+                            <tr>
+                                <td>${{ pago.montoPago }}</td>
+                                <td>${{ pago.montoInteres }}</td>
+                                <td>{{ pago.tipo }}</td>
+                                @if (pago.status == "pending") {
+                                    <td class="text-warning fw-bold fs-5"><i class="bi bi-hourglass-split"></i></td>
+                                } @else if (pago.status == "success") {
+                                    <td class="text-success fw-bold fs-5"><i class="bi bi-check-circle"></i></td>
+                                } @else {
+                                    <td class="text-danger fw-bold fs-5"><i class="bi bi-x-circle"></i></td>
+                                }
+                                <td>{{ pago.fechaCreacion | date: "dd/MM/yy" }}</td>
+                                <td>{{ pago.fechaActualizacion | date: "dd/MM/yy" }}</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        @case ("error") {
+            <h2 class="fs-1 color
+            -primario fw-bolder my-4">Error al cargar los pagos</h2>
+        }
+        @case ("loading") {
+            <div class="d-flex justify-content-center align-items-center vh-80">
+                <div class="spinner-grow spinner-grow-sm me-2 color-secundario" role="status" style="width: 3rem; height: 3rem;">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <div class="spinner-grow spinner-grow-sm me-2 color-secundario" role="status" style="width: 3rem; height: 3rem;">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                <div class="spinner-grow spinner-grow-sm color-secundario" role="status" style="width: 3rem; height: 3rem;">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+            </div>
+        }
+    }
+    
+
+</div>
+
+

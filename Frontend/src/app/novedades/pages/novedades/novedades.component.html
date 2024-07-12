@@ -1,0 +1,27 @@
+<button class="btn btn-primary d-block justify-content-end" (click)="agregarNovedades()" *ngIf="perfil == 'administrativo', 'dueño'">Agregar novedad</button>
+
+<div class="accordion" id="novedadAccordion" *ngIf="novedad.titulo">
+  <div class="accordion-item justify-content-center">
+    <div class="accordion-header" id="headingOne">
+      <h2 class="text-center py-5">{{ novedad.titulo }}</h2>
+    </div>
+    <div class="accordion-body justify-content-center">
+      <img [src]="novedad.imagen" class="img-thumbnail mb-3" alt="Imagen de la novedad">
+      <p>{{ novedad.Texto }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="card d-inline-flex m-3" style="width: 18rem;" *ngFor="let n of novedades">
+  <img class="card-img-top" [src]="n.imagen" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title text-center"><b>{{ n.titulo }}</b></h5>
+    <p class="card-text fs-6">Creador: {{ n.Usuario?.usuario }}</p>
+    <a (click)="seleccionarNovedad(n)" class="btn btn-success">Ver más</a>
+  </div>
+</div>
+
+<div class="text-center text-muted">
+  <h1 *ngIf="novedades.length == 0">No hay novedades publicadas aún</h1>
+</div>
+<button class="btn btn-warning d-block my-5" (click)="verMisNovedades()"  *ngIf="perfil == 'administrativo', 'dueño'">Ver mis novedades</button>

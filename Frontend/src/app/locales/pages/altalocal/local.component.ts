@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { LocalInterface } from '../../interfaces/locales.interface';
 import { LocalService } from '../../services/local.service';
 import { FormsModule } from '@angular/forms';
+import { Locales } from '../../interfaces/locales.interface';
 
 @Component({
   selector: 'app-local',
@@ -11,14 +11,10 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './local.component.css'
 })
 export class LocalComponent {
-  datoslocales: LocalInterface = {
-    superficie: 0,
-    habilitado: false,
-    customers: 0,
-    pathimagen: '',
-    alquilado: false
-  };
-  constructor(private localService: LocalService) {}
+  datoslocales!: Locales;
+
+  constructor(private localService: LocalService) {;
+  }
 
   AltaLocal() {
     this.localService.postCreateLocal(this.datoslocales).subscribe(

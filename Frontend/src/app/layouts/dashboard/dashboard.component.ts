@@ -77,20 +77,6 @@ export class DashboardComponent {
       class: this.showForRoles(['administrativo', 'dueño']),
     },
     {
-      name: 'PROPIETARIOS',
-      title: true,
-    },
-    {
-      name: 'Registrar',
-      url: ['/dashboard/form-propietario', ''],
-      iconComponent: { name: 'cil-user-plus' },
-    },
-    {
-      name: 'Listado',
-      url: '/dashboard/propietario',
-      iconComponent: { name: 'cil-list-rich' },
-    },
-    {
       name: 'LOCALES',
       title: true,
     },
@@ -104,6 +90,64 @@ export class DashboardComponent {
       url: '/dashboard/local',
       iconComponent: { name: 'cil-building' },
     },
+    {
+      name: 'ALQUILERES',
+      title: true,
+      class: this.showForRoles(['administrativo', 'dueño']),
+    },
+    {
+      name: 'Registrar',
+      url: '/dashboard/formulario-alquiler',
+      iconComponent: { name: 'cil-user-plus' },
+      class: this.showForRoles(['administrativo', 'dueño']),
+    },
+    {
+      name: 'Listado',
+      url: '/dashboard/listado-alquiler',
+      iconComponent: { name: 'cil-list-rich' },
+      class: this.showForRoles(['administrativo', 'dueño']),
+    },
+    {
+      name: 'CUOTAS',
+      title: true,
+    },
+    {
+      name: 'Cuotas',
+      url: '/dashboard/cuotas',
+      iconComponent: { name: 'cilSpreadsheet' },
+      class: this.showForRoles(['administrativo', 'dueño']),
+    },
+    {
+      name: 'Mis Cuotas',
+      url: '/dashboard/cuotas',
+      iconComponent: { name: 'cilSpreadsheet' },
+      class: this.showForRoles(['inquilino']),
+    },
+    {
+      name: 'PAGOS',
+      title: true,
+    },
+    {
+      name: 'Mis Pagos',
+      url: '/dashboard/pagos',
+      iconComponent: { name: 'cil-cash' },
+      class: this.showForRoles(['inquilino']),
+    },
+    {
+      name: 'Pagos',
+      url: '/dashboard/pagos',
+      iconComponent: { name: 'cil-cash' },
+      class: this.showForRoles(['administrativo', 'dueño']),
+    },
+    {name: 'NOVEDADES',
+      title: true,
+    },
+    {
+      name: 'Ver novedades',
+      url: '/dashboard/novedades',
+      iconComponent: { name: 'cil-newspaper' },
+      
+    }
   ];
 
   showForRoles(roles: string[]): string {

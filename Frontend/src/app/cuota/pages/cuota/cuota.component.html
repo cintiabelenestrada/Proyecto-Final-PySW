@@ -1,0 +1,113 @@
+<div class="container">
+    @switch (statusCuota) {
+        @case ("ok"){
+            <div class="card mb-3 border rounded shadow-sm ">
+                <div class="card-header borde-inferior-secundario">
+                    <h2 class="card-title  fs-3 fw-bold">Detalles de la cuota</h2>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 color-terciario">ID: <span class="color-secundario">{{ cuota._id }}</span></h6>
+                    <p class="card-text">
+                        <strong >Alquiler:</strong> {{ cuota.alquiler }}<br>
+                        <strong >Monto Total:</strong> ${{ cuota.montoTotal }}<br>
+                        <strong >Monto Restante:</strong> ${{ cuota.montoRestante }}<br>
+                        <strong >Estado: </strong>
+                                @if (cuota.estado == 'Pendiente'){
+                                <span class="badge bg-warning text-dark">{{cuota.estado}}</span>
+                                }@else if (cuota.estado == 'Pagada'){
+                                <span class="badge bg-success">{{cuota.estado}}</span>
+                                }
+                                <br>
+                        <strong >Fecha:</strong> {{ cuota.fecha | date: "dd/MM/yy" }}<br>
+                        <strong >Fecha de Vencimiento:</strong> {{ cuota.fechaVencimiento | date: "dd/MM/yy" }}
+                    </p>
+                    @if (cuota.estado == 'Pendiente'){
+                        <button class="btn btn-primary bg-secundario mt-3" (click)="pagarCuota(cuota._id)">
+                            <i class="bi bi-cash"></i> Pagar Cuota
+                        </button>
+                    }
+                    
+                </div>
+                @switch(statusPagos){
+                    @case ("ok"){
+                        @if (pagos.length > 0){
+                            <div class="card-footer  border-top border-dark" >
+                                <h6 class="card-subtitle mb-2 color-primario fs-4 ">Pagos</h6>
+                                <div class="table-responsive rounded">
+                                    <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                        <th>Monto Pago</th>
+                                        <th>Monto Interés</th>
+                                        <th>Tipo</th>
+                                        <th>Fecha de Creación</th>
+                                        <th>Fecha de Actualización</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for (pago of pagos; track pago._id){
+                                        <tr>
+                                            <td>${{ pago.montoPago }}</td>
+                                            <td>${{ pago.montoInteres }}</td>
+                                            <td>{{ pago.tipo }}</td>
+                                            <td>{{ pago.fechaCreacion | date: "dd/MM/yy" }}</td>
+                                            <td>{{ pago.fechaActualizacion | date: "dd/MM/yy" }}</td>
+                                        </tr>
+                                        }
+                                    </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        }@else{
+                            <div class="card-footer">
+                                <h6 class="card-subtitle mb-2  fs-4 ">Pagos</h6>
+                                <p class=" badge bg-danger text-white p-2">No se han registrado pagos para esta cuota.</p>
+                            </div>
+                        }
+                        
+                    }
+                    @case ("error"){
+                        <div class="card-footer">
+                            <h6 class="card-subtitle mb-2 text-muted">Pagos</h6>
+                            <p class="text-danger">Error al cargar los pagos</p>
+                        </div>
+                    }
+                    @case ("loading"){
+                        <div class="card-footer">
+                            <h6 class="card-subtitle mb-2 text-muted">Pagos</h6>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <div class="spinner-grow spinner-grow-sm me-2" role="status" style="width: 3rem; height: 3rem;">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <div class="spinner-grow spinner-grow-sm me-2" role="status" style="width: 3rem; height: 3rem;">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <div class="spinner-grow spinner-grow-sm" role="status" style="width: 3rem; height: 3rem;">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                
+            </div>
+        }
+        @case ("error"){
+            <h2 class="fs-1 color-primario fw-bolder my-4">Error al cargar la cuota</h2>
+        }
+        @case ("loading"){
+            <div class="d-flex justify-content-center align-items-center vh-80">
+                <div class="spinner-grow spinner-grow-sm me-2" role="status" style="width: 3rem; height: 3rem;">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <div class="spinner-grow spinner-grow-sm me-2" role="status" style="width: 3rem; height: 3rem;">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                <div class="spinner-grow spinner-grow-sm" role="status" style="width: 3rem; height: 3rem;">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+            </div>
+        } 
+    }
+    
+</div>

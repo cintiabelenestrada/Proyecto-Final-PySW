@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
     perfil: [
       'default',
       [
-        Validators.pattern(/^(propietario|administrativo|dueño)$/),
+        Validators.pattern(/^(inquilino|administrativo|dueño)$/),
         Validators.required,
       ],
     ],

@@ -1,25 +1,66 @@
 <div class="container-fluid">
-  <h1>Locales de Piedra Inmobiliaria</h1>
-  <!-- Cards -->
-  <div class="row">
-    <div class="row col-xs-6 row-cols-sm-2 row-cols-md-3">
-      <div *ngFor="let locales of datoslocales">
-        <!-- el vector productos ts, lo defino en la variable productos -->
-        <div class="card h-100 m-1 shadow">
-          <div class="card-header">
-            <img src="assets/img/{{locales.pathimagen}}" class="card-img-top img-fluid">
-          </div>
-          <div class="card-body">
-            <p class="card-text">superficie: {{locales.superficie}}</p>
-            <p class="card-text">habilitado: {{locales.habilitado}}</p>
-            <p class="card-text">Cliente: {{locales.customers}}</p>
-            <p class="card-text">alquilado: {{locales.alquilado}}</p>
-          </div>
-          <div class="card-footer text-center">
-            <a class="btn btn-primary" (click)="MostrarLocales()">Locales</a>
+
+  <div class="container row mb-3">
+
+    <div class="col">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" (click)="MostrarLocales()">Todos</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Filtrar</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" (click)="MostrarLocalesHabilitados()">Habilitados</a></li>
+            <li><a class="dropdown-item" (click)="MostrarLocalesInHabilitados()">En Reparación</a></li>
+           
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.facebook.com/profile.php?id=61562051432528" target="_blank">Facebook page</a>
+        </li>        
+      </ul>
+    </div>
+    <div class="col-sm-3">
+      <div class="container p-3">
+          <h2>Agregar Local</h2>
+          <a ><button type="button" (click)="crearLocal('')"
+                  class="btn btn-outline-primary">
+                  Nuevo 
+              </button>
+          </a>
+      </div>
+  </div>
+  </div>
+  <div class="container-fluid row">
+    <h1>Locales de Piedra Inmobiliaria</h1>
+    <!-- Cards -->
+    <div class="row">
+      <div class="row col-xs-6 row-cols-sm-2 row-cols-md-3">
+        <div *ngFor="let locales of datoslocales">
+          <!-- el vector productos ts, lo defino en la variable productos -->
+          <div class="card h-100 m-1 shadow">
+            <div class="card-header">
+              <img [src]="locales.pathimagen" class="card-img-top">
+            </div>
+            <div class="card-body lh-1 fs-6">
+              <p class="card-text">Nombre: {{locales.nombre}}</p>
+              <p class="card-text">Direccion: {{locales.direccion}}</p>
+              <p class="card-text">Descripcion: {{locales.descripcion}}</p>
+              <p class="card-text">superficie: {{locales.superficie}}</p>
+              <p class="card-text">habilitado: {{locales.habilitado? "Habilitado":"En reparación"}}</p>
+              <p class="card-text">Costo Mes: {{locales.customers}}</p>
+              <p class="card-text">alquilado: {{locales.alquilado? "Esta Alquilado actualmente":"No está alquilado actualmente"}}</p>
+            </div>
+            <div class="card-footer text-center">
+              <a class="btn btn-primary m-2" (click)="editarLocal(locales)">Modificar</a>
+              <a class="btn btn-danger m-2"  (click)="EliminarLocal(locales._id)">Eliminar</a>
+              <a  class="btn custom-color d-block w-100 rounded-3 py-2 fw-bold" *ngIf="!locales.alquilado && locales.habilitado"
+              (click)="publicarEnFaceebook(locales._id)">Publicar</a>          
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+    

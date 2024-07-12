@@ -1,0 +1,54 @@
+<div class="container row">
+
+    <div class="col-sm-2 col"></div>
+    <div class="col-sm-8 col">
+        <div class="container card p-3">
+            <h4 class="card-header">Formulario de <strong *ngIf="accion==='edit'">Modificación</strong><strong
+                *ngIf="accion==='add'"> Alta</strong> de locales</h4>
+        </div>
+        <form [formGroup]="localesForm" class="border p-4 rounded bg-body-tertiary">
+            <div class="form-floating mb-2">
+                <input type="text"  class="form-control" id="nombre" name="nombre" formControlName="nombre"/>
+        
+                <label for="nombre" class="form-label">Nombre: </label>
+            </div>
+            <div class="form-floating mb-2">
+                <input type="text"  class="form-control" id="direccion" name="direccion"  formControlName="direccion"/>
+                <label for="direccion" class="form-label">Direccion: </label>
+            </div>
+            <div class="form-floating mb-2">
+                <input type="text"  class="form-control" id="descripcion" name="descripcion"  formControlName="descripcion"/>
+                <label for="descripcion" class="form-label">Descripcion: </label>
+            </div>
+         
+            <div class="form-floating mb-2">
+                <input type="number"  class="form-control" id="superficie" name="superficie"  formControlName="superficie"/>
+                <label for="superficie" class="form-label">Superficie Local: </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate" name="habilitado" formControlName="habilitado">
+                <label class="form-check-label" for="flexCheckIndeterminate">habilitado?</label>
+            </div>
+            <div class="form-floating mb-2">
+                <input type="number" class="form-control" id="customers" name="customers" formControlName="customers" />
+                <label for="customers"class="form-label">costo mes: </label>
+            </div>
+            <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="pathimagen" name="pathimagen"  formControlName="pathimagen"/>
+                <label for="imagendatoslocales" class="form-label">Imagen del Local(url): </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate" name="alquilado" formControlName="alquilado">
+                <label class="form-check-label" for="flexCheckIndeterminate">alquilado?</label>
+            </div>
+            <div>
+                <button type="button" class="btn btn-outline-success"
+                    *ngIf="accion==='add'" (click)="guardarAltaLocal()">Guardar</button>
+                <button type="button" class="btn btn-outline-primary"
+                    *ngIf="accion==='edit'" (click)="actualizarLocal()">Actualizar</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-2 col"></div>
+</div>
+

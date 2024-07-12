@@ -1,7 +1,20 @@
 <h2>Alta de Locales</h2>
 <form #form class="border p-4 rounded bg-body-tertiary">
     <div class="form-floating mb-2">
-        <input type="number"  class="form-control" id="nombre" name="nombre"  [(ngModel)]="datoslocales.superficie" required/>
+        <input type="text"  class="form-control" id="nombre" name="nombre"  [(ngModel)]="datoslocales.nombre" required/>
+        <label for="nombre" class="form-label">Nombre: </label>
+    </div>
+    <div class="form-floating mb-2">
+        <input type="text"  class="form-control" id="direccion" name="direccion"  [(ngModel)]="datoslocales.direccion" required/>
+        <label for="direccion" class="form-label">Direccion: </label>
+    </div>
+    <div class="form-floating mb-2">
+        <input type="text"  class="form-control" id="descripcion" name="descripcion"  [(ngModel)]="datoslocales.descripcion" required/>
+        <label for="descripcion" class="form-label">Descripcion: </label>
+    </div>
+ 
+    <div class="form-floating mb-2">
+        <input type="number"  class="form-control" id="superficie" name="superficie"  [(ngModel)]="datoslocales.superficie" required/>
         <label for="superficie" class="form-label">Superficie Local: </label>
     </div>
     <div class="form-check">
@@ -10,7 +23,7 @@
     </div>
     <div class="form-floating mb-2">
         <input type="number" class="form-control" id="clientes" name="clientes" [(ngModel)]="datoslocales.customers" required />
-        <label for="clientes"class="form-label">customers: </label>
+        <label for="clientes"class="form-label">costo mes: </label>
     </div>
     <div class="form-floating mb-2">
         <input type="text" class="form-control" id="imagen" name="imagen"  [(ngModel)]="datoslocales.pathimagen"  required />

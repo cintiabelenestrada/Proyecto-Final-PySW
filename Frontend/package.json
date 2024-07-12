@@ -27,6 +27,7 @@
     "@coreui/utils": "^2.0.2",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "chart.js": "^4.4.3",
     "ngx-cookie-service": "^17.1.0",
     "ngx-scrollbar": "^15.0.1",
     "ngx-toastr": "^19.0.0",
