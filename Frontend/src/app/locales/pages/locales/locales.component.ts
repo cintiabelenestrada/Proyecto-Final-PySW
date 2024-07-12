@@ -10,7 +10,7 @@ import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-locales',
   standalone: true,
-  imports: [RouterLink, CommonModule,FontAwesomeModule],
+  imports: [RouterLink, CommonModule, FontAwesomeModule],
   templateUrl: './locales.component.html',
   styleUrl: './locales.component.css',
 })
@@ -18,13 +18,27 @@ export class LocalesComponent {
   faEdit = faEdit;
   faTrash = faTrash;
   datoslocales!: Locales[];
+  mostrarTextoCompleto: boolean[] = [];
+i: any;
 
   constructor(private route: ActivatedRoute, private router: Router,
     private localService: LocalService, private toastr: ToastrService) { }
   ngOnInit(): void {
     this.MostrarLocales();
+    this.datoslocales.forEach(() => this.mostrarTextoCompleto.push(false));
+   
   }
-
+  toggleTextoCompleto(index: number): void {
+    this.mostrarTextoCompleto[index] = !this.mostrarTextoCompleto[index];
+  }
+  truncarTexto(texto: string): string {
+    const limiteCaracteres = 15;
+    if (texto.length > limiteCaracteres) {
+      return texto.slice(0, limiteCaracteres) + '...';
+    } else {
+      return texto;
+    }
+  }
   MostrarLocales() {
     this.localService.getAllLocales().subscribe({
       next: (data: any) => {
@@ -52,7 +66,7 @@ export class LocalesComponent {
   MostrarLocalesInHabilitados() {
     this.localService.getObtenerLocalesInhabilitados().subscribe({
       next: (data: any) => {
-        this.datoslocales = data;       
+        this.datoslocales = data;
         console.log('data ', JSON.stringify(this.datoslocales));;
       },
       error: (error: any) => {
@@ -66,11 +80,11 @@ export class LocalesComponent {
       next: (data: any) => {
         console.log('data ', JSON.stringify(this.datoslocales));
         this.MostrarLocalesHabilitados();
-        this.toastr.info("Local eliminado  correctamente","Información");
+        this.toastr.info("Local eliminado  correctamente", "Información");
       },
       error: (error: any) => {
         console.log(error);
-        this.toastr.error("Hubo un error al eliminar el local","Error");
+        this.toastr.error("Hubo un error al eliminar el local", "Error");
       }
     });
 

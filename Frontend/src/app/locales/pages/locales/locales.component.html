@@ -35,31 +35,47 @@
   <div class="row w-100">
     <h1>Locales de Piedra Inmobiliaria</h1>
 
-        <div class="card m-3" style="max-width: 360px;" *ngFor="let locales of datoslocales">
-          <div class="row g-0">
-            <div class="col-md-4">
-              <img [src]="locales.pathimagen" class="img-fluid rounded-start full-img" alt="Descripción de la imagen">
+    <!-- tarjeta-local.component.html -->
+    <div class="card m-1 position-relative" style="max-width: 400px;"
+      *ngFor="let locales of datoslocales; let i = index">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img [src]="locales.pathimagen" class="img-fluid rounded-start full-img" alt="Descripción de la imagen">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{ locales.nombre }}</h5>
+            <p class="card-text text-wrap"><strong>Dirección:</strong> {{ locales.direccion }}</p>
+            <span><strong>Superficie:</strong> {{ locales.superficie }} m²</span><br>
+            <span><strong>Habilitado:</strong> {{ locales.habilitado ? "Habilitado" : "En reparación" }}</span><br>
+            <span><strong>Costo Mes:</strong> {{ locales.customers }}</span><br>
+            <span><strong>Alquilado:</strong> {{ locales.alquilado ? "SI" : "NO" }}</span>
+
+            <!-- Mostrar descripción condicionalmente -->
+            <div *ngIf="locales.descripcion">
+              <p class="card-text text-wrap">
+                {{ mostrarTextoCompleto[i] ? locales.descripcion : locales.descripcion.slice(0, 15) + '...' }}
+              </p>
+              <button *ngIf="locales.descripcion.length > 15" class="btn btn-link" (click)="toggleTextoCompleto(i)">
+                {{ mostrarTextoCompleto[i] ? 'Mostrar menos' : 'Mostrar más' }}
+              </button>
             </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">{{locales.nombre}}</h5>
-                <p class="card-text"><strong>Dirección:</strong> {{locales.direccion}}</p>
-                <p class="card-text"><strong>Descripción:</strong> {{locales.descripcion}}</p>
-                <span><strong>Superficie:</strong> {{locales.superficie}} m²</span><br>
-                <span><strong>Habilitado:</strong> {{locales.habilitado ? "Habilitado" : "En reparación"}}</span><br>
-                <span><strong>Costo Mes:</strong> {{locales.customers}}</span><br>
-                <span><strong>Alquilado:</strong> {{locales.alquilado ? "Está alquilado actualmente" : "No está alquilado actualmente"}}</span>
-                <div class="card-icons mt-2">
-                  <fa-icon [icon]="faEdit" class="text-primary me-2" (click)="editarLocal(locales)"></fa-icon>
-                  <fa-icon [icon]="faTrash" class="text-danger me-2" (click)="EliminarLocal(locales._id)"></fa-icon>
-                  <span><strong class="btn">Publicar</strong></span>
-                  <svg *ngIf="!locales.alquilado && locales.habilitado" class="text-info " (click)="publicarEnFaceebook(locales._id)" width="16" height="16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12.726 0H10.5C8.044 0 6.7 1.25 6.7 3.3V5.3H4.5a.5.5 0 0 0-.5.5v3.1a.5.5 0 0 0 .5.5H6.7v8.3a.5.5 0 0 0 .5.5h3.2a.5.5 0 0 0 .5-.5V9.4h2.4a.5.5 0 0 0 .5-.5V5.8a.5.5 0 0 0-.5-.5H10.9V3.7c0-.6.1-.9.9-.9h1.9a.5.5 0 0 0 .5-.5V.5a.5.5 0 0 0-.5-.5z"/>
-                  </svg>
-                </div>
+
+            <!-- Iconos flotantes -->
+            <div class="position-absolute bottom-0 end-0 p-2">
+              <fa-icon [icon]="faEdit" class="text-primary me-2" (click)="editarLocal(locales)"></fa-icon>
+              <fa-icon [icon]="faTrash" class="text-danger me-2" (click)="EliminarLocal(locales._id)"></fa-icon>
+              <div class="btn p-0 m-0" (click)="publicarEnFaceebook(locales._id)">
+                <svg *ngIf="!locales.alquilado && locales.habilitado" class="text-info" width="16" height="16"
+                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12.726 0H10.5C8.044 0 6.7 1.25 6.7 3.3V5.3H4.5a.5.5 0 0 0-.5.5v3.1a.5.5 0 0 0 .5.5H6.7v8.3a.5.5 0 0 0 .5.5h3.2a.5.5 0 0 0 .5-.5V9.4h2.4a.5.5 0 0 0 .5-.5V5.8a.5.5 0 0 0-.5-.5H10.9V3.7c0-.6.1-.9.9-.9h1.9a.5.5 0 0 0 .5-.5V.5a.5.5 0 0 0-.5-.5z" />
+                </svg>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
   </div>
 </div>

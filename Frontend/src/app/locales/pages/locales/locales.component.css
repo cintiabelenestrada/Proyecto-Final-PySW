@@ -39,3 +39,21 @@
 .btn.custom-color:hover {
   background-color: #343a40; /* Cambia el color según tus necesidades */
 }
+.text-wrap {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+.icon-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 10px;
+}
+.card-body {
+  overflow: hidden;
+}
+.text-wrap {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
