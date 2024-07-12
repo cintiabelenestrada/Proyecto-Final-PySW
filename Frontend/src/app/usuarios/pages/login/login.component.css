@@ -1,10 +1,10 @@
 section {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
   background-color: #f7fafb;
   display: grid;
   place-items: center;
   align-content: center;
+  overflow-x: hidden;
 }
 
 form,
@@ -13,3 +13,4 @@ form,
   max-width: 500px;
   padding: 20px;
 }
+

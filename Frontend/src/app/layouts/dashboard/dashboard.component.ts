@@ -51,15 +51,6 @@ export class DashboardComponent {
       iconComponent: { name: 'cil-home' },
     },
     {
-      name: 'Gráficos',
-      url: '/dashboard/graficos',
-      iconComponent: { name: 'cil-chart-line' },
-      badge: {
-        color: 'info',
-        text: 'NEW',
-      },
-    },
-    {
       title: true,
       name: 'USUARIOS',
       class: this.showForRoles(['administrativo', 'dueño']),
@@ -147,11 +138,6 @@ export class DashboardComponent {
       url: '/dashboard/novedades',
       iconComponent: { name: 'cil-newspaper' },
       
-    },
-    {
-      name: 'Generar Cuarto',
-      url: '/dashboard/room-generator',
-      iconComponent: { name: 'cil-newspaper' },
     }
   ];
 

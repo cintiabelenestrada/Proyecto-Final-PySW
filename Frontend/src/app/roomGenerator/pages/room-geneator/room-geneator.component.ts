@@ -1,13 +1,15 @@
 import { Component, output } from '@angular/core';
 import { RoomGeneratorService } from '../../service/room-generator.service';
 import { FormsModule } from '@angular/forms';
+import { NavbarComponent } from '../../../home/components/navbar/navbar.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-room-geneator',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, NavbarComponent],
   templateUrl: './room-geneator.component.html',
-  styleUrls: ['./room-geneator.component.css','../../../app.component.css']
+  styleUrls: ['./room-geneator.component.css','../../../app.component.css', '../../../shared/styles/custom-colors.css']
 })
 export class RoomGeneatorComponent {
   imageUrl: string = '';
@@ -17,20 +19,10 @@ export class RoomGeneatorComponent {
   loading = false;
   message = '';
 
-  constructor(private roomGeneratorService: RoomGeneratorService) { }
+  constructor(private roomGeneratorService: RoomGeneratorService,
+              private toastService: ToastrService,
+  ) { }
   
-  ngOnInit(): void {
-    this.roomGeneratorService.getPredictionStatus("srwc1qf811rj60cgmp7v6snhec").subscribe(
-      response => {
-        this.restoredImage = response.output[1];
-        console.log(response);
-      },
-      error => {
-        console.log(error);
-      }
-    );
-    
-  }
 
   onFileChange(event: any) {
     const file = event.target.files[0];
@@ -54,13 +46,15 @@ export class RoomGeneatorComponent {
           const endpointUrl = startResponse;
 
           const checkStatus = () => {
-            this.roomGeneratorService.getPredictionStatus("srwc1qf811rj60cgmp7v6snhec")
+            this.roomGeneratorService.getPredictionStatus(startResponse)
               .subscribe(
                 finalResponse => {
                   if (finalResponse.status === 'succeeded') {
                     this.restoredImage = finalResponse.output[1];
+                    this.toastService.success('Cuarto decorado existosamente');
                     this.loading = false;
                   } else if (finalResponse.status === 'failed') {
+                    this.toastService.error('Error al decorar la imagen');
                     this.message = 'Failed to restore image';
                     this.loading = false;
                   } else {
@@ -68,6 +62,7 @@ export class RoomGeneatorComponent {
                   }
                 },
                 error => {
+                  this.toastService.error('Error al decorar la imagen');
                   this.message = 'Error fetching prediction status';
                   this.loading = false;
                 }

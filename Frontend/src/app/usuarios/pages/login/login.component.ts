@@ -12,11 +12,12 @@ import { ToastrService } from 'ngx-toastr';
 import { RequestStatus } from '../../types/request-status.type';
 import { AuthService } from '../../services/auth.service';
 import { Router, RouterLink } from '@angular/router';
+import { NavbarComponent } from '../../../home/components/navbar/navbar.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink,NavbarComponent],
   templateUrl: './login.component.html',
   styleUrls: [
     './login.component.css',

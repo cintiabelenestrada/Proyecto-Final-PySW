@@ -15,5 +15,7 @@ export class NavbarComponent {
   menuItems = [
     { label: 'Home', path: '/home' },
     { label: 'Locales disponibles', path: '/lista-de-locales' },
+    { label: 'Decorar Cuarto', path: '/decorar-cuarto' }
   ];
+
 }

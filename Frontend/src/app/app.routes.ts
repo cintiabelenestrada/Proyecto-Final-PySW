@@ -43,6 +43,11 @@ export const routes: Routes = [
     title: 'Inicio de sesión | Piedra Inmobiliaria',
   },
   {
+    path: 'decorar-cuarto',
+    title: 'Generador de cuartos',
+    component: RoomGeneatorComponent
+  },
+  {
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [isAuthenticatedGuard],
@@ -120,13 +125,6 @@ export const routes: Routes = [
         title: 'Formulario Alquiler',
         component: FormularioAlquilerComponent
     },
-    // testeo de generador de cuartos
-    {
-      path: 'room-generator',
-      title: 'Generador de cuartos',
-      component: RoomGeneatorComponent
-    },
-
       {
         path: '**',
         redirectTo: 'home',

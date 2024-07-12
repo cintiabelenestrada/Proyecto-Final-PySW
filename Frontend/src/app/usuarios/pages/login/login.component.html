@@ -1,4 +1,5 @@
-<section>
+<home-navbar></home-navbar>
+<section class="vh-100">
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <h1 class="text-primary-custom text-center fw-bolder mb-5">
       Iniciar Sesión
@@ -70,3 +71,46 @@
     </ul>
   </div>
 </section>
+
+<footer class="background-secondary-color p-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="fw-bold text-white">Contacto</h2>
+        <p class="text-tertiary-custom">
+          Si tienes alguna duda o consulta, no dudes en contactar con nosotros.
+        </p>
+        <p class="text-tertiary-custom">
+          Estamos a tu disposición para ayudarte en todo lo que necesites.
+        </p>
+        <p class="text-tertiary-custom">
+          Puedes contactar con nosotros a través de nuestro teléfono o correo
+          electrónico.
+        </p>
+      </div>
+      <div class="col-md-6">
+        <h2 class="fw-bold text-white">Información de contacto</h2>
+        <p class="text-tertiary-custom">
+          <i class="bi bi-geo-alt-fill"></i> Calle Falsa, 123
+        </p>
+        <p class="text-tertiary-custom">
+          <i class="bi bi-telephone-fill"></i> 123 456 789
+        </p>
+        <p class="text-tertiary-custom">
+          <i class="bi bi-envelope-fill"></i> soportegmail.com
+        </p>
+        <div class="d-flex gap-3">
+          <button class="btn custom-color-2 rounded-circle p-2">
+            <i class="bi bi-facebook p-1"></i>
+          </button>
+          <button class="btn custom-color-2 rounded-circle p-2">
+            <i class="bi bi-twitter p-1"></i>
+          </button>
+          <button class="btn custom-color-2 rounded-circle p-2">
+            <i class="bi bi-linkedin p-1"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
