@@ -8,10 +8,6 @@ import { hasRoleGuard } from './shared/guards/has-role.guard';
 import { DashboardDefaultPageComponent } from './layouts/dashboard-default-page/dashboard-default-page.component';
 import { PropietarioComponent } from './propietario/propietario/propietario.component';
 import { FormPropietarioComponent } from './propietario/form-propietario/form-propietario.component';
-import { ListadoCuotasComponent } from './cuota/pages/listado-cuotas/listado-cuotas.component';
-import { CuotaComponent } from './cuota/pages/cuota/cuota.component';
-import { ListadoPagosComponent } from './pagos/pages/listado-pagos/listado-pagos.component';
-import { FormularioPagoComponent } from './pagos/pages/formulario-pago/formulario-pago.component';
 import { LocalComponent } from './locales/pages/altalocal/local.component';
 import { LocalesComponent } from './locales/pages/locales/locales.component';
 import { LocaleshabilitadosComponent } from './locales/pages/localeshabilitados/localeshabilitados.component';
@@ -25,8 +21,9 @@ import { FormularioAlquilerComponent } from './alquiler/pages/formulario-alquile
 import { LocaleditComponent } from './locales/pages/localedit/localedit.component';
 import { RoomGeneatorComponent } from './roomGenerator/pages/room-geneator/room-geneator.component';
 
+import { LocaleditComponent } from './locales/pages/localedit/localedit.component';
+
 export const routes: Routes = [
-  
   {
     path: 'home',
     component: HomePageComponent,
@@ -83,9 +80,7 @@ export const routes: Routes = [
       { path: 'novedad', component: FormNovedadesComponent },
       {path: 'novedades', component: NovedadesComponent},
       {path: 'novedades/usuario', component: NovedadesUsuarioComponent},
-
       { path: 'locales/edit/:id', component: LocaleditComponent }, 
-
       { path: 'propietario', component: PropietarioComponent},
       { path: 'form-propietario/:id', component: FormPropietarioComponent},
       { path: 'locales/edit/:id', component: LocaleditComponent },
@@ -133,6 +128,8 @@ export const routes: Routes = [
   },
   {
     path: '**',
+    redirectTo: 'login',
     redirectTo: 'home',
+
   },
 ];

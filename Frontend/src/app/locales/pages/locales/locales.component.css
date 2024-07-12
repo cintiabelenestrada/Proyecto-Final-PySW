@@ -1,6 +1,41 @@
-.card-img-top {
-    width: 100%;
-    height: 200px; /* Ajusta la altura según tus necesidades */
-    object-fit: cover;
-  }
-  
+.full-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 10px;
+}
+
+.card-text {
+  margin-bottom: 0.5rem;
+}
+
+.card-text span {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.card-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-buttons a {
+  margin-bottom: 0.5rem;
+}
+
+.btn.custom-color {
+  background-color: #5a6268; /* Cambia el color según tus necesidades */
+  color: white;
+}
+
+.btn.custom-color:hover {
+  background-color: #343a40; /* Cambia el color según tus necesidades */
+}

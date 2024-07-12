@@ -97,26 +97,6 @@ export class LocaleditComponent implements OnInit {
       },
     });
   }
-/* 
-  eliminarLocal(){
-    this.localService.deleteLocal(this.id).subscribe({
-      next: (response) => {
-        console.log(response);
-        this.toastr.success(
-          'Elimino el local'+ this.localesForm.controls.nombre.getRawValue(),
-          'Exitoso'
-        );
-        return this.router.navigate(['/dashboard/locales']);
-      },
-      error: (err) => {
-        console.log(err);
-        this.toastr.error(
-          'No se pudo eliminar el local'+ this.localesForm.controls.nombre.getRawValue(),
-          'Error'
-        );
-      },
-    });
-  } */
 
   LocalById(id: string): void {
     this.localService.getObtenerLocalById(id).subscribe({
@@ -130,28 +110,8 @@ export class LocaleditComponent implements OnInit {
     });
   }
 
-  // LocalById(localedit: any): void {
-  //   const id = localedit._id;
-  //   this.localService.getObtenerLocalById(this.id).subscribe(
-  //     (data:any) => {
-  //       this.localesForm.patchValue(data);
-  //       console.log('data ',JSON.stringify(data));
-  //     },
-  //     (error:any) => {
-  //       console.log(error);
-  //     }
-  //   )
-  // }
-  // EditarLocal(localedit: any): void {
-  //   const id = localedit._id;
-  //   this.localService.putUpdateLocal(id, this.datoslocales).subscribe(
-  //     (data: any) => {
-  //       this.datoslocales = data;
-  //       console.log('datoslocales data:', JSON.stringify(this.datoslocales));
-  //     },
-  //     (error: any) => {
-  //       console.log(error);
-  //     }
-  //   );
-  // }
+  cancelar(){
+    return this.router.navigate(['/dashboard/locales']);
+  }
+
 }
