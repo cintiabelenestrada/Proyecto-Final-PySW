@@ -100,6 +100,7 @@ import {
   cilNewspaper,
   cilChartLine,
   cilUserX,
+  cilCash,
 } from '@coreui/icons';
 
 import { signet } from './signet';
@@ -209,6 +210,7 @@ export const iconSubset = {
   cilNewspaper,
   cilChartLine,
   cilUserX,
+  cilCash
 };
 
 export enum IconSubset {

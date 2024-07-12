@@ -14,11 +14,10 @@ import { LocaleshabilitadosComponent } from './locales/pages/localeshabilitados/
 import { FormNovedadesComponent } from './novedades/pages/form-novedades/form-novedades.component';
 import { NovedadesComponent } from './novedades/pages/novedades/novedades.component';
 import { NovedadesUsuarioComponent } from './novedades/pages/novedadesusuario/novedadesusuario.component';
-<<<<<<< Updated upstream
-=======
+
 import { ListadoAlquilerComponent } from './alquiler/pages/listado-alquiler/listado-alquiler.component';
 import { FormularioAlquilerComponent } from './alquiler/pages/formulario-alquiler/formulario-alquiler.component';
->>>>>>> Stashed changes
+
 import { LocaleditComponent } from './locales/pages/localedit/localedit.component';
 
 export const routes: Routes = [
