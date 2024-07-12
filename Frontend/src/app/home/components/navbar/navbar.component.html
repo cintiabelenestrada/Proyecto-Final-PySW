@@ -1,0 +1,34 @@
+<header class="mb-3 shadow">
+  <nav class="navbar navbar-expand-lg background-secondary-color">
+    <div class="container-fluid">
+      <span class="navbar-brand text-white fw-bold">Piedra Inmobiliaria</span>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          @for (item of menuItems; track $index) {
+          <li class="nav-item">
+            <a class="nav-link text-white" [routerLink]="item.path">
+              {{ item.label }}
+            </a>
+          </li>
+          }
+        </ul>
+        <ul class="d-flex navbar-nav gap-3">
+          <li class="nav-item btn-primary-custom-outline">
+            <a class="nav-link text-white" routerLink="/login">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

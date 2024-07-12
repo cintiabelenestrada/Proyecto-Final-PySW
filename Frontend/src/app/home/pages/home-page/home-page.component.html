@@ -1,0 +1,237 @@
+<home-navbar></home-navbar>
+<main>
+  <div id="carouselExampleRide" class="carousel slide" data-bs-ride="true">
+    <div class="header-carousel"></div>
+    <div class="carousel-inner">
+      @for (item of locales; track i; let i = $index) {
+      <div
+        class="carousel-item position-relative"
+        style="max-height: 600px"
+        [ngClass]="{ active: i == 1 }"
+      >
+        <img
+          [src]="item.pathimagen"
+          class="img-fluid d-block w-100"
+          alt="..."
+        />
+        <div
+          class="position-absolute top-50 translate-middle"
+          style="left: 40%; z-index: 2"
+        >
+          <h5 class="display-2 fw-bold text-white mb-3">{{ item.nombre }}</h5>
+          <p class="text-white fw-bold fs-5">
+            {{ item.descripcion }}
+          </p>
+        </div>
+      </div>
+      }
+    </div>
+    <button
+      class="carousel-control-prev custom-color rounded-circle"
+      style="width: 60px; height: 60px; margin: auto 20px; z-index: 2"
+      type="button"
+      data-bs-target="#carouselExampleRide"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next custom-color rounded-circle"
+      style="width: 60px; height: 60px; margin: auto 20px; z-index: 2"
+      type="button"
+      data-bs-target="#carouselExampleRide"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</main>
+
+<section class="my-5 p-5" id="servicios">
+  <span class="text-secondary-custom text-center fw-bold d-block fs-4">
+    Nuestros servicios
+  </span>
+  <h2 class="text-primary-custom text-center fw-bold display-4 mb-5">
+    Ofrecemos los mejores precios de la zona
+  </h2>
+
+  <div class="row g-4 justify-content-center text-center">
+    <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp">
+      <div class="service-item bg-light rounded">
+        <div class="service-img">
+          <img
+            src="../../../../assets/service-1.jpg"
+            class="img-fluid w-100 rounded-top"
+            alt=""
+          />
+        </div>
+        <div class="text-center p-4">
+          <div>
+            <h5 href="#" class="h4 mb-4 d-inline-flex text-center">
+              Los mejores contratos
+            </h5>
+            <p class="mb-4 fs-6">
+              Ofrecemos los mejores contratos de la zona, con las mejores
+              condiciones para nuestros clientes.
+            </p>
+            <a
+              class="btn btn-light rounded-pill py-2 px-4 custom-color"
+              href="#"
+            >
+              Saber más
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4 col-xl-3">
+      <div class="service-item bg-light rounded">
+        <div class="service-img">
+          <img
+            src="../../../../assets/service-2.jpg"
+            class="img-fluid w-100 rounded-top"
+            alt=""
+          />
+        </div>
+        <div class="text-center p-4">
+          <div>
+            <h5 href="#" class="h4 mb-4 d-inline-flex text-start">
+              La mejor financiación
+            </h5>
+            <p class="mb-4 fs-6">
+              Ofrecemos la mejor financiación para nuestros clientes, con las
+              mejores condiciones del mercado.
+            </p>
+            <a
+              class="btn btn-light rounded-pill py-2 px-4 custom-color"
+              href="#"
+            >
+              Saber más
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4 col-xl-3">
+      <div class="bg-light rounded">
+        <div>
+          <img
+            src="../../../../assets/service-3.jpg"
+            class="img-fluid w-100 rounded-top"
+            alt=""
+          />
+        </div>
+        <div class="text-center p-4">
+          <div>
+            <h5 href="#" class="h4 mb-4 d-inline-flex text-start">
+              Flexibilidad
+            </h5>
+            <p class="mb-4 fs-6">
+              Ofrecemos la mayor flexibilidad para que puedas elegir el local
+              que más se adapte a tus necesidades.
+            </p>
+            <a
+              class="btn btn-light rounded-pill py-2 px-4 custom-color"
+              href="#"
+            >
+              Saber más
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="my-5 p-5" style="background-color: #f7fafb">
+  <span class="text-secondary-custom text-center fw-bold d-block fs-4">
+    Acerca de nosotros
+  </span>
+  <h2 class="text-primary-custom text-center fw-bold display-4 mb-5">
+    Conoce nuestra empresa
+  </h2>
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <div class="card border-0 background-secondary-color">
+        <div class="card-body">
+          <h2 class="fw-bold text-white">¿Por qué elegirnos?</h2>
+          <p class="text-tertiary-custom">
+            Somos una empresa con más de 20 años de experiencia en el sector,
+            ofreciendo los mejores locales a los mejores precios.
+          </p>
+          <p class="text-tertiary-custom">
+            Nuestros clientes nos avalan, ofreciendo un servicio de calidad y
+            con la mayor transparencia.
+          </p>
+          <p class="text-tertiary-custom">
+            No dudes en contactar con nosotros para cualquier duda o consulta.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <div class="card border-0 background-secondary-color">
+        <div class="card-body">
+          <h2 class="fw-bold text-white">Nuestros valores</h2>
+          <p class="text-tertiary-custom">
+            En nuestra empresa, la transparencia y la calidad son nuestros
+            valores principales.
+          </p>
+          <p class="text-tertiary-custom">
+            Ofrecemos un servicio de calidad, con la mayor transparencia y
+            honestidad.
+          </p>
+          <p class="text-tertiary-custom">
+            Nuestros clientes son lo más importante para nosotros, por eso
+            ofrecemos un servicio personalizado y adaptado a sus necesidades.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="background-secondary-color mt-5 p-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="fw-bold text-white">Contacto</h2>
+        <p class="text-tertiary-custom">
+          Si tienes alguna duda o consulta, no dudes en contactar con nosotros.
+        </p>
+        <p class="text-tertiary-custom">
+          Estamos a tu disposición para ayudarte en todo lo que necesites.
+        </p>
+        <p class="text-tertiary-custom">
+          Puedes contactar con nosotros a través de nuestro teléfono o correo
+          electrónico.
+        </p>
+      </div>
+      <div class="col-md-6">
+        <h2 class="fw-bold text-white">Información de contacto</h2>
+        <p class="text-tertiary-custom">
+          <i class="bi bi-geo-alt-fill"></i> Calle Falsa, 123
+        </p>
+        <p class="text-tertiary-custom">
+          <i class="bi bi-telephone-fill"></i> 123 456 789
+        </p>
+        <p class="text-tertiary-custom">
+          <i class="bi bi-envelope-fill"></i> soportegmail.com
+        </p>
+        <div class="d-flex gap-3">
+          <button class="btn custom-color-2 rounded-circle p-2">
+            <i class="bi bi-facebook p-1"></i>
+          </button>
+          <button class="btn custom-color-2 rounded-circle p-2">
+            <i class="bi bi-twitter p-1"></i>
+          </button>
+          <button class="btn custom-color-2 rounded-circle p-2">
+            <i class="bi bi-linkedin p-1"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
