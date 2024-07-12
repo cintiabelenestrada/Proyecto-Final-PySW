@@ -1,4 +1,6 @@
 const Alquiler = require('../models/Alquiler'); 
+const cuotaService = require('../services/CuotaService');
+const pagoService = require('../services/PagoService');
 const Local = require('../models/Local');
 const alquilerService = require('../services/alquiler.service');
 const alquilerCtrl = {} 
@@ -52,17 +54,19 @@ alquilerCtrl.getAlquilerById = async (req, res) => {
 alquilerCtrl.createAlquiler = async (req, res) => { 
     try { 
         const alquiler = await alquilerService.createAlquiler(req.body);
-        res.json({
-            'status': '1',
-            'msg': 'Alquiler guardado.',
-            'data': alquiler
+        await cuotaService.createCuota({
+            alquiler: alquiler._id,
+            montoTotal: alquiler.costoAlquiler
         });
-    } catch (error) {
-        res.status(400).json({
-            'status': '0',
-            'msg': error.message
-        });
-    }
+        res.json({ 
+            'status': '1', 
+            'msg': 'Alquiler guardado.'}) 
+    } catch (error) { 
+        console.error('Error guardando el alquiler:', error);
+        res.status(400).json({ 
+            'status': '0', 
+            'msg': 'Error guardando el alquiler.'}) 
+    } 
 };
 
 alquilerCtrl.updateAlquiler = async (req, res) => {
@@ -129,11 +133,69 @@ alquilerCtrl.deleteAlquiler = async (req, res) => {
         });    
     } catch (error) { 
         res.status(400).json({ 
-            status: '0', 
-            msg: 'Error eliminando el alquiler o habilitando el local',
+
+            'status': '0', 
+            'msg': 'Error eliminando el alquler' 
+        })   
+    } 
+},
+// Generar cuotas para todos los alquileres, metodo reservado para el cron
+alquilerCtrl.generarCuotas = async (req, res) => {
+    try {
+        const alquileres = await Alquiler.find();
+        await Promise.all(alquileres.map(async alquiler => {
+            const cuota = {
+                alquiler: alquiler._id,
+                montoTotal: alquiler.costoAlquiler,
+            };
+            await cuotaService.createCuota(cuota);
+        }));
+        res.json({
+            status: '1',
+            msg: 'Cuotas generadas correctamente'
+        });
+    } catch (error) {
+        res.status(400).json({
+            status: '0',
+            msg: 'Error generando las cuotas',
             error: error.message
-        });   
+        });
     }
-};
+
+},
+
+alquilerCtrl.obtenerCuotasPorIdAlquiler = async (req, res) => {
+    try {
+        const idAlquiler = req.params.id;
+        const cuotas = await cuotaService.getCuotasByIdAlquiler(idAlquiler);
+        res.json({
+            status: '1',
+            msg: 'Cuotas obtenidas correctamente',
+            data: cuotas
+        });
+    } catch (error) {
+        res.status(400).json({
+            'status': '0',
+            'msg': 'Error al obtener las cuotas' + error 
+        });
+    }
+},
+
+alquilerCtrl.obtenerPagosPorIdAlquiler = async (req, res) => {
+    try{
+        const idAlquiler = req.params.id;
+        const pagos = await pagoService.obtenerPagosPorIdAlquiler (idAlquiler);
+        res.json({
+            status: '1',
+            msg: 'Pagos obtenidos correctamente',
+            data: pagos
+        });
+    }catch(error){
+        res.status(400).json({
+            'status': '0',
+            'msg': 'Error al obtener los pagos' + error
+        });
+    }
+},
 
 module.exports = alquilerCtrl; 

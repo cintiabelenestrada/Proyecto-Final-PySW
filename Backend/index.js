@@ -2,7 +2,14 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('./database');
 const jwt = require('jsonwebtoken');
+const logger = require('morgan');
+const dotenv = require('dotenv');
+
+// Dotenv config
+dotenv.config();
+
 const bodyParser = require('body-parser');
+
 
 const app = express();
 
@@ -28,14 +35,19 @@ const verifyToken = (req, res, next) => {
   }
 };
 
+// Logger
+app.use(logger('dev'));
+
 // Routes
 app.use('/api/auth', require('./routes/auth.route'));
 app.use('/api/usuarios', require('./routes/usuario.route'));
 app.use('/api/novedades', require('./routes/novedades.route.js'));
-app.use('/api/propietarios', require('./routes/propietario.route.js'));
+//app.use('/api/propietarios', require('./routes/propietario.route.js'));
 app.use('/api/alquileres', require('./routes/alquiler.route.js'));
 app.use('/api/locales', require('./routes/locales.route.js'));
-//app.use('api/pagos', require('./routes/pagos.route.js'));
+app.use('/api/pagos', require('./routes/pagos.routes.js'));
+app.use('/api/payments', require('./routes/payment.routes.js'));
+app.use('/api/cuotas', require('./routes/cuota.routes.js'));
 
 app.use(express.urlencoded({limit: '50mb', extended: true}));
 
