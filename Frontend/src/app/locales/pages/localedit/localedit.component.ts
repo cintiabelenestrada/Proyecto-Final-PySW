@@ -16,7 +16,7 @@ import { Locales } from '../../interfaces/locales.interface';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './localedit.component.html',
-  styleUrl: './localedit.component.css',
+  styleUrls: ['./localedit.component.css','../../../app.component.css']
 })
 export class LocaleditComponent implements OnInit {
   accion: string = 'add';
