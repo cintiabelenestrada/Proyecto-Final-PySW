@@ -17,6 +17,7 @@ export const routes: Routes = [
   {
     path: 'home',
     component: HomePageComponent,
+    title: 'Inicio | Piedra Inmobiliaria',
   },
   {
     path: 'login',
