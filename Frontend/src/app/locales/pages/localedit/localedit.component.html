@@ -42,10 +42,8 @@
                 <label class="form-check-label" for="flexCheckIndeterminate">alquilado?</label>
             </div>
             <div>
-                <button type="button" class="btn btn-outline-success m-2"
+                <button type="button" class="btn btn-outline-success"
                     *ngIf="accion==='add'" (click)="guardarAltaLocal()">Guardar</button>
-                <button type="button" class="btn btn-outline-danger m-2"
-                    (click)="cancelar()" >Cancelar</button>
                 <button type="button" class="btn btn-outline-primary"
                     *ngIf="accion==='edit'" (click)="actualizarLocal()">Actualizar</button>
             </div>
