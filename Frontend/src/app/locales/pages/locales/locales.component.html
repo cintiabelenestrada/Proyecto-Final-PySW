@@ -1,29 +1,65 @@
 <div class="container-fluid">
-  <h1>Locales de Piedra Inmobiliaria</h1>
-  <!-- Cards -->
-  <div class="row">
-    <div class="row col-xs-6 row-cols-sm-2 row-cols-md-3">
-      <div *ngFor="let locales of datoslocales">
-        <!-- el vector productos ts, lo defino en la variable productos -->
-        <div class="card h-100 m-1 shadow">
-          <div class="card-header">
-            <img src="assets/img/{{locales.pathimagen}}" class="card-img-top img-fluid">
-          </div>
-          <div class="card-body">
-            <p class="card-text">Nombre: {{locales.nombre}}</p>
-            <p class="card-text">Direccion: {{locales.direccion}}</p>
-            <p class="card-text">Descripcion: {{locales.descripcion}}</p>
-            <p class="card-text">superficie: {{locales.superficie}}</p>
-            <p class="card-text">habilitado: {{locales.habilitado}}</p>
-            <p class="card-text">Costo Mes: {{locales.customers}}</p>
-            <p class="card-text">alquilado: {{locales.alquilado}}</p>
-          </div>
-          <div class="card-footer text-center">
-            <a class="btn btn-primary" (click)="editarLocal(locales)">Modificar</a>
-            <!-- <a class="btn btn-primary" (click)="LocalById(locales)">Info</a> -->
-          </div>
-        </div>
+
+  <div class="container row mb-3">
+
+    <div class="col">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" (click)="MostrarLocales()">Todos</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+            aria-expanded="false">Filtrar</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" (click)="MostrarLocalesHabilitados()">Habilitados</a></li>
+            <li><a class="dropdown-item" (click)="MostrarLocalesInHabilitados()">En Reparación</a></li>
+
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.facebook.com/profile.php?id=61562051432528" target="_blank">Facebook
+            page</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-3">
+      <div class="container p-3">
+        <h2>Agregar Local</h2>
+        <a><button type="button" (click)="crearLocal('')" class="btn btn-outline-primary">
+            Nuevo
+          </button>
+        </a>
       </div>
     </div>
+  </div>
+  <div class="row w-100">
+    <h1>Locales de Piedra Inmobiliaria</h1>
+
+        <div class="card m-3" style="max-width: 360px;" *ngFor="let locales of datoslocales">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img [src]="locales.pathimagen" class="img-fluid rounded-start full-img" alt="Descripción de la imagen">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">{{locales.nombre}}</h5>
+                <p class="card-text"><strong>Dirección:</strong> {{locales.direccion}}</p>
+                <p class="card-text"><strong>Descripción:</strong> {{locales.descripcion}}</p>
+                <span><strong>Superficie:</strong> {{locales.superficie}} m²</span><br>
+                <span><strong>Habilitado:</strong> {{locales.habilitado ? "Habilitado" : "En reparación"}}</span><br>
+                <span><strong>Costo Mes:</strong> {{locales.customers}}</span><br>
+                <span><strong>Alquilado:</strong> {{locales.alquilado ? "Está alquilado actualmente" : "No está alquilado actualmente"}}</span>
+                <div class="card-icons mt-2">
+                  <fa-icon [icon]="faEdit" class="text-primary me-2" (click)="editarLocal(locales)"></fa-icon>
+                  <fa-icon [icon]="faTrash" class="text-danger me-2" (click)="EliminarLocal(locales._id)"></fa-icon>
+                  <span><strong class="btn">Publicar</strong></span>
+                  <svg *ngIf="!locales.alquilado && locales.habilitado" class="text-info " (click)="publicarEnFaceebook(locales._id)" width="16" height="16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12.726 0H10.5C8.044 0 6.7 1.25 6.7 3.3V5.3H4.5a.5.5 0 0 0-.5.5v3.1a.5.5 0 0 0 .5.5H6.7v8.3a.5.5 0 0 0 .5.5h3.2a.5.5 0 0 0 .5-.5V9.4h2.4a.5.5 0 0 0 .5-.5V5.8a.5.5 0 0 0-.5-.5H10.9V3.7c0-.6.1-.9.9-.9h1.9a.5.5 0 0 0 .5-.5V.5a.5.5 0 0 0-.5-.5z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
   </div>
 </div>
