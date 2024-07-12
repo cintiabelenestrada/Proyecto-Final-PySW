@@ -53,7 +53,7 @@ export class FormPropietarioComponent implements OnInit {
     this.propietarioService.createPropietario(this.propietarioForm.value).subscribe({
       next: (response) => {
         console.log(response);
-        this.router.navigateByUrl("/propietario");
+        this.router.navigateByUrl("/dashboard/propietario");
       },
       error: err => {
         console.log(err);
@@ -66,7 +66,7 @@ export class FormPropietarioComponent implements OnInit {
     this.propietarioService.updatePropietario(this.id, this.nuevos).subscribe({
       next: (response) => {
         console.log(response);
-        this.router.navigateByUrl("/propietario");
+        this.router.navigateByUrl("/dashboard/propietario");
         this.toastr.success("Actualizo el propietario " + this.propietarioForm.controls.nombre.getRawValue(),"Exitoso");
       },
       error: err => {

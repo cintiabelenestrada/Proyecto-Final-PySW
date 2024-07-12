@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   Form,
   FormBuilder,
@@ -11,16 +11,19 @@ import { Credenciales } from '../../interfaces/credenciales.interface';
 import { ToastrService } from 'ngx-toastr';
 import { RequestStatus } from '../../types/request-status.type';
 import { AuthService } from '../../services/auth.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+  styleUrls: [
+    './login.component.css',
+    '../../../shared/styles/custom-colors.css',
+  ],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup = this.fb.group({
     usuario: ['', [Validators.required]],
     password: ['', [Validators.required]],
@@ -30,8 +33,13 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private toastService: ToastrService
+    private toastService: ToastrService,
+    private router: Router
   ) {}
+
+  ngOnInit(): void {
+    this.recuperarSession();
+  }
 
   get usuario(): FormControl {
     return this.loginForm.get('usuario') as FormControl;
@@ -54,15 +62,30 @@ export class LoginComponent {
 
   login(credenciales: Credenciales): void {
     this.status = 'loading';
-    this.toastService.info('Iniciando sesión...');
     this.authService.login(credenciales).subscribe({
       next: () => {
         this.toastService.success('Sesión iniciada correctamente');
         this.status = 'success';
+        this.router.navigate(['/dashboard']);
       },
       error: () => {
         this.toastService.error('Error al iniciar sesión');
         this.status = 'error';
+      },
+    });
+  }
+
+  recuperarSession(): void {
+    this.authService.checkAuthStatus().subscribe({
+      next: (res) => {
+        if (!res) return;
+        this.toastService.success('Sesión recuperada correctamente');
+        this.router.navigate(['/dashboard']);
+      },
+      error: () => {
+        this.toastService.error(
+          'Tu sesión ha expirado, por favor inicia sesión nuevamente'
+        );
       },
     });
   }

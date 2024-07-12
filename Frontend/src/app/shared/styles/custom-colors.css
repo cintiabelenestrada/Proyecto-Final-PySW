@@ -1,0 +1,22 @@
+.custom-color {
+  background-color: #44d2f6;
+  color: #fff;
+}
+
+.text-primary-custom {
+  color: #102147;
+}
+
+.text-secondary-custom {
+  color: #44d2f6;
+}
+
+.custom-color:hover {
+  background-color: #102147;
+  color: #fff;
+}
+
+.custom-secondary-color {
+  background-color: #102147;
+  color: #fff;
+}

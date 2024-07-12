@@ -2,11 +2,13 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const AlquilerSchema = new Schema({
-    propietario: { type: Schema.Types.ObjectId, ref: 'Propietario', required: true },
+    inquilino: { type: Schema.Types.ObjectId, ref: 'Usuario', required: true },
     local: { type: Schema.Types.ObjectId, ref: 'Local', required: true },
-    ambientes: { type: Number, required: true },
+    plazoMes: { type: Number, required: true },
     costoAlquiler: { type: Number, required: true },
-    fechaAlquiler: { type: Date, required: true }
+    fechaAlquiler: { type: Date, default: Date.now },
+    interesAnual: { type: Number, required: true },
+    activo: { type: Boolean, default: true }
 });
 
 module.exports = mongoose.models.Alquiler || mongoose.model('Alquiler', AlquilerSchema);

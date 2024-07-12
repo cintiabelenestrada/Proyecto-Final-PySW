@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        @for (item of menuItems; track $index) {
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            {{ item.label }}
+          </a>
+          <ul class="dropdown-menu">
+            @for (child of item.children; track $index) {
+            <li>
+              <a class="dropdown-item" [routerLink]="child.link">
+                {{ child.label }}
+              </a>
+            </li>
+            }
+          </ul>
+        </li>
+        }
+      </ul>
+    </div>
+  </div>
+</nav>
