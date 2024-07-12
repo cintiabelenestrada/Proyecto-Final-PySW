@@ -32,6 +32,7 @@ export class AuthService {
   }
 
   private saveToken(token: string): void {
+    this.cookieService.deleteAll();
     this.cookieService.set('token', token);
   }
 
@@ -40,7 +41,7 @@ export class AuthService {
   }
 
   private clearToken(): void {
-    this.cookieService.delete('token');
+    this.cookieService.deleteAll();
   }
 
   /**
@@ -66,7 +67,7 @@ export class AuthService {
    */
   logout(): void {
     this.setAutenticacion(EstadoAutenticacion.NoAutenticado, null);
-    this.cookieService.delete('token');
+    this.clearToken();
   }
 
   checkAuthStatus(): Observable<boolean> {
