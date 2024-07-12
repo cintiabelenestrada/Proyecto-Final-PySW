@@ -1,32 +1,32 @@
 <div class="container">
     @switch (status) {
         @case ("ok") {
-            <h2 class="fs-1  fw-bolder my-4 color-secundario">Listado de cuotas</h2>
+            <h2 class="fs-1  fw-bolder my-4 ">Listado de cuotas</h2>
             <div class="row g-4 text-white "> <!-- Envuelve los elementos en una fila -->
                 @for (cuota of listadoCuotas; track cuota._id ){
                 <div class="col-md-6"> <!-- Define cada elemento como una columna de 6/12 -->
-                    <div class="borde-secundario rounded-3 bg-primario">
-                        <div class="p-2 card-header text-white fw-bold d-flex">
-                            <h5 class="card-title fs-3 ">Cuota del periodo: {{cuota.fecha | date: "dd/MM/yy"}} - {{cuota.fechaVencimiento | date:
-                                "dd/MM/YY"}}</h5>
+                    <div class="card border rounded shadow-sm bg-light rounded-3 ">
+                        <div class="p-2 card-header borde-inferior-secundario fw-bold d-flex">
+                            <h2 class="card-title fs-3 ">Cuota del periodo: {{cuota.fecha | date: "dd/MM/yy"}} - {{cuota.fechaVencimiento | date:
+                                "dd/MM/YY"}}</h2>
                         </div>
-                        <div class="card-body p-2 text-white">
-                            <p class="card-text">
-                                <strong class="color-terciario">Alquiler: </strong>{{cuota.alquiler}} <br>
-                                <strong class="color-terciario">Monto Total: </strong>{{cuota.montoTotal | currency}} <br>
-                                <strong class="color-terciario">Monto Restante: </strong> {{cuota.montoRestante | currency}}<br>
-                                <strong class="color-terciario">Estado: </strong>
+                        <div class="card-body p-3">
+                            <p class="card-text ">
+                                <strong class="color-terciario">Alquiler: </strong> <span class="color-secundario">{{cuota.alquiler}}</span> <br>
+                                <strong >Monto Total: </strong>{{cuota.montoTotal | currency}} <br>
+                                <strong >Monto Restante: </strong> {{cuota.montoRestante | currency}}<br>
+                                <strong >Estado: </strong>
                                 @if (cuota.estado == 'Pendiente'){
                                 <span class="badge bg-warning text-dark">{{cuota.estado}}</span>
                                 }@else if (cuota.estado == 'Pagada'){
                                 <span class="badge bg-success">{{cuota.estado}}</span>
                                 }
                                 <br>
-                                <strong class="color-terciario">Fecha Generada: </strong> {{cuota.fecha | date: "dd/MM/yy"}} <br>
-                                <strong class="color-terciario">Fecha de Vencimiento: </strong> {{cuota.fechaVencimiento | date:
+                                <strong >Fecha Generada: </strong> {{cuota.fecha | date: "dd/MM/yy"}} <br>
+                                <strong >Fecha de Vencimiento: </strong> {{cuota.fechaVencimiento | date:
                                 "dd/MM/YY"}} <br>
                             </p>
-                            <button class="btn btn-secundario fw-bold" (click)="detallesCuota(cuota._id)">Ver Detalles</button>
+                            <button class="btn btn-primary fw-bold" (click)="detallesCuota(cuota._id)">Ver Detalles</button>
                         </div>
                     </div>
                 </div>

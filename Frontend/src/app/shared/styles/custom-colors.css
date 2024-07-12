@@ -20,3 +20,69 @@
   background-color: #102147;
   color: #fff;
 }
+
+.background-secondary-color {
+  background-color: #102147;
+}
+
+.text-tertiary-custom {
+  color: #6c757d;
+}
+
+.custom-color-2 {
+  background-color: #44d2f6;
+  color: #fff;
+}
+
+.custom-color-2:hover {
+  background-color: #fff;
+  color: #102147;
+}
+
+.btn-primary-custom {
+  background-color: #44d2f6;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.btn-primary-custom:hover {
+  background-color: #102147;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.btn-secondary-custom {
+  background-color: #102147;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.btn-secondary-custom:hover {
+  background-color: #44d2f6;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.btn-primary-custom-outline {
+  background-color: transparent;
+  color: #44d2f6;
+  border: 2px solid #44d2f6;
+  border-radius: 5px;
+}
+
+.btn-primary-custom-outline:hover {
+  background-color: #44d2f6;
+  color: #fff;
+}
+
+.btn-secondary-custom-outline {
+  background-color: transparent;
+  color: #102147;
+  border: 2px solid #102147;
+  border-radius: 5px;
+}
+
+.btn-secondary-custom-outline:hover {
+  background-color: #102147;
+  color: #fff;
+}

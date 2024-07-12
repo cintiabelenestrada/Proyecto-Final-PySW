@@ -1,4 +1,4 @@
-<button class="btn btn-primary d-block justify-content-end" (click)="agregarNovedades()" *ngIf="perfil == 'admin', 'dueño'">Agregar novedad</button>
+<button class="btn btn-primary d-block justify-content-end" (click)="agregarNovedades()" *ngIf="perfil == 'administrativo', 'dueño'">Agregar novedad</button>
 
 <div class="accordion" id="novedadAccordion" *ngIf="novedad.titulo">
   <div class="accordion-item justify-content-center">
@@ -24,4 +24,4 @@
 <div class="text-center text-muted">
   <h1 *ngIf="novedades.length == 0">No hay novedades publicadas aún</h1>
 </div>
-<button class="btn btn-warning d-block my-5" (click)="verMisNovedades()"  *ngIf="perfil == 'admin', 'dueño'">Ver mis novedades</button>
+<button class="btn btn-warning d-block my-5" (click)="verMisNovedades()"  *ngIf="perfil == 'administrativo', 'dueño'">Ver mis novedades</button>

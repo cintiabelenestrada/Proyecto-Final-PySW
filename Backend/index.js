@@ -4,6 +4,7 @@ const mongoose = require('./database');
 const jwt = require('jsonwebtoken');
 const logger = require('morgan');
 const dotenv = require('dotenv');
+const proxy = require('express-http-proxy');
 
 // Dotenv config
 dotenv.config();
@@ -15,7 +16,7 @@ const app = express();
 
 // Middlewares
 app.use(express.json({limit : '50mb'}));
-app.use(cors({ origin: 'http://localhost:4200' }));
+app.use(cors({ origin: 'http://localhost:4200'}));
 const verifyToken = (req, res, next) => {
   const token = req.headers['authorization'];
   if (!token) {
@@ -35,10 +36,26 @@ const verifyToken = (req, res, next) => {
   }
 };
 
+// Proxy Middleware
+app.use('/api/replicate', proxy('https://api.replicate.com', {
+  proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
+    proxyReqOpts.headers['Authorization'] = `Token ${process.env.TOKEN_REPLICATE}`;
+    proxyReqOpts.headers['Content-Type'] = 'application/json';
+    return proxyReqOpts;
+  },
+  proxyReqPathResolver: (req) => {
+    console.log("/v1"+req.url);
+    return '/v1' + req.url;  // Rewrites /api/replicate to /v1
+  }
+}));
+
+
 // Logger
 app.use(logger('dev'));
 
 // Routes
+
+app.use('/api/roomGenerator', require('./routes/roomGenerator.routes.js'));
 app.use('/api/auth', require('./routes/auth.route'));
 app.use('/api/usuarios', require('./routes/usuario.route'));
 app.use('/api/novedades', require('./routes/novedades.route.js'));

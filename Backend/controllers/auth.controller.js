@@ -51,7 +51,7 @@ authController.checkAuthStatus = async (req, res) => {
 
   try {
     const decoded = jwt.verify(token, SECRET_KEY);
-    const usuarioEncontrado = await usuarioModel.findById(decoded.id);
+    const usuarioEncontrado = await usuarioModel.findOne({ _id: decoded.id });
     if (!usuarioEncontrado) {
       return res.status(400).json({ message: 'Usuario no encontrado' });
     }

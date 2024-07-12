@@ -1,28 +1,28 @@
 <div class="container">
     @switch (statusCuota) {
         @case ("ok"){
-            <div class="card mb-3 bg-primario text-white borde-secundario">
-                <div class="card-header  text-white">
-                    <h5 class="card-title color-secundario fs-3 fw-bold">Detalles de la cuota</h5>
+            <div class="card mb-3 border rounded shadow-sm ">
+                <div class="card-header borde-inferior-secundario">
+                    <h2 class="card-title  fs-3 fw-bold">Detalles de la cuota</h2>
                 </div>
                 <div class="card-body">
                     <h6 class="card-subtitle mb-2 color-terciario">ID: <span class="color-secundario">{{ cuota._id }}</span></h6>
                     <p class="card-text">
-                        <strong class="color-terciario">Alquiler:</strong> {{ cuota.alquiler }}<br>
-                        <strong class="color-terciario">Monto Total:</strong> ${{ cuota.montoTotal }}<br>
-                        <strong class="color-terciario">Monto Restante:</strong> ${{ cuota.montoRestante }}<br>
-                        <strong class="color-terciario">Estado: </strong>
+                        <strong >Alquiler:</strong> {{ cuota.alquiler }}<br>
+                        <strong >Monto Total:</strong> ${{ cuota.montoTotal }}<br>
+                        <strong >Monto Restante:</strong> ${{ cuota.montoRestante }}<br>
+                        <strong >Estado: </strong>
                                 @if (cuota.estado == 'Pendiente'){
                                 <span class="badge bg-warning text-dark">{{cuota.estado}}</span>
                                 }@else if (cuota.estado == 'Pagada'){
                                 <span class="badge bg-success">{{cuota.estado}}</span>
                                 }
                                 <br>
-                        <strong class="color-terciario">Fecha:</strong> {{ cuota.fecha | date: "dd/MM/yy" }}<br>
-                        <strong class="color-terciario">Fecha de Vencimiento:</strong> {{ cuota.fechaVencimiento | date: "dd/MM/yy" }}
+                        <strong >Fecha:</strong> {{ cuota.fecha | date: "dd/MM/yy" }}<br>
+                        <strong >Fecha de Vencimiento:</strong> {{ cuota.fechaVencimiento | date: "dd/MM/yy" }}
                     </p>
                     @if (cuota.estado == 'Pendiente'){
-                        <button class="btn btn-secundario bg-secundario mt-3" (click)="pagarCuota(cuota._id)">
+                        <button class="btn btn-primary bg-secundario mt-3" (click)="pagarCuota(cuota._id)">
                             <i class="bi bi-cash"></i> Pagar Cuota
                         </button>
                     }
@@ -31,8 +31,8 @@
                 @switch(statusPagos){
                     @case ("ok"){
                         @if (pagos.length > 0){
-                            <div class="card-footer rounded" >
-                                <h6 class="card-subtitle mb-2 color-secundario fs-4 ">Pagos</h6>
+                            <div class="card-footer  border-top border-dark" >
+                                <h6 class="card-subtitle mb-2 color-primario fs-4 ">Pagos</h6>
                                 <div class="table-responsive rounded">
                                     <table class="table table-striped">
                                     <thead>
