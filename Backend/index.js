@@ -39,7 +39,7 @@ const verifyToken = (req, res, next) => {
 // Proxy Middleware
 app.use('/api/replicate', proxy('https://api.replicate.com', {
   proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
-    proxyReqOpts.headers['Authorization'] = `Token r8_AioahbrKApxGzgkqDXZAQmsCJawYCMT1U4VTV`;
+    proxyReqOpts.headers['Authorization'] = `Token ${process.env.TOKEN_REPLICATE}`;
     proxyReqOpts.headers['Content-Type'] = 'application/json';
     return proxyReqOpts;
   },
