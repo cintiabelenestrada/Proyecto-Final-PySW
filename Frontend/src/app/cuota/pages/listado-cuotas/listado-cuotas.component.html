@@ -1,7 +1,7 @@
 <div class="container">
     @switch (status) {
         @case ("ok") {
-            <h2 class="fs-1  fw-bolder my-4 color-secundario">Listado de cuotas</h2>
+            <h2 class="fs-1  fw-bolder my-4 ">Listado de cuotas</h2>
             <div class="row g-4 text-white "> <!-- Envuelve los elementos en una fila -->
                 @for (cuota of listadoCuotas; track cuota._id ){
                 <div class="col-md-6"> <!-- Define cada elemento como una columna de 6/12 -->

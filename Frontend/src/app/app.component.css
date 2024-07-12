@@ -1,0 +1,55 @@
+:root {
+    --primary-color: #102147;
+    --secondary-color: #44c8f5;
+    --tertiary-color: #ff6600;
+}
+
+h2 {
+    color: #102147;
+}
+
+.table th {
+    color: #102147;
+}
+
+.table th, .table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.btn {
+    padding: 10px 20px;
+    transition: background-color 0.5s ease;
+}
+
+.btn-primary {
+    /* background-color: #44c8f5; */
+    background-color: #102147;
+
+    border: none;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #44c8f5;
+}
+
+.btn-warning {
+    background-color: #ff6600;
+    border: none;
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: #ff0000;
+}
+
+.btn-registrar {
+    background-color: #44c8f5;
+    border: none;
+    color: white;
+}
+
+.btn-registrar:hover {
+    background-color: #102147;
+}

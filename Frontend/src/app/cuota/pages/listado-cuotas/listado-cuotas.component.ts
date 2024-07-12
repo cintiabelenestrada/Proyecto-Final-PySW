@@ -11,7 +11,7 @@ import { UsuarioGet } from '../../../usuarios/interfaces/usuario-get.interface';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './listado-cuotas.component.html',
-  styleUrl: './listado-cuotas.component.css'
+  styleUrls: ['./listado-cuotas.component.css', '../../../app.component.css']
 })
 export class ListadoCuotasComponent {
   listadoCuotas! : CuotaGet[] ;

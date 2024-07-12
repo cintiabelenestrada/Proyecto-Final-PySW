@@ -20,6 +20,7 @@ import { NovedadesComponent } from './novedades/pages/novedades/novedades.compon
 import { NovedadesUsuarioComponent } from './novedades/pages/novedadesusuario/novedadesusuario.component';
 import { ListadoAlquilerComponent } from './alquiler/pages/listado-alquiler/listado-alquiler.component';
 import { FormularioAlquilerComponent } from './alquiler/pages/formulario-alquiler/formulario-alquiler.component';
+import { LocaleditComponent } from './locales/pages/localedit/localedit.component';
 
 export const routes: Routes = [
   
@@ -66,7 +67,7 @@ export const routes: Routes = [
       {path: 'novedades/usuario', component: NovedadesUsuarioComponent},
       { path: 'propietario', component: PropietarioComponent},
       { path: 'form-propietario/:id', component: FormPropietarioComponent},
-      // { path: 'locales/edit/:id', component: LocaleditComponent }, // componente no encontrado
+      { path: 'locales/edit/:id', component: LocaleditComponent },
       //Pagos
       { path: "cuotas",
         component: ListadoCuotasComponent,

@@ -2,9 +2,9 @@
     
     @switch (status) {
         @case ("ok") {
-            <h6 class="card-subtitle mb-2 color-secundario fs-2 fw-bold">Pagos registrados.</h6>
+            <h2 class="card-subtitle mb-4 fs-2 fw-bold">Pagos registrados.</h2>
             @if (usuario.perfil == "administrativo" || usuario.perfil == "dueño"){
-                <div class="my-4">
+                <div class="mb-4">
                     <c-chart type="line" [data]="chartData" [options]="chartOptions"></c-chart>
                 </div>
             }
