@@ -20,8 +20,12 @@ import { ListadoAlquilerComponent } from './alquiler/pages/listado-alquiler/list
 import { FormularioAlquilerComponent } from './alquiler/pages/formulario-alquiler/formulario-alquiler.component';
 import { LocaleditComponent } from './locales/pages/localedit/localedit.component';
 import { RoomGeneatorComponent } from './roomGenerator/pages/room-geneator/room-geneator.component';
+import { ListadoCuotasComponent } from './cuota/pages/listado-cuotas/listado-cuotas.component';
+import { CuotaComponent } from './cuota/pages/cuota/cuota.component';
+import { ListadoPagosComponent } from './pagos/pages/listado-pagos/listado-pagos.component';
+import { FormularioPagoComponent } from './pagos/pages/formulario-pago/formulario-pago.component';
 
-import { LocaleditComponent } from './locales/pages/localedit/localedit.component';
+//import { LocaleditComponent } from './locales/pages/localedit/localedit.component';
 
 export const routes: Routes = [
   {
@@ -128,7 +132,7 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'login',
+    //redirectTo: 'login',
     redirectTo: 'home',
 
   },
