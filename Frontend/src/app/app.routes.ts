@@ -18,6 +18,9 @@ import { LocaleshabilitadosComponent } from './locales/pages/localeshabilitados/
 import { FormNovedadesComponent } from './novedades/pages/form-novedades/form-novedades.component';
 import { NovedadesComponent } from './novedades/pages/novedades/novedades.component';
 import { NovedadesUsuarioComponent } from './novedades/pages/novedadesusuario/novedadesusuario.component';
+
+import { LocaleditComponent } from './locales/pages/localedit/localedit.component';
+
 import { ListadoAlquilerComponent } from './alquiler/pages/listado-alquiler/listado-alquiler.component';
 import { FormularioAlquilerComponent } from './alquiler/pages/formulario-alquiler/formulario-alquiler.component';
 
@@ -64,6 +67,9 @@ export const routes: Routes = [
       { path: 'novedad', component: FormNovedadesComponent },
       {path: 'novedades', component: NovedadesComponent},
       {path: 'novedades/usuario', component: NovedadesUsuarioComponent},
+
+      { path: 'locales/edit/:id', component: LocaleditComponent }, 
+
       { path: 'propietario', component: PropietarioComponent},
       { path: 'form-propietario/:id', component: FormPropietarioComponent},
       // { path: 'locales/edit/:id', component: LocaleditComponent }, // componente no encontrado
@@ -103,6 +109,7 @@ export const routes: Routes = [
         title: 'Formulario Alquiler',
         component: FormularioAlquilerComponent
     },
+
       {
         path: '**',
         redirectTo: 'home',

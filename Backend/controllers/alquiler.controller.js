@@ -1,3 +1,4 @@
+
 const Alquiler = require('../models/Alquiler'); 
 const cuotaService = require('../services/CuotaService');
 const pagoService = require('../services/PagoService');
@@ -68,6 +69,7 @@ alquilerCtrl.createAlquiler = async (req, res) => {
             'msg': 'Error guardando el alquiler.'}) 
     } 
 };
+
 
 alquilerCtrl.updateAlquiler = async (req, res) => {
     try {
@@ -162,12 +164,16 @@ alquilerCtrl.generarCuotas = async (req, res) => {
         });
     }
 
+
 },
+
 
 alquilerCtrl.obtenerCuotasPorIdAlquiler = async (req, res) => {
     try {
         const idAlquiler = req.params.id;
+
         const cuotas = await cuotaService.getCuotasByIdAlquiler(idAlquiler);
+
         res.json({
             status: '1',
             msg: 'Cuotas obtenidas correctamente',
@@ -176,6 +182,7 @@ alquilerCtrl.obtenerCuotasPorIdAlquiler = async (req, res) => {
     } catch (error) {
         res.status(400).json({
             'status': '0',
+
             'msg': 'Error al obtener las cuotas' + error 
         });
     }
@@ -199,3 +206,4 @@ alquilerCtrl.obtenerPagosPorIdAlquiler = async (req, res) => {
 },
 
 module.exports = alquilerCtrl; 
+
