@@ -21,6 +21,7 @@ import { NovedadesUsuarioComponent } from './novedades/pages/novedadesusuario/no
 import { ListadoAlquilerComponent } from './alquiler/pages/listado-alquiler/listado-alquiler.component';
 import { FormularioAlquilerComponent } from './alquiler/pages/formulario-alquiler/formulario-alquiler.component';
 import { LocaleditComponent } from './locales/pages/localedit/localedit.component';
+import { RoomGeneatorComponent } from './roomGenerator/pages/room-geneator/room-geneator.component';
 
 export const routes: Routes = [
   
@@ -106,6 +107,12 @@ export const routes: Routes = [
         path: 'formulario-alquiler/:id',
         title: 'Formulario Alquiler',
         component: FormularioAlquilerComponent
+    },
+    // testeo de generador de cuartos
+    {
+      path: 'room-generator',
+      title: 'Generador de cuartos',
+      component: RoomGeneatorComponent
     },
 
       {

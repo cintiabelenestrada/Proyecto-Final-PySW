@@ -3,7 +3,7 @@ const CuotaService = require('../services/CuotaService');
 const axios = require('axios');
 
 
-const hostBack = 'https://officially-photograph-gently-mat.trycloudflare.com';
+const hostBack = 'https://processed-wallace-setup-barrel.trycloudflare.com';
 const hostFront = 'http://localhost:4200';
 
 class PaymentsService {

@@ -147,6 +147,11 @@ export class DashboardComponent {
       url: '/dashboard/novedades',
       iconComponent: { name: 'cil-newspaper' },
       
+    },
+    {
+      name: 'Generar Cuarto',
+      url: '/dashboard/room-generator',
+      iconComponent: { name: 'cil-newspaper' },
     }
   ];
 
