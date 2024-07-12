@@ -26,7 +26,7 @@ export class NovedadesUsuarioComponent {
     var id;
     if (currentUser && currentUser._id) {
       id = currentUser._id;
-    if (this.perfil != 'admin') {
+    if (this.perfil != 'admin' && this.perfil != 'dueño' ) {
       
         this.novedadesService.getNovedadesPorUsuario(id).subscribe(
           (data: any) => {

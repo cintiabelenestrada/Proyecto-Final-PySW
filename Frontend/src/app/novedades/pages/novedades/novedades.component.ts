@@ -21,10 +21,10 @@ export class NovedadesComponent {
     imagen: '',
     estado: false
   };
+  perfil!: any;
 
-
-  constructor(private novedadesService: NovedadesService, private router: Router) {
-
+  constructor(private novedadesService: NovedadesService, private router: Router, private authService : AuthService) {
+    this.perfil = authService.currentUser()?.perfil || '';
   }
 
   ngOnInit() {

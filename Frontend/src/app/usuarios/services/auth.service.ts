@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { signal, computed, Injectable } from '@angular/core';
 import { EstadoAutenticacion } from '../enums/estado-autenticacion.enum';
 import { UsuarioGet } from '../interfaces/usuario-get.interface';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, map, of, tap } from 'rxjs';
 import { Credenciales } from '../interfaces/credenciales.interface';
 import { UsuarioResponse } from '../interfaces/usuario-response.interface';
 import { CookieService } from 'ngx-cookie-service';
@@ -39,6 +39,10 @@ export class AuthService {
     return this.cookieService.get('token');
   }
 
+  private clearToken(): void {
+    this.cookieService.delete('token');
+  }
+
   /**
    * Inicia sesión con un usuario
    * @param usuario Credenciales del usuario
@@ -63,5 +67,28 @@ export class AuthService {
   logout(): void {
     this.setAutenticacion(EstadoAutenticacion.NoAutenticado, null);
     this.cookieService.delete('token');
+  }
+
+  checkAuthStatus(): Observable<boolean> {
+    const token = this.getToken();
+    if (!token) {
+      this.setAutenticacion(EstadoAutenticacion.NoAutenticado, null);
+      return of(false);
+    }
+
+    const url = `${this.baseUrl}/check-auth-status`;
+    return this.http.get<UsuarioResponse<LoginResponse>>(url).pipe(
+      tap((res) => {
+        if (res.data.token) {
+          this.setAutenticacion(
+            EstadoAutenticacion.Autenticado,
+            res.data.usuario
+          );
+          this.clearToken();
+          this.saveToken(res.data.token);
+        }
+      }),
+      map((res) => true)
+    );
   }
 }

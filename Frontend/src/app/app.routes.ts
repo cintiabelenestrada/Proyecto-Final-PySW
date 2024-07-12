@@ -8,15 +8,24 @@ import { hasRoleGuard } from './shared/guards/has-role.guard';
 import { DashboardDefaultPageComponent } from './layouts/dashboard-default-page/dashboard-default-page.component';
 import { PropietarioComponent } from './propietario/propietario/propietario.component';
 import { FormPropietarioComponent } from './propietario/form-propietario/form-propietario.component';
+import { ListadoCuotasComponent } from './cuota/pages/listado-cuotas/listado-cuotas.component';
+import { CuotaComponent } from './cuota/pages/cuota/cuota.component';
+import { ListadoPagosComponent } from './pagos/pages/listado-pagos/listado-pagos.component';
+import { FormularioPagoComponent } from './pagos/pages/formulario-pago/formulario-pago.component';
 import { LocalComponent } from './locales/pages/altalocal/local.component';
 import { LocalesComponent } from './locales/pages/locales/locales.component';
 import { LocaleshabilitadosComponent } from './locales/pages/localeshabilitados/localeshabilitados.component';
 import { FormNovedadesComponent } from './novedades/pages/form-novedades/form-novedades.component';
 import { NovedadesComponent } from './novedades/pages/novedades/novedades.component';
 import { NovedadesUsuarioComponent } from './novedades/pages/novedadesusuario/novedadesusuario.component';
+
 import { LocaleditComponent } from './locales/pages/localedit/localedit.component';
 
+import { ListadoAlquilerComponent } from './alquiler/pages/listado-alquiler/listado-alquiler.component';
+import { FormularioAlquilerComponent } from './alquiler/pages/formulario-alquiler/formulario-alquiler.component';
+
 export const routes: Routes = [
+  
   {
     path: 'login',
     component: LoginComponent,
@@ -58,7 +67,49 @@ export const routes: Routes = [
       { path: 'novedad', component: FormNovedadesComponent },
       {path: 'novedades', component: NovedadesComponent},
       {path: 'novedades/usuario', component: NovedadesUsuarioComponent},
+
       { path: 'locales/edit/:id', component: LocaleditComponent }, 
+
+      { path: 'propietario', component: PropietarioComponent},
+      { path: 'form-propietario/:id', component: FormPropietarioComponent},
+      // { path: 'locales/edit/:id', component: LocaleditComponent }, // componente no encontrado
+      //Pagos
+      { path: "cuotas",
+        component: ListadoCuotasComponent,
+        title: 'Listado de Cuotas',
+      },
+      {path: 'cuotas/:id',
+        component: CuotaComponent,
+        title: 'Detalle de una Cuota'
+      },
+      {path: 'cuotas/:id/pago/:status',
+        component: CuotaComponent,
+        title: 'Registrar Pago'
+      },
+      {path: 'pagos',
+        component: ListadoPagosComponent,
+        title: 'Listado de Pagos'
+      },
+      {path:'cuotas/:id/pago',
+        component: FormularioPagoComponent,
+        title: 'Registrar Pago'
+      },
+      { 
+        path: 'listado-alquiler',
+        title: 'Listado Alquiler',
+        component: ListadoAlquilerComponent
+    },
+    { 
+        path: 'formulario-alquiler',
+        title: 'Formulario Alquiler',
+        component: FormularioAlquilerComponent
+    },
+    { 
+        path: 'formulario-alquiler/:id',
+        title: 'Formulario Alquiler',
+        component: FormularioAlquilerComponent
+    },
+
       {
         path: '**',
         redirectTo: 'home',
@@ -68,5 +119,5 @@ export const routes: Routes = [
   {
     path: '**',
     redirectTo: 'login',
-  },
+  }
 ];
