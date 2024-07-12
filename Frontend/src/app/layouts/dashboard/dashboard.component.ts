@@ -152,6 +152,15 @@ export class DashboardComponent {
       url: '/dashboard/pagos',
       iconComponent: { name: 'cil-cash' },
       class: this.showForRoles(['administrativo', 'dueño']),
+    },
+    {name: 'NOVEDADES',
+      title: true,
+    },
+    {
+      name: 'Ver novedades',
+      url: '/dashboard/novedades',
+      iconComponent: { name: 'cil-newspaper' },
+      
     }
   ];
 
