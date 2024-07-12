@@ -28,7 +28,7 @@ export class ListadoPagosComponent implements OnInit {
       borderColor: 'rgba(54, 162, 235, 1)',
       borderWidth: 1,
       fill: false, // Para no llenar el área debajo de la línea
-      tension: 0.1 // Para suavizar la línea
+      tension: 0.5 // Para suavizar la línea
     }]
   };
   chartOptions: ChartOptions = {
