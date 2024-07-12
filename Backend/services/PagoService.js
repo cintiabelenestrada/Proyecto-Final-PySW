@@ -164,6 +164,24 @@ class PagoService {
             throw new Error("Error al obtener los pagos: " + error.message);
         }
     }
+
+    async buscarPagosPorInquilino(idInquilino) {
+        try {
+            const usuario = await Usuario.findById(idInquilino);
+            if (!usuario) {
+                throw new Error("Usuario no encontrado");
+            }
+            const alquileres = await Alquiler.find({ inquilino: idInquilino });
+            const alquileresIds = alquileres.map(alquiler => alquiler._id);
+            const cuotas = await Cuota.find({ alquiler: { $in: alquileresIds } });
+            const cuotasIds = cuotas.map(cuota => cuota._id);
+            const pagos = await Pago.find({ cuota: { $in: cuotasIds } });
+            return pagos;
+        } catch (error) {
+            console.error("Error al buscar los pagos: ", error);
+            throw new Error("Error al buscar los pagos: " + error.message);
+        }
+    }
 }
 
 

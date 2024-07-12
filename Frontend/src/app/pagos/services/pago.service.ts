@@ -17,5 +17,9 @@ export class PagoService {
     return this.http.get<PagoResponse<PagoGet[]>>(url).pipe( map((res) => res.data));
   }
 
+  getPagosPorUsuario(id: string) {
+    const url = `${this.baseUrl}inquilino/${id}`;
+    return this.http.get<PagoResponse<PagoGet[]>>(url).pipe( map((res) => res.data));
+  }
   
 }

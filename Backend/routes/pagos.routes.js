@@ -11,4 +11,7 @@ router.get('/', pagoCtrl.obtenerPagos);
 // Ruta para obtener un pago por su ID
 router.get('/:id', pagoCtrl.obtenerPagoPorId);
 
+// Ruta para obtener los pagos por ID de cuota
+router.get('/inquilino/:idInquilino', pagoCtrl.obtenerPagosPorInquilino);
+
 module.exports = router;

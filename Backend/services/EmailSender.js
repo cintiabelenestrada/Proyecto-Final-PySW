@@ -40,7 +40,8 @@ class EmailSender {
                 <li>Monto Interes: $${pago.montoInteres}</li>
                 <li>Fecha Aprobacion: ${fechaFormateada}</li>
             </ul>
-            <p>Adjunto encontrará el código QR que puede escanear para más detalles.</p>`,
+            <p>Adjunto encontrará el código QR que puede escanear para más detalles.</p>
+            <p>En caso de no poder ver la imagen, haga click <a href="${qrDataURL}">aquí</a>.</p>`,
             attachments: [{
                 filename: 'codigoQR.png',
                 path: qrDataURL,
@@ -60,6 +61,15 @@ class EmailSender {
     
     async enviarAvisoDePagoPendiente(email, cuota ) {
         // Configurar las opciones del correo electrónico
+        const fechaFormateada = pago.fechaActualizacion.toLocaleString('es-AR', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        }).replace(/(\d{2})\/(\d{2})\/(\d{4}), (\d{2}):(\d{2})/, '$1/$2/$3 $4:$5');
+
         let mailOptions = {
             from: 'INMOBILIARIA XYZ <poo2023correo@gmail.com>',
             to: email,
@@ -69,7 +79,7 @@ class EmailSender {
             <ul>
                 <li>Monto Total: $${cuota.monto}</li>
                 <li>Monto Restante: $${cuota.montoRestante}</li>
-                <li>Fecha de vencimiento: ${cuota.fechaVencimiento}</li>
+                <li>Fecha de vencimiento: ${fechaFormateada}</li>
             </ul>
             <p>Por favor, realice el pago de la cuota pendiente lo antes posible.</p>`,
         };

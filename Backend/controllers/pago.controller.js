@@ -51,4 +51,21 @@ pagoCtrl.obtenerPagoPorId = async (req, res) => {
     }
 }
 
+pagoCtrl.obtenerPagosPorInquilino = async (req, res) => {
+    try {
+        const idInquilino = req.params.idInquilino;
+        const pagos = await pagoService.buscarPagosPorInquilino(idInquilino);
+        res.json({
+            status: '1',
+            msg: 'Pagos obtenidos correctamente ',
+            data: pagos
+        });
+    } catch (error) {
+        res.status(400).json({
+            'status': '0',
+            'msg': 'Error al obtener los pagos ' + error
+        });
+    }
+}
+
 module.exports = pagoCtrl;

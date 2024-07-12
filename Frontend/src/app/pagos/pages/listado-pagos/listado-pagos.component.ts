@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { ChartjsModule } from '@coreui/angular-chartjs';
 import { ChartData, ChartOptions } from 'chart.js';
 import { ChangeDetectorRef } from '@angular/core';
+import { AuthService } from '../../../usuarios/services/auth.service';
+import { UsuarioGet } from '../../../usuarios/interfaces/usuario-get.interface';
 
 @Component({
   selector: 'app-listado-pagos',
@@ -15,6 +17,7 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class ListadoPagosComponent implements OnInit {
   pagos: PagoGet[] = [];
+  usuario!: UsuarioGet
   status: "loading" | "ok" | "error" = "loading";
   chartData: ChartData = {
     labels: [],
@@ -38,15 +41,42 @@ export class ListadoPagosComponent implements OnInit {
 
   constructor(
     private pagoService: PagoService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
-    this.obtenerPagos();
+    this.usuario = this.authService.currentUser()!;
+    if (this.usuario.perfil === 'administrativo' || this.usuario.perfil === 'dueño') {
+      this.obtenerPagos();
+    } else {
+      this.obtenerPagosPorUsuario();
+    }
+    
   }
 
   obtenerPagos() {
     this.pagoService.getPagos().subscribe({
+      next: (pagos) => {
+        setTimeout(() => { 
+          this.pagos = pagos;
+          this.status = "ok";
+          if (this.usuario.perfil === 'administrativo' || this.usuario.perfil === 'dueño'){
+            this.prepararDatosGrafico();
+          }
+          
+        }, 1000); 
+      },
+      error: (error) => {
+        setTimeout(() => { 
+          this.status = "error";
+        }, 1000); 
+      }
+    });
+  }
+
+  obtenerPagosPorUsuario() {
+    this.pagoService.getPagosPorUsuario(this.usuario._id!).subscribe({
       next: (pagos) => {
         setTimeout(() => { 
           this.pagos = pagos;

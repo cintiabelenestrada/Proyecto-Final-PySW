@@ -122,15 +122,37 @@ export class DashboardComponent {
       class: this.showForRoles(['administrativo', 'dueño']),
     },
     {
+      name: 'CUOTAS',
+      title: true,
+    },
+    {
+      name: 'Cuotas',
+      url: '/dashboard/cuotas',
+      iconComponent: { name: 'cilSpreadsheet' },
+      class: this.showForRoles(['administrativo', 'dueño']),
+    },
+    {
+      name: 'Mis Cuotas',
+      url: '/dashboard/cuotas',
+      iconComponent: { name: 'cilSpreadsheet' },
+      class: this.showForRoles(['inquilino']),
+    },
+    {
       name: 'PAGOS',
       title: true,
     },
     {
       name: 'Mis Pagos',
-      url: '/dashboard/cuotas',
+      url: '/dashboard/pagos',
       iconComponent: { name: 'cil-cash' },
+      class: this.showForRoles(['inquilino']),
+    },
+    {
+      name: 'Pagos',
+      url: '/dashboard/pagos',
+      iconComponent: { name: 'cil-cash' },
+      class: this.showForRoles(['administrativo', 'dueño']),
     }
-
   ];
 
   showForRoles(roles: string[]): string {

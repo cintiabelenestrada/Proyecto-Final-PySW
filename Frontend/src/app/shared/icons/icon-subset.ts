@@ -100,7 +100,7 @@ import {
   cilNewspaper,
   cilChartLine,
   cilUserX,
-  cilCash
+  cilCash,
 } from '@coreui/icons';
 
 import { signet } from './signet';
