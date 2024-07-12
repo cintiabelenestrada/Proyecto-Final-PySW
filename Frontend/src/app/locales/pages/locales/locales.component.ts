@@ -4,15 +4,19 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Locales } from '../../interfaces/locales.interface';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-locales',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule,FontAwesomeModule],
   templateUrl: './locales.component.html',
-  styleUrl: './locales.component.css'
+  styleUrl: './locales.component.css',
 })
 export class LocalesComponent {
+  faEdit = faEdit;
+  faTrash = faTrash;
   datoslocales!: Locales[];
 
   constructor(private route: ActivatedRoute, private router: Router,
@@ -60,8 +64,8 @@ export class LocalesComponent {
   EliminarLocal(id: string) {
     this.localService.deleteLocal(id).subscribe({
       next: (data: any) => {
-        this.datoslocales = data;       
         console.log('data ', JSON.stringify(this.datoslocales));
+        this.MostrarLocalesHabilitados();
         this.toastr.info("Local eliminado  correctamente","Información");
       },
       error: (error: any) => {
@@ -99,5 +103,9 @@ export class LocalesComponent {
     })
   }
 
-  
+  refreshComponent() {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([this.router.url]);
+    });
+  }
 }
