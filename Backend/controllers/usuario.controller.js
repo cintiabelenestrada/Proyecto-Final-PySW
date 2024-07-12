@@ -33,7 +33,7 @@ usuarioController.findByPerfil = async (req, res) => {
 
     const usuarios = await usuarioModel.find({ perfil });
 
-    const usuariosSinPassword = usuarios.map(usuario => {
+    const usuariosSinPassword = usuarios.map((usuario) => {
       const { password, ...usuarioSinPassword } = usuario._doc;
       return usuarioSinPassword;
     });
@@ -42,7 +42,7 @@ usuarioController.findByPerfil = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener los usuarios' });
   }
-}
+};
 
 usuarioController.create = async (req, res) => {
   const usuario = req.body;
@@ -97,14 +97,19 @@ usuarioController.delete = async (req, res) => {
   const id = req.params.id;
 
   try {
-    await usuarioModel.findByIdAndDelete(id);
+    const usuarioEncontrado = await usuarioModel.findOne({ _id: id });
+    if (!usuarioEncontrado) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+
+    const { _id, ...usuarioSinId } = usuarioEncontrado._doc;
+
+    await usuarioModel.updateOne({ ...usuarioSinId, activo: false });
 
     res.json({ data: 'Usuario eliminado' });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 };
-
-
 
 module.exports = usuarioController;
