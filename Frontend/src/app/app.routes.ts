@@ -11,20 +11,38 @@ import { FormPropietarioComponent } from './propietario/form-propietario/form-pr
 import { LocalComponent } from './locales/pages/altalocal/local.component';
 import { LocalesComponent } from './locales/pages/locales/locales.component';
 import { LocaleshabilitadosComponent } from './locales/pages/localeshabilitados/localeshabilitados.component';
+import { HomePageComponent } from './home/pages/home-page/home-page.component';
+import { LocalesPageComponent } from './home/pages/locales-page/locales-page.component';
 import { FormNovedadesComponent } from './novedades/pages/form-novedades/form-novedades.component';
 import { NovedadesComponent } from './novedades/pages/novedades/novedades.component';
 import { NovedadesUsuarioComponent } from './novedades/pages/novedadesusuario/novedadesusuario.component';
-
 import { ListadoAlquilerComponent } from './alquiler/pages/listado-alquiler/listado-alquiler.component';
 import { FormularioAlquilerComponent } from './alquiler/pages/formulario-alquiler/formulario-alquiler.component';
+import { LocaleditComponent } from './locales/pages/localedit/localedit.component';
+import { RoomGeneatorComponent } from './roomGenerator/pages/room-geneator/room-geneator.component';
 
 import { LocaleditComponent } from './locales/pages/localedit/localedit.component';
 
 export const routes: Routes = [
   {
+    path: 'home',
+    component: HomePageComponent,
+    title: 'Inicio | Piedra Inmobiliaria',
+  },
+  {
+    path: 'lista-de-locales',
+    component: LocalesPageComponent,
+    title: 'Locales | Piedra Inmobiliaria',
+  },
+  {
     path: 'login',
     component: LoginComponent,
     title: 'Inicio de sesión | Piedra Inmobiliaria',
+  },
+  {
+    path: 'decorar-cuarto',
+    title: 'Generador de cuartos',
+    component: RoomGeneatorComponent
   },
   {
     path: 'dashboard',
@@ -63,6 +81,45 @@ export const routes: Routes = [
       {path: 'novedades', component: NovedadesComponent},
       {path: 'novedades/usuario', component: NovedadesUsuarioComponent},
       { path: 'locales/edit/:id', component: LocaleditComponent }, 
+      { path: 'propietario', component: PropietarioComponent},
+      { path: 'form-propietario/:id', component: FormPropietarioComponent},
+      { path: 'locales/edit/:id', component: LocaleditComponent },
+      //Pagos
+      { path: "cuotas",
+        component: ListadoCuotasComponent,
+        title: 'Listado de Cuotas',
+      },
+      {path: 'cuotas/:id',
+        component: CuotaComponent,
+        title: 'Detalle de una Cuota'
+      },
+      {path: 'cuotas/:id/pago/:status',
+        component: CuotaComponent,
+        title: 'Registrar Pago'
+      },
+      {path: 'pagos',
+        component: ListadoPagosComponent,
+        title: 'Listado de Pagos'
+      },
+      {path:'cuotas/:id/pago',
+        component: FormularioPagoComponent,
+        title: 'Registrar Pago'
+      },
+      { 
+        path: 'listado-alquiler',
+        title: 'Listado Alquiler',
+        component: ListadoAlquilerComponent
+    },
+    { 
+        path: 'formulario-alquiler',
+        title: 'Formulario Alquiler',
+        component: FormularioAlquilerComponent
+    },
+    { 
+        path: 'formulario-alquiler/:id',
+        title: 'Formulario Alquiler',
+        component: FormularioAlquilerComponent
+    },
       {
         path: '**',
         redirectTo: 'home',
@@ -72,5 +129,7 @@ export const routes: Routes = [
   {
     path: '**',
     redirectTo: 'login',
+    redirectTo: 'home',
+
   },
 ];

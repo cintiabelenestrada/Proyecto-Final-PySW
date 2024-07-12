@@ -51,15 +51,6 @@ export class DashboardComponent {
       iconComponent: { name: 'cil-home' },
     },
     {
-      name: 'Gráficos',
-      url: '/dashboard/graficos',
-      iconComponent: { name: 'cil-chart-line' },
-      badge: {
-        color: 'info',
-        text: 'NEW',
-      },
-    },
-    {
       title: true,
       name: 'USUARIOS',
       class: this.showForRoles(['administrativo', 'dueño']),
@@ -75,20 +66,6 @@ export class DashboardComponent {
       url: '/dashboard/usuarios/lista',
       iconComponent: { name: 'cil-list-rich' },
       class: this.showForRoles(['administrativo', 'dueño']),
-    },
-    {
-      name: 'PROPIETARIOS',
-      title: true,
-    },
-    {
-      name: 'Registrar',
-      url: ['/dashboard/form-propietario', ''],
-      iconComponent: { name: 'cil-user-plus' },
-    },
-    {
-      name: 'Listado',
-      url: '/dashboard/propietario',
-      iconComponent: { name: 'cil-list-rich' },
     },
     {
       name: 'LOCALES',

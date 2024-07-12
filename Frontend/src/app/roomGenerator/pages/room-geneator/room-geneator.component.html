@@ -1,0 +1,111 @@
+<home-navbar></home-navbar>
+<div class="container my-5 vh-100">
+    <div class="mb-4">
+        <h1 class="color-primario fs-1 text-center fw-bold">Elegi una imagen y decora tu cuarto!</h1>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title text-center">Decora tu Cuarto</h2>
+            <form #form >
+              <div class="mb-3">
+                <input type="file" name="imagen" id="imagen" class="form-control" (change)="onFileChange($event)" accept="image/*" />
+              </div>
+              <div class="mb-3">
+                <label for="">Tema</label>
+                <select class="form-select" id="theme" name="theme" [(ngModel)]="theme">
+                  <option value="Modern">Moderno</option>
+                  <option value="Rustic">Rustico</option>
+                  <option value="Gaming">Gamer</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="">Room</label>
+                <select class="form-select" id="room" theme="room" [(ngModel)]="room">
+                    <option value="Living Room">Sala de Estar</option>
+                    <option value="Bedroom">Dormitorio</option>
+                    <option value="Kitchen">Cocina</option>
+                    <option value="Office">Officina</option>
+                </select>
+              </div>
+              <div class="d-grid">
+                <button class="btn btn-primary" (click)="onSubmit()">Decorar</button>
+              </div>
+            </form>
+            <!-- Contenedor Flex para las imágenes -->
+            <div class="d-flex justify-content-around mt-3 row">
+              @if (imageUrl) {
+                  <div class="text-center col-6">
+                    <h3>Imagen Subida</h3>
+                    <img [src]="imageUrl" alt="Uploaded Image" class="img-fluid" />
+                  </div>
+              }
+              @if (restoredImage) {
+                  <div class="text-center col-6">
+                    <h3>Imagen Generada</h3>
+                    <img [src]="restoredImage" alt="Restored Image" class="img-fluid" />
+                  </div>
+              }
+              @if (loading){
+                <div class="text-center col-6">
+                    <h3 class="mb-5">Imagen Generada</h3>
+                    <div class="spinner-border col-6" role="status">
+                    
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
+                </div>
+                
+                }@else if (message) {
+                    <p class="mt-3">{{message}}</p>
+                }
+            </div>
+            
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="background-secondary-color mt-5 p-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h2 class="fw-bold text-white">Contacto</h2>
+          <p class="text-tertiary-custom">
+            Si tienes alguna duda o consulta, no dudes en contactar con nosotros.
+          </p>
+          <p class="text-tertiary-custom">
+            Estamos a tu disposición para ayudarte en todo lo que necesites.
+          </p>
+          <p class="text-tertiary-custom">
+            Puedes contactar con nosotros a través de nuestro teléfono o correo
+            electrónico.
+          </p>
+        </div>
+        <div class="col-md-6">
+          <h2 class="fw-bold text-white">Información de contacto</h2>
+          <p class="text-tertiary-custom">
+            <i class="bi bi-geo-alt-fill"></i> Calle Falsa, 123
+          </p>
+          <p class="text-tertiary-custom">
+            <i class="bi bi-telephone-fill"></i> 123 456 789
+          </p>
+          <p class="text-tertiary-custom">
+            <i class="bi bi-envelope-fill"></i> soportegmail.com
+          </p>
+          <div class="d-flex gap-3">
+            <button class="btn custom-color-2 rounded-circle p-2">
+              <i class="bi bi-facebook p-1"></i>
+            </button>
+            <button class="btn custom-color-2 rounded-circle p-2">
+              <i class="bi bi-twitter p-1"></i>
+            </button>
+            <button class="btn custom-color-2 rounded-circle p-2">
+              <i class="bi bi-linkedin p-1"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>

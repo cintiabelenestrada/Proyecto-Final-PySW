@@ -10,7 +10,6 @@ import { UsuariosService } from '../../../usuarios/services/usuarios.service';
 
 import { Locales } from '../../../locales/interfaces/locales.interface';
 
-
 import { LocalService } from '../../../locales/services/local.service';
 
 @Component({
