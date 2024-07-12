@@ -22,7 +22,7 @@ export class RoomGeneatorComponent {
   constructor(private roomGeneratorService: RoomGeneratorService,
               private toastService: ToastrService,
   ) { }
-  
+
 
   onFileChange(event: any) {
     const file = event.target.files[0];
@@ -39,7 +39,7 @@ export class RoomGeneatorComponent {
     this.loading = true;
     this.message = '';
     this.restoredImage = '';
-    console.log(this.imageUrl, this.theme, this.room);
+    console.log(this.imageUrl, this.theme, "Bedroom");
     this.roomGeneratorService.startPrediction(this.imageUrl, this.theme, this.room)
       .subscribe(
         startResponse => {

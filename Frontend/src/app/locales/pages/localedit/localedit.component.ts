@@ -56,19 +56,29 @@ export class LocaleditComponent implements OnInit {
     nombre: ["", [Validators.required]],
     direccion: ["", [Validators.required]],
     descripcion: ["", [Validators.required]],
-    superficie: ["", [Validators.required, Validators.min(1)]],
-    habilitado: ["", [Validators.required]],
-    customers: ["", [Validators.required, Validators.min(1)]],
-    alquilado: ["", [Validators.required]],
+    superficie: [0, [Validators.required, Validators.min(1)]],
+    habilitado: [false, [Validators.required]],
+    customers: [0, [Validators.required, Validators.min(1)]],
+    alquilado: [false, [Validators.required]],
     pathimagen: ["", [Validators.required]],
   });
 
   guardarAltaLocal() {
-    this.localService.postCreateLocal(this.datoslocales)
+    const local: Partial<Locales> = {
+      nombre: this.localesForm.controls.nombre.value!,
+      direccion: this.localesForm.controls.direccion.value!,
+      descripcion: this.localesForm.controls.descripcion.value!,
+      superficie: this.localesForm.controls.superficie.value!,
+      habilitado: this.localesForm.controls.habilitado.value!,
+      customers: this.localesForm.controls.customers.value!,
+      alquilado: this.localesForm.controls.alquilado.value!,
+      pathimagen: this.localesForm.controls.pathimagen.value!,
+    };
+
+    this.localService.postCreateLocal(local)
       .subscribe({
         next: (response) => {
-          console.log(response);
-          this.router.navigateByUrl('/locales');
+          this.router.navigateByUrl('/dashboard/locales');
         },
         error: (err) => {
           console.log(err);
@@ -79,7 +89,7 @@ export class LocaleditComponent implements OnInit {
     this.localService.putUpdateLocal(this.id, this.nuevos).subscribe({
       next: (response) => {
         console.log(response);
-        this.router.navigateByUrl('/locales');
+        this.router.navigateByUrl('/dashboard/locales');
         this.toastr.success(
           'Actualizo el local ' +
           this.localesForm.controls.nombre.getRawValue(),
@@ -97,7 +107,7 @@ export class LocaleditComponent implements OnInit {
       },
     });
   }
-/* 
+/*
   eliminarLocal(){
     this.localService.deleteLocal(this.id).subscribe({
       next: (response) => {
