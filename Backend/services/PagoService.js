@@ -2,7 +2,7 @@ const Pago = require('../models/Pago');
 const Alquiler = require('../models/Alquiler');
 const Cuota = require('../models/Cuota');
 const Usuario = require('../models/Usuario');
-const emailSender = require('../services/emailSender');
+const emailSender = require('../services/EmailSender');
 
 class PagoService {
 
