@@ -18,9 +18,6 @@ import { LocaleshabilitadosComponent } from './locales/pages/localeshabilitados/
 import { FormNovedadesComponent } from './novedades/pages/form-novedades/form-novedades.component';
 import { NovedadesComponent } from './novedades/pages/novedades/novedades.component';
 import { NovedadesUsuarioComponent } from './novedades/pages/novedadesusuario/novedadesusuario.component';
-
-import { LocaleditComponent } from './locales/pages/localedit/localedit.component';
-
 import { ListadoAlquilerComponent } from './alquiler/pages/listado-alquiler/listado-alquiler.component';
 import { FormularioAlquilerComponent } from './alquiler/pages/formulario-alquiler/formulario-alquiler.component';
 import { LocaleditComponent } from './locales/pages/localedit/localedit.component';

@@ -1,4 +1,4 @@
-import { LocalInterface } from "../../locales/interfaces/locales.interface";
+
 import { UsuarioGet } from "../../usuarios/interfaces/usuario-get.interface";
 
 export class Alquiler {

@@ -1,7 +1,19 @@
-:root {
+:host {
     --primary-color: #102147;
     --secondary-color: #44c8f5;
     --tertiary-color: #ff6600;
+}
+
+.color-primario{
+    color: var(--primary-color);
+}
+
+.color-secundario{
+    color: var(--secondary-color);
+}
+
+.color-terciario{
+    color: var(--tertiary-color) !important;
 }
 
 h2 {
@@ -52,4 +64,17 @@ h2 {
 
 .btn-registrar:hover {
     background-color: #102147;
+}
+
+
+.borde-secundario{
+    border : 5px solid var(--secondary-color);
+}
+
+.borde-inferior-secundario{
+    border-bottom : 5px solid var(--secondary-color);
+}
+
+.borde-superior-secundario{
+    border-top : 5px solid var(--secondary-color);
 }
