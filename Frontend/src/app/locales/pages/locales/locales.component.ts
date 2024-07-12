@@ -33,8 +33,52 @@ export class LocalesComponent {
     });
 
   }
+  MostrarLocalesHabilitados() {
+    this.localService.getObtenerLocalesHabilitados().subscribe({
+      next: (data: any) => {
+        this.datoslocales = data;
+        console.log('data ', JSON.stringify(this.datoslocales));
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    });
+
+  }
+  MostrarLocalesInHabilitados() {
+    this.localService.getObtenerLocalesInhabilitados().subscribe({
+      next: (data: any) => {
+        this.datoslocales = data;       
+        console.log('data ', JSON.stringify(this.datoslocales));;
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    });
+
+  }
+  EliminarLocal(id: string) {
+    this.localService.deleteLocal(id).subscribe({
+      next: (data: any) => {
+        this.datoslocales = data;       
+        console.log('data ', JSON.stringify(this.datoslocales));
+        this.toastr.info("Local eliminado  correctamente","Información");
+      },
+      error: (error: any) => {
+        console.log(error);
+        this.toastr.error("Hubo un error al eliminar el local","Error");
+      }
+    });
+
+  }
+
   capturarInfoLocal(localedit: any) {
     console.log(localedit);
+  }
+  crearLocal(localedit: any): void {
+    const id = localedit._id;
+    console.log(id);
+    this.router.navigate(['/dashboard/locales/edit/', localedit]);
   }
   editarLocal(localedit: any): void {
     const id = localedit._id;
@@ -54,4 +98,6 @@ export class LocalesComponent {
       }
     })
   }
+
+  
 }

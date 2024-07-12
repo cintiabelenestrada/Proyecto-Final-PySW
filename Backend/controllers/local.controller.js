@@ -35,6 +35,14 @@ localCtrl.getLocalesHabilitados = async (req, res) => {
         res.status(500).json({ message: 'Error al obtener los locales', error });
     }
 };
+localCtrl.getLocalesInhabilitados = async (req, res) => {
+    try {
+        const localesHabilidados = await Local.find({ habilitado: false, alquilado: false });
+        res.json(localesHabilidados);
+    } catch (error) {
+        res.status(500).json({ message: 'Error al obtener los locales', error });
+    }
+};
 
 //get para obtener un Local por id
 localCtrl.getLocalID = async (req, res) => {
@@ -64,7 +72,6 @@ localCtrl.editLocal = async (req, res) => {
 
 //DELETE
 localCtrl.deleteLocal = async (req, res) => {
-    console.log("hola");
     try {
         await Local.deleteOne({ _id: req.params.id });
         res.json({

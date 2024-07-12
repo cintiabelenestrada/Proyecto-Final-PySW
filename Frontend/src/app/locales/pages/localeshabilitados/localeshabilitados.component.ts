@@ -19,17 +19,7 @@ export class LocaleshabilitadosComponent implements OnInit {
     this.getLocalesHabilitados();
   }
 
-  getLocalesHabilitados (){
-    this.localService.getObtenerLocalesHabilitados().subscribe( 
-      (data:any) => {
-        console.log('data habilitados',JSON.stringify(data));
-       this.datoslocales = data;
-       console.log('data habilitados',JSON.stringify(data));
+  getLocalesHabilitados (){        
 
-      },
-      (error:any) => {
-        console.log(error);
-      } 
-    )
-  } 
+  }
 }

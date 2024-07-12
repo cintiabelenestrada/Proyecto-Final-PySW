@@ -27,11 +27,17 @@ export class LocalService {
   public getObtenerLocalesHabilitados(): Observable<any> {
     return this._http.get('http://localhost:3000/api/locales/habilitados');
   }
+  public getObtenerLocalesInhabilitados(): Observable<any> {
+    return this._http.get('http://localhost:3000/api/locales/inhabilitados');
+  }
 
   public getObtenerLocalById(id: string): Observable<any> {
     return this._http.get('http://localhost:3000/api/locales/'+id);
   }
 
+  public deleteLocal(id : string) {
+    return this._http.delete('http://localhost:3000/api/locales/'+id);
+  }
    // Método para editar un local
    public putUpdateLocal(localId: string, updatedLocal: Locales): Observable<any> {
     const url = `http://localhost:3000/api/locales/${localId}`;
@@ -39,9 +45,7 @@ export class LocalService {
   }
  
   public createPublishToFacebook(id: string): Observable <any> {
-
     const url=`http://localhost:3000/api/locales/publicacion`;
-
     return this._http.post(url,{id:id});
 
   }
