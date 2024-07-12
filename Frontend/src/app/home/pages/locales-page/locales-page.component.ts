@@ -1,7 +1,6 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component } from '@angular/core';
 import { LocalService } from '../../../locales/services/local.service';
+import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 
 interface Local {
@@ -16,16 +15,16 @@ interface Local {
 }
 
 @Component({
-  selector: 'app-home-page',
+  selector: 'app-locales-page',
   standalone: true,
-  imports: [RouterModule, CommonModule, NavbarComponent],
-  templateUrl: './home-page.component.html',
+  imports: [CommonModule, NavbarComponent],
+  templateUrl: './locales-page.component.html',
   styleUrls: [
-    './home-page.component.css',
+    './locales-page.component.css',
     '../../../shared/styles/custom-colors.css',
   ],
 })
-export class HomePageComponent implements OnInit {
+export class LocalesPageComponent {
   locales: Local[] = [];
 
   constructor(private localesService: LocalService) {}

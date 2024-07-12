@@ -1,0 +1,71 @@
+<home-navbar></home-navbar>
+<section>
+  <span class="text-secondary-custom text-center fw-bold d-block fs-4">
+    Nuestras ofertas
+  </span>
+  <h1 class="text-primary-custom text-center fw-bold display-4 mb-5">
+    Locales en alquiler
+  </h1>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        @for (item of locales; track $index) {
+        <div
+          class="card border-0 background-secondary shadow mb-3 mx-auto border"
+          style="max-width: 800px"
+        >
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4 d-flex">
+                <img
+                  [src]="item.pathimagen"
+                  class="img-fluid align-self-center rounded"
+                  alt="..."
+                />
+              </div>
+              <div class="col-md-8 my-auto d-flex flex-column">
+                <span
+                  class="badge fw-bold fs-6 text-success"
+                  style="
+                    background-color: #41ff4b8c;
+                    width: fit-content;
+                    align-self: flex-end;
+                  "
+                >
+                  $ {{ item.customers }}
+                </span>
+                <span
+                  class="p-1 fw-bold text-white mb-3"
+                  style="
+                    background-color: #a32626;
+                    width: fit-content;
+                    align-self: flex-start;
+                    font-size: 11px;
+                  "
+                >
+                  EN ALQUILER
+                </span>
+                <h2>{{ item.nombre }}</h2>
+                <span>
+                  <i class="bi bi-geo-alt-fill"></i> {{ item.direccion }}
+                </span>
+                <button
+                  class="btn py-2 px-4 custom-color d-block mt-4"
+                  style="width: fit-content"
+                >
+                  Consultar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        } @empty {
+        <div class="alert alert-info text-center">
+          No hay locales disponibles
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

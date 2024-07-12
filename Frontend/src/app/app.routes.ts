@@ -12,12 +12,18 @@ import { LocalComponent } from './locales/pages/altalocal/local.component';
 import { LocalesComponent } from './locales/pages/locales/locales.component';
 import { LocaleshabilitadosComponent } from './locales/pages/localeshabilitados/localeshabilitados.component';
 import { HomePageComponent } from './home/pages/home-page/home-page.component';
+import { LocalesPageComponent } from './home/pages/locales-page/locales-page.component';
 
 export const routes: Routes = [
   {
     path: 'home',
     component: HomePageComponent,
     title: 'Inicio | Piedra Inmobiliaria',
+  },
+  {
+    path: 'lista-de-locales',
+    component: LocalesPageComponent,
+    title: 'Locales | Piedra Inmobiliaria',
   },
   {
     path: 'login',
