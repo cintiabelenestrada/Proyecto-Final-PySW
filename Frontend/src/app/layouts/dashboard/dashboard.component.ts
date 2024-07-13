@@ -137,8 +137,22 @@ export class DashboardComponent {
       name: 'Ver novedades',
       url: '/dashboard/novedades',
       iconComponent: { name: 'cil-newspaper' },
-      
-    }
+
+    },
+
+    {
+      name: 'Registrar',
+      url: '/dashboard/novedad',
+      iconComponent: { name: 'cil-list-rich' },
+      class: this.showForRoles(['administrativo', 'dueño']),
+    },
+
+    {
+      name: 'Listado',
+      url: '/dashboard/novedades/usuario',
+      iconComponent: { name: 'cil-list-rich' },
+      class: this.showForRoles(['administrativo', 'dueño']),
+    },
   ];
 
   showForRoles(roles: string[]): string {
