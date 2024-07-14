@@ -1,7 +1,7 @@
-<h2>Alta de Locales</h2>
+<h2 class=" text-center mb-2 color-secundario fs-2 fw-bold">Alta de Locales</h2>
 <form #form class="border p-4 rounded bg-body-tertiary">
     <div class="form-floating mb-2">
-        <input type="text"  class="form-control" id="nombre" name="nombre"  [(ngModel)]="datoslocales.nombre" required/>
+        <input type="text"  class="form-control color-secundario" id="nombre" name="nombre"  [(ngModel)]="datoslocales.nombre" required/>
         <label for="nombre" class="form-label">Nombre: </label>
     </div>
     <div class="form-floating mb-2">
@@ -33,5 +33,5 @@
         <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate" [(ngModel)]="datoslocales.alquilado" name="alquilado">
         <label class="form-check-label" for="flexCheckIndeterminate">alquilado?</label>
     </div>
-    <button type="submit" class="btn btn-primary mx-auto" (click)="AltaLocal()">Agregar Local</button>
+    <button type="submit" class="btn btn-perzonalizado w-100 py-3" (click)="AltaLocal()">Agregar Local</button>
 </form>

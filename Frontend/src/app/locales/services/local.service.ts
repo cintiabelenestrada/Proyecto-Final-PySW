@@ -10,7 +10,7 @@ export class LocalService {
 
   constructor(private _http:HttpClient) { }
 
-  public postCreateLocal(local: Locales): Observable<any>  {
+  public postCreateLocal(local: Partial<Locales>): Observable<any>  {
     const httpOptions={
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -43,7 +43,7 @@ export class LocalService {
     const url = `http://localhost:3000/api/locales/${localId}`;
     return this._http.put(url, updatedLocal);
   }
- 
+
   public createPublishToFacebook(id: string): Observable <any> {
     const url=`http://localhost:3000/api/locales/publicacion`;
     return this._http.post(url,{id:id});

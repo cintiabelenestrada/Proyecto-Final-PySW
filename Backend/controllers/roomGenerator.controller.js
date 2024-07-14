@@ -21,7 +21,7 @@ roomGeneratorCtrl.startPrediction = async (req, res) => {
       console.log ("Post correcto: " + predictionId);
       res.json(predictionId);
     } catch (error) {
-      console.log ("Post incorrecto: " + error.message);
+      console.log ("Post incorrecto: " + error);
       res.status(500).json({ error: error.message });
     }
   };

@@ -1,6 +1,6 @@
 const cron = require('node-cron');
 const alquierCtrl = require('../controllers/alquiler.controller');
-const cuotasService = require('../services/cuotas.service');
+const cuotasService = require('../services/CuotasService');
 
 // Tarea para generar cuotas el primer día de cada mes a las 00:00 horas
 cron.schedule('0 0 1 * *', () => {

@@ -10,23 +10,23 @@ import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-locales',
   standalone: true,
-  imports: [RouterLink, CommonModule, FontAwesomeModule],
-  templateUrl: './locales.component.html',
-  styleUrl: './locales.component.css',
+  imports: [RouterLink, CommonModule],
+  templateUrl:'./locales.component.html',
+  styleUrl: './locales.component.css'
 })
 export class LocalesComponent {
-  faEdit = faEdit;
-  faTrash = faTrash;
   datoslocales!: Locales[];
   mostrarTextoCompleto: boolean[] = [];
-i: any;
+  i: any;
+  faEdit = faEdit;
+  faTrash = faTrash;
 
   constructor(private route: ActivatedRoute, private router: Router,
     private localService: LocalService, private toastr: ToastrService) { }
   ngOnInit(): void {
     this.MostrarLocales();
     this.datoslocales.forEach(() => this.mostrarTextoCompleto.push(false));
-   
+
   }
   toggleTextoCompleto(index: number): void {
     this.mostrarTextoCompleto[index] = !this.mostrarTextoCompleto[index];
@@ -78,6 +78,7 @@ i: any;
   EliminarLocal(id: string) {
     this.localService.deleteLocal(id).subscribe({
       next: (data: any) => {
+        this.datoslocales = data;
         console.log('data ', JSON.stringify(this.datoslocales));
         this.MostrarLocalesHabilitados();
         this.toastr.info("Local eliminado  correctamente", "Información");
@@ -117,9 +118,5 @@ i: any;
     })
   }
 
-  refreshComponent() {
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([this.router.url]);
-    });
-  }
+
 }

@@ -1,0 +1,28 @@
+h2 {
+    color: #102147;
+}
+
+label {
+    color: #102147;
+    font-weight: 600;
+}
+
+form {
+    max-width: 600px;
+    margin: auto;
+}
+
+.btn-perzonalizado {
+    background-color: #44c8f5;    
+    border: none;
+    color: white;
+    border: none;
+    font-weight: 400;
+    transition: .5s;
+    border-radius: 10px;
+}
+
+.btn-perzonalizado:hover {
+    background-color: #102147;
+    color: white;
+}

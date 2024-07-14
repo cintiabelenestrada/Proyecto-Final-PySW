@@ -16,7 +16,7 @@ import { Locales } from '../../interfaces/locales.interface';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './localedit.component.html',
-  styleUrl: './localedit.component.css',
+  styleUrls: ['./localedit.component.css','../../../app.component.css']
 })
 export class LocaleditComponent implements OnInit {
   accion: string = 'add';
@@ -56,19 +56,29 @@ export class LocaleditComponent implements OnInit {
     nombre: ["", [Validators.required]],
     direccion: ["", [Validators.required]],
     descripcion: ["", [Validators.required]],
-    superficie: ["", [Validators.required, Validators.min(1)]],
-    habilitado: ["", [Validators.required]],
-    customers: ["", [Validators.required, Validators.min(1)]],
-    alquilado: ["", [Validators.required]],
+    superficie: [0, [Validators.required, Validators.min(1)]],
+    habilitado: [false, [Validators.required]],
+    customers: [0, [Validators.required, Validators.min(1)]],
+    alquilado: [false, [Validators.required]],
     pathimagen: ["", [Validators.required]],
   });
 
   guardarAltaLocal() {
-    this.localService.postCreateLocal(this.datoslocales)
+    const local: Partial<Locales> = {
+      nombre: this.localesForm.controls.nombre.value!,
+      direccion: this.localesForm.controls.direccion.value!,
+      descripcion: this.localesForm.controls.descripcion.value!,
+      superficie: this.localesForm.controls.superficie.value!,
+      habilitado: this.localesForm.controls.habilitado.value!,
+      customers: this.localesForm.controls.customers.value!,
+      alquilado: this.localesForm.controls.alquilado.value!,
+      pathimagen: this.localesForm.controls.pathimagen.value!,
+    };
+
+    this.localService.postCreateLocal(local)
       .subscribe({
         next: (response) => {
-          console.log(response);
-          this.router.navigateByUrl('/locales');
+          this.router.navigateByUrl('/dashboard/locales');
         },
         error: (err) => {
           console.log(err);
@@ -79,7 +89,7 @@ export class LocaleditComponent implements OnInit {
     this.localService.putUpdateLocal(this.id, this.nuevos).subscribe({
       next: (response) => {
         console.log(response);
-        this.router.navigateByUrl('/locales');
+        this.router.navigateByUrl('/dashboard/locales');
         this.toastr.success(
           'Actualizo el local ' +
           this.localesForm.controls.nombre.getRawValue(),
@@ -97,6 +107,26 @@ export class LocaleditComponent implements OnInit {
       },
     });
   }
+/*
+  eliminarLocal(){
+    this.localService.deleteLocal(this.id).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.toastr.success(
+          'Elimino el local'+ this.localesForm.controls.nombre.getRawValue(),
+          'Exitoso'
+        );
+        return this.router.navigate(['/dashboard/locales']);
+      },
+      error: (err) => {
+        console.log(err);
+        this.toastr.error(
+          'No se pudo eliminar el local'+ this.localesForm.controls.nombre.getRawValue(),
+          'Error'
+        );
+      },
+    });
+  } */
 
   LocalById(id: string): void {
     this.localService.getObtenerLocalById(id).subscribe({
@@ -110,8 +140,28 @@ export class LocaleditComponent implements OnInit {
     });
   }
 
-  cancelar(){
-    return this.router.navigate(['/dashboard/locales']);
-  }
-
+  // LocalById(localedit: any): void {
+  //   const id = localedit._id;
+  //   this.localService.getObtenerLocalById(this.id).subscribe(
+  //     (data:any) => {
+  //       this.localesForm.patchValue(data);
+  //       console.log('data ',JSON.stringify(data));
+  //     },
+  //     (error:any) => {
+  //       console.log(error);
+  //     }
+  //   )
+  // }
+  // EditarLocal(localedit: any): void {
+  //   const id = localedit._id;
+  //   this.localService.putUpdateLocal(id, this.datoslocales).subscribe(
+  //     (data: any) => {
+  //       this.datoslocales = data;
+  //       console.log('datoslocales data:', JSON.stringify(this.datoslocales));
+  //     },
+  //     (error: any) => {
+  //       console.log(error);
+  //     }
+  //   );
+  // }
 }

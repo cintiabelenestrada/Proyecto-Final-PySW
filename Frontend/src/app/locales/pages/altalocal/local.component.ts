@@ -8,7 +8,7 @@ import { Locales } from '../../interfaces/locales.interface';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './local.component.html',
-  styleUrl: './local.component.css'
+  styleUrls: ['./local.component.css','../../../app.component.css']
 })
 export class LocalComponent {
   datoslocales!: Locales;
