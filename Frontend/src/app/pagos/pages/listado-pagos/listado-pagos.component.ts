@@ -13,7 +13,7 @@ import { UsuarioGet } from '../../../usuarios/interfaces/usuario-get.interface';
   standalone: true,
   imports: [CommonModule, ChartjsModule],
   templateUrl: './listado-pagos.component.html',
-  styleUrls: ['./listado-pagos.component.css']
+  styleUrls: ['./listado-pagos.component.css', '../../../app.component.css']
 })
 export class ListadoPagosComponent implements OnInit {
   pagos: PagoGet[] = [];

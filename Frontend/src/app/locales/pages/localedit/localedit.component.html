@@ -2,9 +2,9 @@
 
     <div class="col-sm-2 col"></div>
     <div class="col-sm-8 col">
-        <div class="container card p-3">
-            <h4 class="card-header">Formulario de <strong *ngIf="accion==='edit'">Modificación</strong><strong
-                *ngIf="accion==='add'"> Alta</strong> de locales</h4>
+        <div class="container card p-3 text-center mb-4">
+            <h6 class=" mb-2 color-secundario fs-2 fw-bold" class="card-header ">Formulario de <strong *ngIf="accion==='edit'">Modificación</strong><strong
+                *ngIf="accion==='add'"> Alta</strong> de locales</h6>
         </div>
         <form [formGroup]="localesForm" class="border p-4 rounded bg-body-tertiary">
             <div class="form-floating mb-2">
@@ -42,10 +42,8 @@
                 <label class="form-check-label" for="flexCheckIndeterminate">alquilado?</label>
             </div>
             <div>
-                <button type="button" class="btn btn-outline-success m-2"
+                <button type="button" class="btn btn-outline-success"
                     *ngIf="accion==='add'" (click)="guardarAltaLocal()">Guardar</button>
-                <button type="button" class="btn btn-outline-danger m-2"
-                    (click)="cancelar()" >Cancelar</button>
                 <button type="button" class="btn btn-outline-primary"
                     *ngIf="accion==='edit'" (click)="actualizarLocal()">Actualizar</button>
             </div>

@@ -11,6 +11,8 @@ export const hasRoleGuard = (allowedRoles: string[]) => {
         allowedRoles.includes(authService.currentUser()!.perfil)
     );
 
+    
+
     if (!canActivate) {
       inject(ToastrService).error(
         'No tienes permisos para acceder a esta página'

@@ -7,10 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Alquiler } from '../../models/alquiler';
 import { UsuarioGet } from '../../../usuarios/interfaces/usuario-get.interface';
 import { UsuariosService } from '../../../usuarios/services/usuarios.service';
-
 import { Locales } from '../../../locales/interfaces/locales.interface';
-
-
 import { LocalService } from '../../../locales/services/local.service';
 
 @Component({

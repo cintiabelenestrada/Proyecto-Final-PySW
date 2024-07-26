@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './cuota.component.html',
-  styleUrl: './cuota.component.css'
+  styleUrls: ['./cuota.component.css','../../../app.component.css']
 })
 export class CuotaComponent {
   cuota! : CuotaGet ;

@@ -5,6 +5,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { NovedadesInterface } from '../../interfaces/novedades.interface';
 import { NovedadesService } from '../../service/novedades.service';
 import { AuthService } from '../../../usuarios/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-form-novedades',
@@ -15,15 +16,15 @@ import { AuthService } from '../../../usuarios/services/auth.service';
 })
 export class FormNovedadesComponent {
   novedad: NovedadesInterface = {
-    Usuario: '', 
+    Usuario: '',
     Texto: '',
     titulo: '',
     imagen: '',
     estado: false
   };
-  files: { base64: string, safeurl: SafeUrl }[] = []; 
+  files: { base64: string, safeurl: SafeUrl }[] = [];
 
-  constructor(private sant: DomSanitizer, private novedadesService: NovedadesService, private authService: AuthService) {}
+  constructor(private sant: DomSanitizer, private novedadesService: NovedadesService, private authService: AuthService, private toastService: ToastrService) {}
 
   AltaNovedad() {
     const currentUser = this.authService.currentUser();
@@ -38,9 +39,11 @@ export class FormNovedadesComponent {
           this.novedad = data;
           console.log('novedad data:', JSON.stringify(this.novedad));
           this.files=[]
+          this.toastService.success('Novedad creada con éxito');
         },
         (error: any) => {
           console.log(error);
+          this.toastService.error('Error al crear la novedad');
         }
       );
     }
@@ -50,14 +53,14 @@ export class FormNovedadesComponent {
     this.files = [];
     const files = event.target.files;
     for (let i = 0; i < files.length; i++) {
-      const file = files[i];  
-      const reader = new FileReader();      
-      reader.onload = () => { 
-        let base64 = reader.result as string;         
-        let safeurl: SafeUrl = this.sant.bypassSecurityTrustUrl(base64);         
+      const file = files[i];
+      const reader = new FileReader();
+      reader.onload = () => {
+        let base64 = reader.result as string;
+        let safeurl: SafeUrl = this.sant.bypassSecurityTrustUrl(base64);
         this.files.push({ 'base64': base64, 'safeurl': safeurl });
       };
-      reader.readAsDataURL(file); 
+      reader.readAsDataURL(file);
     }
   }
 }
